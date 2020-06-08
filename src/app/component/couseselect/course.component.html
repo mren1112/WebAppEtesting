@@ -1,0 +1,78 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+  integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+<div class="content" role="main">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        ---
+        <p>
+          <hr>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <table class="table table">
+          <thead>
+            <tr>
+              <th scope="col">
+                <h2>แสดงวิชาทั้งหมดที่ลงทะเบียนปีการศึกษา</h2>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let dt of coursetest , let i = index">
+              <td>
+                <b>
+                  <mat-checkbox value="" color="primary"  [(ngModel)]="isChecked" (change)="toggleVisibility(i)" ></mat-checkbox>
+                  #ลำดับที่ {{dt.courseno}} &nbsp;&nbsp; ชื่อวิชา {{dt.coursename}} &nbsp;&nbsp; หน่วยกิต {{dt.credit}}
+                </b>
+                <b></b>
+                <mat-expansion-panel *ngIf="isChecked">
+                  <mat-expansion-panel-header>
+                    ระบุวันและคาบสอบ
+                  </mat-expansion-panel-header>
+
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Choose a date</mat-label>
+                    <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker" [(ngModel)]="dateselect">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker [dateClass]="dateClass" #picker></mat-datepicker>
+                  </mat-form-field>
+
+
+                  &nbsp;
+                  <mat-form-field appearance="">
+                    <mat-label>เลือกคาบสอบ</mat-label>
+                    <mat-select [disabled]="sectionselect">
+                      <mat-option *ngFor="let secf of sectionfix" value="{{secf.sect}}"> {{secf.sect}}</mat-option>
+                    </mat-select>
+                    <mat-hint align="end">ระบุคาบสอบ ^</mat-hint>
+                  </mat-form-field>
+
+                </mat-expansion-panel>
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <mat-divider></mat-divider>
+        <section>
+          <div class="example-label">Raised</div>
+          <div class="example-button-row" style="text-align: center;">
+            <button mat-raised-button color="primary" [disabled]="selectCourseCmplt"><span class="material-icons">
+              check_circle_outline
+              </span> ยืนยัน</button>&nbsp;
+            <button mat-raised-button color="warn"><span class="material-icons">
+              cached
+              </span> ยกเลิก</button>
+          </div>
+        </section>
+        <p>
+          <hr>
+      </div>
+    </div>
+  </div>
+
+
+</div>

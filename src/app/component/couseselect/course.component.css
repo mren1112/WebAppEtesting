@@ -1,0 +1,25 @@
+mat-card {
+  margin-top: 2rem;
+}
+
+.mat-column-select {
+  overflow: initial;
+}
+
+table {
+  width: 100%;
+}
+
+mat-expansion-panel[aria-disable=true] {
+  color: rgba(0, 0, 0, alpha);
+}
+
+.example-custom-date-class {
+  background: orange;
+  border-radius: 100%;
+}
+
+.dateAleart-class {
+  background: red;
+  border-radius: 100%;
+}
