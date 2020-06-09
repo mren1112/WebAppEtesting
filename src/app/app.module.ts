@@ -1,6 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpClient,HttpClientModule,
+  HttpHeaders,
+  HttpErrorResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable, throwError } from "rxjs";
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -52,9 +57,16 @@ import { CalendarCustom } from './component/calendar/calendarset';
     MatSelectModule,
     FormsModule,
     MatDividerModule,
+    HttpClientModule,
+    Injectable,
+    HttpClient,
+    HttpHeaders,
+    HttpErrorResponse,
+    Observable,
   ],
   providers: [
-    MatDatepickerModule
+    MatDatepickerModule,
+    
     //{provide: LOCALE_ID, useValue: 'en' },
     //{ provide: LOCALE_ID, useValue: "th-TH" }
   ],

@@ -1,8 +1,9 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
-
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 
 export interface PeriodicElement {
@@ -31,13 +32,13 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./course.component.css'],
   encapsulation: ViewEncapsulation.None,
 })
-export class CourseComponent {
+export class CourseComponent implements OnInit{
 
   coursetest = [
-    { courseno: 1, coursename: 'COS2105', credit: 3 },
-    { courseno: 2, coursename: 'COS2105', credit: 3 },
-    { courseno: 2, coursename: 'COS2105', credit: 3 },
-    { courseno: 2, coursename: 'COS2105', credit: 3 }
+    { courseno: 'COS2101' , coursename: 'COS2101', credit: 3,status: false},
+    { courseno: 'COS2102' , coursename: 'COS2102', credit: 3,status: false},
+    { courseno: 'COS2103' , coursename: 'COS2103', credit: 3,status: false},
+    { courseno: 'COS2104' , coursename: 'COS2104', credit: 3,status: false}
   ];
 
   sectionfix = [
@@ -53,10 +54,18 @@ export class CourseComponent {
   public dateselect: string = '';
   selectArr = [];
 
-  constructor() {
+  constructor(private http: HttpClient,
+    private appSettingsService : AppSettingsService 
+    ) {
 
   }
 
+
+  ngOnInit(){
+    this.appSettingsService.getJSON().subscribe(data => {
+         console.log(data);
+     });
+}
 
   // mock data
   displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol'];
@@ -133,16 +142,28 @@ export class CourseComponent {
 
     //console.log(event);
   }
+  checked: boolean[] = [];
+  toggleVisibility(courseno) {
+    this.coursetest.filter(arr=>{
+      if(arr.courseno == courseno){
+        arr.status = !arr.status
+      }
+    }
+    )
+    /*if ( this.coursetest[i].courseno == this.coursetest[i].courseno  ) {
 
-  toggleVisibility(e) {
-    console.log(e)
+      console.log(i)
+      this.coursetest[i].status = true ;
 
-    if ( this.coursetest[e].courseno != this.coursetest[e].courseno) {
-      this.isChecked;
-      this.selectCourse = false;
+      this.checked[i]=event;
+      //alert(event);
+      console.log(event)
+      console.log(event.source.id)
+     // this.selectCourse = false;
     } else
-      this.isChecked = e.target.checked;
-      //this.selectCourse = true;
+     this.coursetest[i].status = false ;
+   //   this.isChecked = e.target.checked;
+      //this.selectCourse = true;*/
   }
 
 
