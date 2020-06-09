@@ -1,11 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClient,HttpClientModule,
+import {
+  HttpClient, HttpClientModule,
   HttpHeaders,
-  HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+  HttpErrorResponse,
+  HttpResponse
+} from '@angular/common/http';
 import { Observable, throwError } from "rxjs";
+import "@angular/compiler";
+import { RouterModule,Routes } from '@angular/router';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,8 +22,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatSelectModule} from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -28,7 +32,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './component/header/header.component';
 import { CourseComponent } from './component/couseselect/course.component';
 import { FooterCreateComponent } from './footer/footers.component';
-import { CalendarCustom } from './component/calendar/calendarset';
+import { ApiFetchCourseService } from './services/ApiFetchCourseService.service';
+import { ApiGetTermValService } from './services/ApiGetValTerm.service';
+
+const appRoutes:Routes=[
+  {path:"", component:CourseComponent},
+ // {path:"search", component:SearchComponent},
+  //{path:"confirm", component:ConfirmComponent},
+]
 
 @NgModule({
   declarations: [
@@ -36,7 +47,6 @@ import { CalendarCustom } from './component/calendar/calendarset';
     HeaderComponent,
     CourseComponent,
     FooterCreateComponent,
-    CalendarCustom,
 
   ],
   imports: [
@@ -58,15 +68,13 @@ import { CalendarCustom } from './component/calendar/calendarset';
     FormsModule,
     MatDividerModule,
     HttpClientModule,
-    Injectable,
-    HttpClient,
-    HttpHeaders,
-    HttpErrorResponse,
-    Observable,
+    RouterModule.forRoot(appRoutes),
+
   ],
   providers: [
     MatDatepickerModule,
-    
+    ApiFetchCourseService,
+    ApiGetTermValService,
     //{provide: LOCALE_ID, useValue: 'en' },
     //{ provide: LOCALE_ID, useValue: "th-TH" }
   ],
