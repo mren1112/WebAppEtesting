@@ -34,6 +34,7 @@ import { CourseComponent } from './component/couseselect/course.component';
 import { FooterCreateComponent } from './footer/footers.component';
 import { ApiFetchCourseService } from './services/ApiFetchCourseService.service';
 import { ApiGetTermValService } from './services/ApiGetValTerm.service';
+import { ConfirmComponent } from './component/confirm/confirm.component';
 
 const appRoutes:Routes=[
   {path:"", component:CourseComponent},
@@ -47,7 +48,7 @@ const appRoutes:Routes=[
     HeaderComponent,
     CourseComponent,
     FooterCreateComponent,
-
+    ConfirmComponent
   ],
   imports: [
     BrowserModule,

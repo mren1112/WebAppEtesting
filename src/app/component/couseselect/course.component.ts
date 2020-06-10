@@ -51,7 +51,7 @@ export class CourseComponent implements OnInit {
   ngOnInit() {
     this.apiFetchCourseServices.getJSON().subscribe(data => {
       this.todoCourse = data;
-      //console.log(data.year);
+      //console.log(data.year);e
       this.tempCourse.push(data);
       sessionStorage.setItem("todoCourse",this.todoCourse);
      // sessionStorage.setItem("sem",data.semester);
