@@ -11,7 +11,7 @@ import { Observable, throwError } from "rxjs";
 import "@angular/compiler";
 import { RouterModule,Routes } from '@angular/router';
 
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatToolbarModule, MatToolbarRow } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
@@ -25,6 +25,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -35,20 +36,24 @@ import { FooterCreateComponent } from './footer/footers.component';
 import { ApiFetchCourseService } from './services/ApiFetchCourseService.service';
 import { ApiGetTermValService } from './services/ApiGetValTerm.service';
 import { ConfirmComponent } from './component/confirm/confirm.component';
+import { PaymentComponent } from './component/payment/payment.component';
 
 const appRoutes:Routes=[
   {path:"", component:CourseComponent},
- // {path:"search", component:SearchComponent},
+  { path: 'confirm', component:ConfirmComponent },
+  {path:"payment", component:PaymentComponent},
   //{path:"confirm", component:ConfirmComponent},
 ]
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
+    HeaderComponent, 
     CourseComponent,
     FooterCreateComponent,
-    ConfirmComponent
+    ConfirmComponent,
+    PaymentComponent
+
   ],
   imports: [
     BrowserModule,
@@ -69,9 +74,11 @@ const appRoutes:Routes=[
     FormsModule,
     MatDividerModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes),
+    MatIconModule,
+     RouterModule.forRoot(appRoutes),
 
   ],
+  exports: [RouterModule],
   providers: [
     MatDatepickerModule,
     ApiFetchCourseService,

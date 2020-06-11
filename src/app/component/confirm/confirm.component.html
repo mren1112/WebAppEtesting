@@ -1,42 +1,64 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
   integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <main>
 
+
   <div class="container">
-    <div class="row">
+       <div class="row" style="margin-bottom: 15px;">
+        <div class="col-md-12 tabmaintable" >
+          <div class="texrheader">
+            <h2>
+              <span class="material-icons">
+            backup_table
+          </span> ยืนยันวิชาที่นักศึกษาได้ทำการลงทะเบียนสอบ E-testing
+            </h2>  </div>
+        </div>
+      </div>
+
+     <div class="row">
       <div class="col-md-12">
        <table class="table table-striped">
          <thead>
            <tr>
-             <th scope="col">#</th>
-             <th scope="col">First</th>
-             <th scope="col">Last</th>
-             <th scope="col">Handle</th>
+             <th scope="col">#No</th>
+             <th scope="col">วิชา</th>
+             <th scope="col">วันที่สอบ</th>
+             <th scope="col">คาบสอบ</th>
            </tr>
          </thead>
          <tbody>
            <tr>
              <th scope="row">1</th>
-             <td>Mark</td>
-             <td>Otto</td>
-             <td>@mdo</td>
+             <td>MTH1000</td>
+             <td>สอบ 23 พ.ค. 63</td>
+             <td>1 09.30 - 12.00 น.</td>
            </tr>
-           <tr>
-             <th scope="row">2</th>
-             <td>Jacob</td>
-             <td>Thornton</td>
-             <td>@fat</td>
-           </tr>
-           <tr>
-             <th scope="row">3</th>
-             <td>Larry</td>
-             <td>the Bird</td>
-             <td>@twitter</td>
-           </tr>
+
          </tbody>
        </table>
+
+       <mat-divider></mat-divider>
+       <P></P>
+       <section>
+         <div class="example-button-row" style="text-align: center;">
+           <button mat-raised-button color="primary" >
+             <span class="material-icons">
+             check_circle_outline
+             </span> ยืนยัน</button>&nbsp;
+           <button mat-raised-button color="warn">
+            <span class="material-icons">
+              fast_rewind
+              </span> ยกเลิก</button>
+
+         </div>
+       </section>
+       <p>
+         <hr>
       </div>
     </div>
    </div>
 
 </main>
+ 

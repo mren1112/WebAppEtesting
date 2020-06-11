@@ -1,0 +1,29 @@
+main {
+  padding-top: 50px;
+  width: 95%;
+  margin: auto;
+
+}
+
+.tabmaintable {
+  width: 95%;
+  padding-top: 10px;
+  background-color: #eb4d4b;
+  -webkit-box-shadow: 9px 10px 0px -7px rgba(128, 128, 128, 1);
+  -moz-box-shadow: 9px 10px 0px -7px rgba(128, 128, 128, 1);
+  box-shadow: 9px 10px 0px -7px rgba(128, 128, 128, 1);
+
+}
+
+.texrheader {
+  padding: 4px 0 4px 0;
+  color: white;
+
+}
+
+.container{
+  -webkit-box-shadow: 9px 10px 0px -7px rgba(128, 128, 128, 1);
+  -moz-box-shadow: 9px 10px 0px -7px rgba(128, 128, 128, 1);
+  box-shadow: 9px 10px 0px -7px rgba(128, 128, 128, 1);
+}
+

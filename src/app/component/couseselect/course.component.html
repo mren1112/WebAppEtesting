@@ -56,12 +56,16 @@
         <section>
           <div class="example-label">Raised</div>
           <div class="example-button-row" style="text-align: center;">
-            <button mat-raised-button color="primary" [disabled]="selectCourseCmplt"><span class="material-icons">
+            <button mat-raised-button color="primary" [disabled]="selectCourseCmplt">
+              <span class="material-icons">
               check_circle_outline
               </span> ยืนยัน</button>&nbsp;
-            <button mat-raised-button color="warn"><span class="material-icons">
+            <button mat-raised-button color="warn">
+              <span class="material-icons">
               cached
               </span> ยกเลิก</button>
+              <a routerLink="/confirm" routerLinkActive="active"> Component</a>
+
           </div>
         </section>
         <p>
