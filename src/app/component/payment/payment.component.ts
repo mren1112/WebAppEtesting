@@ -11,4 +11,10 @@ import { Component } from "@angular/core";
 
 export class PaymentComponent{
 
+  usr = "629949991";
+  tel  = "";
+  total = "";
+
+  constructor(){  }
+
 }

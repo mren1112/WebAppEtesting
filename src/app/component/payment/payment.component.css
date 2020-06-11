@@ -1,0 +1,44 @@
+main {
+  width: 95%;
+
+  margin: auto;
+  padding-top: 2%;
+}
+
+mat-card{
+   width: 95%;
+  padding-bottom: 2%;
+  margin: auto;
+}
+
+
+card-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+.col-align {
+  text-align: center;
+}
+
+
+
+.tabmaintable {
+  width: 95%;
+  padding-top: 10px;
+  background-color: #00437b;
+  -webkit-box-shadow: 9px 10px 0px -7px rgba(128, 128, 128, 1);
+  -moz-box-shadow: 9px 10px 0px -7px rgba(128, 128, 128, 1);
+  box-shadow: 9px 10px 0px -7px rgba(128, 128, 128, 1);
+
+}
+
+.texrheader {
+  padding: 4px 0 4px 0;
+  color: white;
+
+}
+.qrbuttom {
+  background-color: #00437b;
+
+}

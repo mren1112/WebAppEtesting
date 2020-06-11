@@ -48,7 +48,7 @@ const appRoutes:Routes=[
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent, 
+    HeaderComponent,
     CourseComponent,
     FooterCreateComponent,
     ConfirmComponent,

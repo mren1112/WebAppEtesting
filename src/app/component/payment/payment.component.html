@@ -1,0 +1,100 @@
+<main>
+
+  <div class="row">
+    <div class="col-md-4 col-align">
+      <div class="row">
+        <div class="col-md-12 col-align">
+          <div class="card" >
+            <img class="card-img-top" src="../../../assets/img/ru_QR.jpg" alt="Card image cap">
+            <img class="card-body"
+              src="https://devtest.ru.ac.th/ThaiQR/ADQR?totalAmount=<%out.println( total );%>&username=<%out.println( username );%>&tel=<%out.println( tel );%>&duedate=110520">
+            <div class="row">
+              <div class="col-6">
+                <p class="card-text">ลงทะเบี่ยนสอบ E-Testing</p>
+              </div>
+              <div class="col-6">
+                <p class="card-text"><b>1000.00 บาท (TH/B).</b> </p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <p class="card-text">ลงทะเบี่ยนสอบ E-Testing</p>
+              </div>
+              <div class="col-6">
+                <p class="card-text">รหัส {{usr}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <p class="card-text">.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 qrbuttom">
+            <p class="card-text">........................</p>
+          </div>
+        </div>
+      </div>
+      <p></p>
+    </div>
+    <div class="col-md-8">
+      <div class="row" style="margin-bottom: 15px;">
+        <div class="col-md-12 tabmaintable" >
+          <div class="texrheader">
+            <h2>
+              <span class="material-icons">
+            backup_table
+          </span> วิชาที่นักศึกษาได้ทำการลงทะเบียนสอบ E-testing
+            </h2>  </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#No</th>
+                <th scope="col">วิชา</th>
+                <th scope="col">วันที่สอบ</th>
+                <th scope="col">คาบสอบ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>MTH1000</td>
+                <td>สอบ 23 พ.ค. 63</td>
+                <td>1 09.30 - 12.00 น.</td>
+              </tr>
+
+            </tbody>
+          </table>
+
+          <mat-divider></mat-divider>
+          <P></P>
+          <section>
+            <div class="example-button-row" style="text-align: center;">
+              <button mat-raised-button color="primary">
+                <span class="material-icons">
+                  check_circle_outline
+                </span> ยืนยัน</button>&nbsp;
+              <button mat-raised-button color="warn">
+                <span class="material-icons">
+                  fast_rewind
+                </span> ยกเลิก</button>
+              <a routerLink="/payment" routerLinkActive="active"> pay</a>
+
+            </div>
+          </section>
+          <p>
+            <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
