@@ -4,10 +4,14 @@
     <div class="col-md-4 col-align">
       <div class="row">
         <div class="col-md-12 col-align">
-          <div class="card" >
-            <img class="card-img-top" src="../../../assets/img/ru_QR.jpg" alt="Card image cap">
-            <img class="card-body"
-              src="https://devtest.ru.ac.th/ThaiQR/ADQR?totalAmount=<%out.println( total );%>&username=<%out.println( username );%>&tel=<%out.println( tel );%>&duedate=110520">
+          <div class="card">
+             <div class="row">
+              <div class="col-12">
+                <img class="card-img-top" src="../../../assets/img/ru_QR.jpg" alt="Card image cap">
+                <img class="card-body" style="width: 90%;"
+                  src="https://devtest.ru.ac.th/ThaiQR/ADQR?totalAmount=<%out.println( total );%>&username=<%out.println( username );%>&tel=<%out.println( tel );%>&duedate=110520">
+              </div>
+            </div>
             <div class="row">
               <div class="col-6">
                 <p class="card-text">ลงทะเบี่ยนสอบ E-Testing</p>
@@ -25,18 +29,16 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-12">
-                <p class="card-text">.</p>
+              <div class="col-12 "><hr>
+                <p class="card-text"></p>
               </div>
+
             </div>
 
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12 qrbuttom">
-            <p class="card-text">........................</p>
-          </div>
-        </div>
+
+         </div>
+
       </div>
       <p></p>
     </div>
@@ -70,7 +72,12 @@
                 <td>สอบ 23 พ.ค. 63</td>
                 <td>1 09.30 - 12.00 น.</td>
               </tr>
-
+              <tr>
+                <th scope="row">2</th>
+                <td>MTH1000</td>
+                <td>สอบ 23 พ.ค. 63</td>
+                <td>1 09.30 - 12.00 น.</td>
+              </tr>
             </tbody>
           </table>
 
@@ -86,7 +93,6 @@
                 <span class="material-icons">
                   fast_rewind
                 </span> ยกเลิก</button>
-              <a routerLink="/payment" routerLinkActive="active"> pay</a>
 
             </div>
           </section>

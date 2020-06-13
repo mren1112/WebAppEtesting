@@ -19,13 +19,18 @@
                 <h2>แสดงวิชาทั้งหมดที่ลงทะเบียนปีการศึกษา</h2>
               </th>
             </tr>
+            <tr>
+              <th scope="col">
+              <b> ลำดับ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; วิชา &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; หน่วยกิต </b>
+              </th>
+            </tr>
           </thead>
           <tbody>
             <tr *ngFor="let dt of coursetest , let i = index">
               <td>
                 <b>
                   <mat-checkbox color="primary" (change)="toggleVisibility(dt.courseno)" ></mat-checkbox>
-                  #ลำดับที่ {{dt.courseno}} &nbsp;&nbsp; ชื่อวิชา {{dt.coursename}} &nbsp;&nbsp; หน่วยกิต {{dt.credit}}
+                  # {{dt.courseno}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {{dt.coursename}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ({{dt.credit}})
                 </b>
                 <b></b>
 

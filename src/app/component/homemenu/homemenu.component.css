@@ -1,0 +1,143 @@
+main {
+  width: 95%;
+
+  margin: auto;
+}
+
+.ontopmenu {
+  padding-top: 5%;
+}
+
+.myRegButton {
+  width: 150px;
+  box-shadow: inset 0px 1px 0px 0px #cf866c;
+  background: linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);
+  background-color: #d0451b;
+  border-radius: 3px;
+  border: 1px solid #942911;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 15px;
+  padding: 3px 3px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #854629;
+  text-align: center;
+}
+
+.myRegButton:hover {
+  background: linear-gradient(to bottom, #bc3315 5%, #d0451b 100%);
+  background-color: #bc3315;
+}
+
+.myRegButton:active {
+  position: relative;
+  top: 1px;
+}
+
+
+.mypinkkButton {
+	box-shadow:inset 0px 26px 0px -24px #e67a73;
+	background-color:#e4685d;
+	border-radius:4px;
+	border:1px solid #ffffff;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:20px;
+	padding:32px 76px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #b23e35;
+}
+.mypinkkButton:hover {
+	background-color:#eb675e;
+}
+.mypinkkButton:active {
+	position:relative;
+	top:1px;
+}
+
+.myYellowButton {
+  width:150px;
+	box-shadow: 0px 1px 0px 0px #fff6af;
+	background:linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
+	background-color:#ffec64;
+	border-radius:3px;
+	border:1px solid #ffaa22;
+	display:inline-block;
+	cursor:pointer;
+	color:#333333;
+	font-family:Arial;
+	font-size: 15px;
+	font-weight:bold;
+	padding:3px 3px;
+	text-decoration:none;
+  text-shadow:0px 1px 0px #ffee66;
+  text-align: center;
+}
+.myYellowButton:hover {
+	background:linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
+	background-color:#ffab23;
+}
+.myYellowButton:active {
+	position:relative;
+	top:1px;
+}
+
+.myGreenButton {
+  width:150px;
+	box-shadow:inset 0px -2px 0px 0px #a4e271;
+	background:linear-gradient(to bottom, #89c403 5%, #77a809 100%);
+	background-color:#89c403;
+	border-radius:3px;
+	border:1px solid #74b807;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:3px 3px;
+	text-decoration:none;
+  text-shadow:0px 1px 0px #528009;
+  text-align: center;
+}
+.myGreenButton:hover {
+	background:linear-gradient(to bottom, #77a809 5%, #89c403 100%);
+	background-color:#77a809;
+}
+.myGreenButton:active {
+	position:relative;
+	top:1px;
+}
+
+.myPinkButton {
+  width:150px;
+	box-shadow:inset 0px 1px 0px 0px #fbafe3;
+	background:linear-gradient(to bottom, #ff5bb0 5%, #ef027d 100%);
+	background-color:#ff5bb0;
+	border-radius:3px;
+	border:1px solid #ee1eb5;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:3px 3px;
+	text-decoration:none;
+  text-shadow:0px 1px 0px #c70067;
+  text-align: center;
+}
+.myPinkButton:hover {
+	background:linear-gradient(to bottom, #ef027d 5%, #ff5bb0 100%);
+	background-color:#ef027d;
+}
+.myPinkButton:active {
+	position:relative;
+	top:1px;
+}
+
+

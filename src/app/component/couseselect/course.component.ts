@@ -24,10 +24,10 @@ export interface PeriodicElement {
 export class CourseComponent implements OnInit {
 
   coursetest = [
-    { courseno: 'COS2101', coursename: 'COS2101', credit: 3, status: false },
-    { courseno: 'COS2102', coursename: 'COS2102', credit: 3, status: false },
-    { courseno: 'COS2103', coursename: 'COS2103', credit: 3, status: false },
-    { courseno: 'COS2104', coursename: 'COS2104', credit: 3, status: false }
+    { courseno: '1', coursename: 'COS2101', credit: 3, status: false },
+    { courseno: '2', coursename: 'COS2102', credit: 3, status: false },
+    { courseno: '3', coursename: 'COS2103', credit: 3, status: false },
+    { courseno: '4', coursename: 'COS2104', credit: 3, status: false }
   ];
 
   sectionfix = [

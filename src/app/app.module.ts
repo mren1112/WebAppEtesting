@@ -26,6 +26,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -37,12 +38,14 @@ import { ApiFetchCourseService } from './services/ApiFetchCourseService.service'
 import { ApiGetTermValService } from './services/ApiGetValTerm.service';
 import { ConfirmComponent } from './component/confirm/confirm.component';
 import { PaymentComponent } from './component/payment/payment.component';
+import { HomeMenuCreateComponent } from './component/homemenu/homemenu.component';
 
 const appRoutes:Routes=[
-  {path:"", component:CourseComponent},
-  { path: 'confirm', component:ConfirmComponent },
+  {path:"", component:HomeMenuCreateComponent},
+  {path:"course", component:CourseComponent},
+  {path: 'confirm', component:ConfirmComponent },
   {path:"payment", component:PaymentComponent},
-  //{path:"confirm", component:ConfirmComponent},
+
 ]
 
 @NgModule({
@@ -52,7 +55,8 @@ const appRoutes:Routes=[
     CourseComponent,
     FooterCreateComponent,
     ConfirmComponent,
-    PaymentComponent
+    PaymentComponent,
+    HomeMenuCreateComponent
 
   ],
   imports: [
@@ -75,6 +79,7 @@ const appRoutes:Routes=[
     MatDividerModule,
     HttpClientModule,
     MatIconModule,
+    MatMenuModule,
      RouterModule.forRoot(appRoutes),
 
   ],
