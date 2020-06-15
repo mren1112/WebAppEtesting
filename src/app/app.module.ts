@@ -39,12 +39,21 @@ import { ApiGetTermValService } from './services/ApiGetValTerm.service';
 import { ConfirmComponent } from './component/confirm/confirm.component';
 import { PaymentComponent } from './component/payment/payment.component';
 import { HomeMenuCreateComponent } from './component/homemenu/homemenu.component';
+import { InfoCreateComponent } from './component/info/info.component';
+import { RegisAllCourseCreateComponent } from './component/regisallcourse/regisallcourse.component';
+import { HisRegisAllCreateComponent } from './component/hisregister/hisregister.component';
+import { RecieptAllCreateComponent } from './component/recieptsall/reciept.component';
+import { ApiFetchAllCourseService } from './services/ApiFetchAllCourseService.service';
 
 const appRoutes:Routes=[
   {path:"", component:HomeMenuCreateComponent},
   {path:"course", component:CourseComponent},
-  {path: 'confirm', component:ConfirmComponent },
+  {path:'confirm', component:ConfirmComponent },
   {path:"payment", component:PaymentComponent},
+  {path:"info", component:InfoCreateComponent},
+  {path:"regisall", component:RegisAllCourseCreateComponent},
+  {path:"hisregisall", component:HisRegisAllCreateComponent},
+  {path:"recieptall", component:RecieptAllCreateComponent},
 
 ]
 
@@ -56,7 +65,12 @@ const appRoutes:Routes=[
     FooterCreateComponent,
     ConfirmComponent,
     PaymentComponent,
-    HomeMenuCreateComponent
+    HomeMenuCreateComponent,
+    InfoCreateComponent,
+    RegisAllCourseCreateComponent,
+    HisRegisAllCreateComponent,
+    RecieptAllCreateComponent,
+
 
   ],
   imports: [
@@ -88,6 +102,7 @@ const appRoutes:Routes=[
     MatDatepickerModule,
     ApiFetchCourseService,
     ApiGetTermValService,
+    ApiFetchAllCourseService,
     //{provide: LOCALE_ID, useValue: 'en' },
     //{ provide: LOCALE_ID, useValue: "th-TH" }
   ],

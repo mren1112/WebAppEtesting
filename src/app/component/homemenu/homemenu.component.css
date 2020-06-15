@@ -139,5 +139,60 @@ main {
 	position:relative;
 	top:1px;
 }
+.mySkyblueButton {
+  width: 150px;
+	box-shadow:inset 0px 0px 0px 0px #dcecfb;
+	background:linear-gradient(to bottom, #bddbfa 5%, #80b5ea 100%);
+	background-color:#bddbfa;
+	border-radius:3px;
+	border:1px solid #84bbf3;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:3px 3px;
+	text-decoration:none;
+  text-shadow:0px 1px 0px #528ecc;
+  text-align: center;
+}
+.mySkyblueButton:hover {
+	background:linear-gradient(to bottom, #80b5ea 5%, #bddbfa 100%);
+	background-color:#80b5ea;
+}
+.mySkyblueButton:active {
+	position:relative;
+	top:1px;
+}
+
+.myBrownButton {
+  width: 150px;
+	box-shadow:inset 0px 1px 0px 0px #a6827e;
+	background:linear-gradient(to bottom, #7d5d3b 5%, #634b30 100%);
+	background-color:#7d5d3b;
+	border-radius:1px;
+	border:1px solid #54381e;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+  font-size:13px;
+  font-weight: bold;
+	padding:3px 3px;
+	text-decoration:none;
+  text-shadow:0px 1px 0px #4d3534;
+  text-align: center;
+}
+.myBrownButton:hover {
+	background:linear-gradient(to bottom, #634b30 5%, #7d5d3b 100%);
+	background-color:#634b30;
+}
+.myBrownButton:active {
+	position:relative;
+	top:1px;
+}
+
+
 
 
