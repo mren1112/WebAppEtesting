@@ -44,6 +44,9 @@ import { RegisAllCourseCreateComponent } from './component/regisallcourse/regisa
 import { HisRegisAllCreateComponent } from './component/hisregister/hisregister.component';
 import { RecieptAllCreateComponent } from './component/recieptsall/reciept.component';
 import { ApiFetchAllCourseService } from './services/ApiFetchAllCourseService.service';
+import { PolicyCreateComponent } from './component/policy/policy.component';
+import { QrpagelistCreateComponent } from './component/qrpagelist/qrpagelist.component';
+import { ProfileComponent } from './component/profilecomponent/profilecomponent';
 
 const appRoutes:Routes=[
   {path:"", component:HomeMenuCreateComponent},
@@ -54,6 +57,8 @@ const appRoutes:Routes=[
   {path:"regisall", component:RegisAllCourseCreateComponent},
   {path:"hisregisall", component:HisRegisAllCreateComponent},
   {path:"recieptall", component:RecieptAllCreateComponent},
+  {path:"policy", component:PolicyCreateComponent},
+  {path:"qrpagelist", component:QrpagelistCreateComponent},
 
 ]
 
@@ -70,7 +75,9 @@ const appRoutes:Routes=[
     RegisAllCourseCreateComponent,
     HisRegisAllCreateComponent,
     RecieptAllCreateComponent,
-
+    PolicyCreateComponent,
+    QrpagelistCreateComponent,
+    ProfileComponent,
 
   ],
   imports: [

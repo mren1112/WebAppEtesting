@@ -7,14 +7,15 @@
 
   <div class="container">
     <app-profilecomponent></app-profilecomponent>
+
        <div class="row" style="margin-bottom: 15px;">
         <div class="col-md-12 tabmaintable" >
           <div class="texrheader">
-            <h2>
-              <span class="material-icons">
-            backup_table
-          </span> ยืนยันวิชาที่นักศึกษาได้ทำการลงทะเบียนสอบ E-testing
-            </h2>  </div>
+            <h3>
+              <span class="material-icons">payment</span>
+              แสดงวิชาที่รอการชำระเงิน
+            </h3>
+          </div>
         </div>
       </div>
 
@@ -24,17 +25,20 @@
          <thead>
            <tr>
              <th scope="col" style="width: 10px;">#No</th>
-             <th scope="col">วิชา</th>
-             <th scope="col">วันที่สอบ</th>
-             <th scope="col">คาบสอบ</th>
+             <th scope="col">ลงทะเบี่ยนวันที่</th>
+             <th scope="col">รับ Qr Code </th>
            </tr>
          </thead>
          <tbody>
            <tr>
              <th scope="row" style="width: 10px;">1</th>
-             <td>MTH1000</td>
-             <td> 23 พ.ค. 63</td>
-             <td>(1) 09.30 - 12.00 น.</td>
+             <td>10 ส.ค. 2563</td>
+             <td> <a href="google.com" color="primary">
+              <span class="material-icons">
+                qr_code
+                </span>
+                กดรับ
+             </a></td>
            </tr>
 
          </tbody>
@@ -48,11 +52,10 @@
              <span class="material-icons">
              check_circle_outline
              </span> ยืนยัน</button>&nbsp;
-           <button mat-raised-button color="warn">
+           <button  routerLink="/" routerLinkActive="active" mat-raised-button color="warn">
             <span class="material-icons">
               fast_rewind
               </span> ยกเลิก</button>
-              <a routerLink="/payment" routerLinkActive="active"> pay</a>
 
          </div>
        </section>

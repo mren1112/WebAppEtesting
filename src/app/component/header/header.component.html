@@ -9,10 +9,45 @@
 
     <span><img src="assets/img/logo.png" alt="" width="30px"> E-testing system</span>
     <span class="example-spacer"></span>
-    <button mat-fab color="" aria-label="Example icon button with a delete icon">
-    <mat-icon>login</mat-icon>
-    </button>
 
+
+
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>apps</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="/" routerLinkActive="active" >
+        <mat-icon>home</mat-icon>
+        <span> <b>หน้าหลัก</b> </span>
+
+      </button>
+      <button mat-menu-item routerLink="/course" routerLinkActive="active" >
+        <mat-icon>important_devices</mat-icon>
+        <span>ลงทะเบียนสอบ E-testing</span>
+      </button>
+      <button mat-menu-item routerLink="/qrpagelist" routerLinkActive="active" >
+        <mat-icon>qr_code</mat-icon>
+        <span> พิมพ์ QR Code ชำระเงิน</span>
+      </button>
+      <button mat-menu-item routerLink="/regisall" routerLinkActive="active" >
+        <mat-icon>article</mat-icon>
+        <span>ข้อมูลลงทะเบียน</span>
+      </button>
+      <button mat-menu-item routerLink="/recieptall" routerLinkActive="active" >
+        <mat-icon>local_printshop</mat-icon>
+        <span>ใบเสร็จ</span>
+      </button>
+      <button mat-menu-item routerLink="/policy" routerLinkActive="active" >
+        <mat-icon>policy</mat-icon>
+        <span>ข้อตกลงการใช้งาน</span>
+      </button>
+      <button mat-menu-item routerLink="/info" routerLinkActive="active" >
+        <mat-icon>info</mat-icon>
+        <span>ประชาสัมพันธ์</span>
+      </button>
+
+    </mat-menu>
+    <button mat-mini-fab color="basic" aria-label="Example icon button with a home icon">
+      <mat-icon>login</mat-icon></button>
    </mat-toolbar-row>
 </mat-toolbar>
-

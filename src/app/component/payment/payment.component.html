@@ -1,15 +1,16 @@
 <main>
 
+  <app-profilecomponent></app-profilecomponent>
   <div class="row">
     <div class="col-md-4 col-align">
       <div class="row">
         <div class="col-md-12 col-align">
           <div class="card">
-             <div class="row">
+            <div class="row">
               <div class="col-12">
                 <img class="card-img-top" src="../../../assets/img/ru_QR.jpg" alt="Card image cap">
                 <img class="card-body" style="width: 90%;"
-                  src="https://devtest.ru.ac.th/ThaiQR/ADQR?totalAmount=<%out.println( total );%>&username=<%out.println( username );%>&tel=<%out.println( tel );%>&duedate=110520">
+                  src="https://devtest.ru.ac.th/ThaiQR/ADQR?totalAmount={{total}}&username={{usr}}&tel={{tel}}&duedate=110720">
               </div>
             </div>
             <div class="row">
@@ -29,28 +30,26 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-12 "><hr>
+              <div class="col-12 ">
+                <hr>
                 <p class="card-text"></p>
               </div>
-
             </div>
-
           </div>
-
-         </div>
-
+        </div>
       </div>
       <p></p>
     </div>
     <div class="col-md-8">
       <div class="row" style="margin-bottom: 15px;">
-        <div class="col-md-12 tabmaintable" >
+        <div class="col-md-12 tabmaintable">
           <div class="texrheader">
             <h2>
               <span class="material-icons">
-            backup_table
-          </span> วิชาที่นักศึกษาได้ทำการลงทะเบียนสอบ E-testing
-            </h2>  </div>
+                backup_table
+              </span> วิชาที่นักศึกษาได้ทำการลงทะเบียนสอบ E-testing
+            </h2>
+          </div>
         </div>
       </div>
 

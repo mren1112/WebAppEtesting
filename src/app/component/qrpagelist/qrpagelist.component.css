@@ -1,5 +1,5 @@
 main {
-  padding-top: 30px;
+  padding-top: 40px;
   width: 95%;
   margin: auto;
 
@@ -8,7 +8,7 @@ main {
 .tabmaintable {
   width: 95%;
   padding-top: 10px;
-  background:linear-gradient(to bottom, #ff5bb0 5%, #ef027d 100%);
+  background:linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
   -webkit-box-shadow: 9px 10px 0px -7px rgba(128, 128, 128, 1);
   -moz-box-shadow: 9px 10px 0px -7px rgba(128, 128, 128, 1);
   box-shadow: 9px 10px 0px -7px rgba(128, 128, 128, 1);
@@ -17,7 +17,8 @@ main {
 
 .texrheader {
   padding: 4px 0 4px 0;
-  color: white;
+  color: black;
+  font-weight: bold;
 
 }
 
@@ -29,5 +30,12 @@ main {
 
 .table-striped>tbody>tr:nth-child(2n+1)>td,
 .table-striped>tbody>tr:nth-child(2n+1)>th {
-  background-color: #f8e8c6;
+  background-color: #f8edd4;
+}
+a{
+  color: #341f97;
+}
+
+.buttomdiv{
+  margin-bottom: 15px;
 }
