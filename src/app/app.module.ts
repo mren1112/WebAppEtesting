@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import {
   HttpClient, HttpClientModule,
   HttpHeaders,
@@ -47,6 +47,8 @@ import { ApiFetchAllCourseService } from './services/ApiFetchAllCourseService.se
 import { PolicyCreateComponent } from './component/policy/policy.component';
 import { QrpagelistCreateComponent } from './component/qrpagelist/qrpagelist.component';
 import { ProfileComponent } from './component/profilecomponent/profilecomponent';
+import { TestComponent } from './component/testcode/test.comp';
+import { ApiFetchETCourseService } from './services/ApiFetchETCourse.service';
 
 const appRoutes:Routes=[
   {path:"", component:HomeMenuCreateComponent},
@@ -59,6 +61,7 @@ const appRoutes:Routes=[
   {path:"recieptall", component:RecieptAllCreateComponent},
   {path:"policy", component:PolicyCreateComponent},
   {path:"qrpagelist", component:QrpagelistCreateComponent},
+  {path:"testing", component:TestComponent},
 
 ]
 
@@ -78,6 +81,8 @@ const appRoutes:Routes=[
     PolicyCreateComponent,
     QrpagelistCreateComponent,
     ProfileComponent,
+    TestComponent,
+
 
   ],
   imports: [
@@ -101,6 +106,8 @@ const appRoutes:Routes=[
     HttpClientModule,
     MatIconModule,
     MatMenuModule,
+    ReactiveFormsModule,
+    FormsModule,
      RouterModule.forRoot(appRoutes),
 
   ],
@@ -110,6 +117,7 @@ const appRoutes:Routes=[
     ApiFetchCourseService,
     ApiGetTermValService,
     ApiFetchAllCourseService,
+    ApiFetchETCourseService,
     //{provide: LOCALE_ID, useValue: 'en' },
     //{ provide: LOCALE_ID, useValue: "th-TH" }
   ],

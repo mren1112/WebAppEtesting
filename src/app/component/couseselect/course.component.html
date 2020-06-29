@@ -12,6 +12,9 @@
       </div>
     </div>
     <app-profilecomponent></app-profilecomponent>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+
     <div class="row">
       <div class="col-12">
         <table class="table table-striped">
@@ -28,10 +31,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let dt of coursetest , let i = index">
+            <tr  formArrayName="tempChkCourse" *ngFor="let dt of coursetest , let i = index">
               <td>
                 <b>
-                  <mat-checkbox color="primary" (change)="toggleVisibility(dt.courseno)" ></mat-checkbox>
+                  <input type="checkbox" color="primary" (change)="toggleVisibility(dt.courseno)"  [formControlName]="i">
                   # {{dt.courseno}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {{dt.coursename}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ({{dt.credit}})
                 </b>
                 <b></b>
@@ -40,9 +43,9 @@
                   <p>
                   <mat-form-field class="example-full-width">
                     <mat-label>Choose a date</mat-label>
-                    <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker" [(ngModel)]="dateselect">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker [dateClass]="dateClass" #picker></mat-datepicker>
+                    <input matInput [matDatepickerFilter]="myFilter" [min]="startDate" [max]="endtDate" [matDatepicker]="picker" [(ngModel)]="dateselect" click="enableselectSect">
+                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker [dateClass]="dateClass" [startAt]="startDate" #picker></mat-datepicker>
                   </mat-form-field>
                   &nbsp;
                   <mat-form-field appearance="">
@@ -79,6 +82,9 @@
           <hr>
       </div>
     </div>
+  </form>
+
+
   </div>
 
 
