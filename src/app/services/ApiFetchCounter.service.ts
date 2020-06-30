@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -5,29 +6,22 @@ import { element } from 'protractor';
 import { map, catchError } from 'rxjs/operators';
 
 
-export interface ETCourse {
-  year: string;
-  semester: string;
-  courseNo: string;
-  credit: number;
-  statusCourse: string;
-  courseFee: string;
-  insertDate: string;
-  insertUser: string;
-  updateDate: string;
-  updateUser: string;
-  status: boolean;
- // imageUrl: string;
+export interface TodoCounter {
+  STD_CODE: string
+  NameThai: string;
+  NameEng: string;
+  Birth: string;
 }
 
 @Injectable()
-export class ApiFetchETCourseService {
+export class ApiFetchCounterService {
 
-  urlFetchETCourse = "http://sevkn.ru.ac.th/ADManage/apinessy/etest/getEtCourse.jsp";
+  urlFetchETCourse = "http://sevkn.ru.ac.th/ADManage/apinessy/etest/getCounter.jsp";
 
   constructor(private http: HttpClient) {
     this.getJSON().subscribe(response => {
-      console.log(response);
+      //console.log(response);
+     // sessionStorage.setItem("stdcode", response.STD_CODE);
     });
   }
   getJSON(): Observable<any> {

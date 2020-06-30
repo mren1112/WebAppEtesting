@@ -11,6 +11,7 @@ import {
   FormControl,
   ValidatorFn
 } from '@angular/forms';
+import { ApiFetchETCourseService } from 'src/app/services/ApiFetchETCourse.service';
 
 export interface PeriodicElement {
   courseno: string;
@@ -57,7 +58,9 @@ export class CourseComponent implements OnInit {
   constructor(
     private apiFetchCourseServices: ApiFetchCourseService,
     private apiGetTermVal: ApiGetTermValService,
-    private formBuilder: FormBuilder
+    private apiFetchETCourse:ApiFetchETCourseService,
+    private formBuilder: FormBuilder,
+
   ) {
     this.form = this.formBuilder.group({
       tempChkCourse: new FormArray([])
@@ -85,7 +88,7 @@ export class CourseComponent implements OnInit {
 
 
 ngOnInit() {
-  this.apiFetchCourseServices.getJSON().subscribe(data => {
+  this.apiFetchETCourse.getJSON().subscribe(data => {
     this.todoCourse = data;
     //console.log(data.year);e
    // this.tempCourse.push(data);

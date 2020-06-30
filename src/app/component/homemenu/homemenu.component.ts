@@ -1,22 +1,65 @@
-import { Component, OnInit } from "@angular/core";
+import { Component,Injectable , OnInit } from "@angular/core";
+import { ApiFetchProfileService,TodoProfile } from 'src/app/services/ApiFetchProfile.service';
+import { stringify } from 'querystring';
+import { ApiFetchCounterService } from 'src/app/services/ApiFetchCounter.service';
+import { throwToolbarMixedModesError } from '@angular/material/toolbar';
 
 
 @Component({
-selector: 'app-menu',
-templateUrl: './homemenu.component.html',
-styleUrls: ['./homemenu.component.css']
+  selector: 'app-menu',
+  templateUrl: './homemenu.component.html',
+  styleUrls: ['./homemenu.component.css']
 })
 
 export class HomeMenuCreateComponent implements OnInit {
-public stdcode = "629949991"
+  public stdcode;
+   todoProfile: any[];
+   todoCounter: any[];
+   //todos:TodoProfile[] = [];
 
-constructor(){}
+  constructor(
+    private apiFetchProfile: ApiFetchProfileService,
+    private apiGetCounter: ApiFetchCounterService,
+  ) {
+
+  }
 
 
-ngOnInit(){
+  ngOnInit() {
+    this.getProfile();
+    this.getCounter();
+  }
 
-  sessionStorage.setItem("stdcode" , this.stdcode);
-  console.log("stdcode = " + this.stdcode);
-}
+  getProfile() {
+    this.apiFetchProfile.getJSON().subscribe(data => {
+      this.todoProfile = data;
+      console.log("todoProfile "+ JSON.stringify(data) );
+      console.log("stdcode "+ JSON.stringify(data.STD_CODE) );
+      sessionStorage.setItem("stdcode", data.STD_CODE);
+      sessionStorage.setItem("nameeng", data.NameEng);
+      sessionStorage.setItem("facno", data.FacNo);
+      sessionStorage.setItem("majorno", data.MajorNo);
+      sessionStorage.setItem("majornamthai", data.MajorNameThai);
+      sessionStorage.setItem("facName", data.FacNameThai);
+      sessionStorage.setItem("birth", data.Birth);
+    }
+
+    )
+  }
+
+  getCounter() {
+    this.apiGetCounter.getJSON().subscribe(res => {
+      this.todoCounter = res;
+      sessionStorage.setItem("sem", res.semester);
+      sessionStorage.setItem("year", res.year);
+      sessionStorage.setItem("enddate", res.enddate);
+      sessionStorage.setItem("startdate", res.startdate);
+      console.log("todoCounter" + JSON.stringify(res))
+    }
+
+      )
+
+  }
+
 
 }

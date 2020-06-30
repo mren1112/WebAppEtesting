@@ -49,6 +49,8 @@ import { QrpagelistCreateComponent } from './component/qrpagelist/qrpagelist.com
 import { ProfileComponent } from './component/profilecomponent/profilecomponent';
 import { TestComponent } from './component/testcode/test.comp';
 import { ApiFetchETCourseService } from './services/ApiFetchETCourse.service';
+import { ApiFetchProfileService } from './services/ApiFetchProfile.service';
+import { ApiFetchCounterService } from './services/ApiFetchCounter.service';
 
 const appRoutes:Routes=[
   {path:"", component:HomeMenuCreateComponent},
@@ -118,6 +120,8 @@ const appRoutes:Routes=[
     ApiGetTermValService,
     ApiFetchAllCourseService,
     ApiFetchETCourseService,
+    ApiFetchProfileService,
+    ApiFetchCounterService,
     //{provide: LOCALE_ID, useValue: 'en' },
     //{ provide: LOCALE_ID, useValue: "th-TH" }
   ],
