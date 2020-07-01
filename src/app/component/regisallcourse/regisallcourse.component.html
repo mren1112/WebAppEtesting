@@ -14,7 +14,7 @@
             <h3>
               <span class="material-icons">
             backup_table
-          </span> แสดงวิชาที่นักศึกษาได้ทำการลงทะเบียนปีการศึกษา xx/xxxx
+          </span> แสดงวิชาที่นักศึกษาได้ทำการลงทะเบียนปีการศึกษา {{sem}}/{{year}}
             </h3>  </div>
         </div>
       </div>
@@ -30,10 +30,10 @@
            </tr>
          </thead>
          <tbody>
-           <tr *ngFor="let data of allCourse">
-             <th scope="row" style="width: 10px;">1</th>
-             <td>{{data.COURSENO}}</td>
-             <td> 23 พ.ค. 63</td>
+           <tr *ngFor="let data of allCourse; let i = index;">
+             <th scope="row" style="width: 10px;">{{i+1}}</th>
+             <td>{{data.courseNo}}</td>
+             <td> {{data.examperiod}}</td>
            </tr>
 
          </tbody>
@@ -43,14 +43,10 @@
        <P></P>
        <section>
          <div class="example-button-row" style="text-align: center;">
-           <button mat-raised-button color="primary" >
-             <span class="material-icons">
-             check_circle_outline
-             </span> ยืนยัน</button>&nbsp;
            <button  routerLink="/" routerLinkActive="active" mat-raised-button color="warn">
             <span class="material-icons">
               fast_rewind
-              </span> ยกเลิก</button>
+              </span> Back </button>
 
          </div>
        </section>

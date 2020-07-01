@@ -8,7 +8,12 @@ import { Component } from '@angular/core';
 
 })
 export class ProfileComponent{
-
+  us = sessionStorage.getItem("stdcode");
+  sem = sessionStorage.getItem("sem");
+  year = sessionStorage.getItem("year");
+  majorname = sessionStorage.getItem("majornamthai");
+  namethai = sessionStorage.getItem("namethai");
+  facname = sessionStorage.getItem("facName");
   constructor(){
 
   }

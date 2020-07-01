@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiFetchAllCourseService } from '../../services/ApiFetchAllCourseService.service';
+import { ApiFetchAllCourseRegisService } from '../../services/ApiFetchAllCourseRegis.service';
 
 
 @Component({
@@ -8,28 +8,30 @@ import { ApiFetchAllCourseService } from '../../services/ApiFetchAllCourseServic
   styleUrls: ['./regisallcourse.component.css']
 
 })
-export class RegisAllCourseCreateComponent implements OnInit{
+export class RegisAllCourseCreateComponent implements OnInit {
 
-   _dtmocrep = [
-    {}
-  ]
-  public allCourse:  any=[];
+  public allCourse: any = [];
+  us = sessionStorage.getItem("stdcode");
+  sem = sessionStorage.getItem("sem");
+  year = sessionStorage.getItem("year");
+  majorname = sessionStorage.getItem("majornamthai");
+  namethai = sessionStorage.getItem("sem");
+  facname = sessionStorage.getItem("facName");
 
-  constructor(private apiFetchAllCourseServices:ApiFetchAllCourseService) {
+  constructor(
+    private apiFetchAllCourseRegis: ApiFetchAllCourseRegisService
+
+  ) {
 
   }
   ngOnInit() {
-    this.apiFetchAllCourseServices.getJSON().subscribe(data => {
-      this.allCourse = data.rec;
-
-      //console.log(data.year);e
-      //this.allCourse.push(data);
-      sessionStorage.setItem("allcourse",JSON.stringify(this.allCourse));
-     // sessionStorage.setItem("sem",data.semester);
-     console.log("regisAll"+data)
-    }
-
-    )
+    this.getAllCourseRegis();
+}
+  getAllCourseRegis() {
+    this.apiFetchAllCourseRegis.getJSON().subscribe(res => {
+      this.allCourse = res.rec;
+    //  console.log("regisAll" + JSON.stringify(this.allCourse))
+    })
   }
 
 }

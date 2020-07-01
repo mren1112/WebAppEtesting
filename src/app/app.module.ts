@@ -43,7 +43,7 @@ import { InfoCreateComponent } from './component/info/info.component';
 import { RegisAllCourseCreateComponent } from './component/regisallcourse/regisallcourse.component';
 import { HisRegisAllCreateComponent } from './component/hisregister/hisregister.component';
 import { RecieptAllCreateComponent } from './component/recieptsall/reciept.component';
-import { ApiFetchAllCourseService } from './services/ApiFetchAllCourseService.service';
+import { ApiFetchAllCourseRegisService } from './services/ApiFetchAllCourseRegis.service';
 import { PolicyCreateComponent } from './component/policy/policy.component';
 import { QrpagelistCreateComponent } from './component/qrpagelist/qrpagelist.component';
 import { ProfileComponent } from './component/profilecomponent/profilecomponent';
@@ -51,6 +51,7 @@ import { TestComponent } from './component/testcode/test.comp';
 import { ApiFetchETCourseService } from './services/ApiFetchETCourse.service';
 import { ApiFetchProfileService } from './services/ApiFetchProfile.service';
 import { ApiFetchCounterService } from './services/ApiFetchCounter.service';
+import { ApiFetchDateService } from './services/ApiFetchDate.service';
 
 const appRoutes:Routes=[
   {path:"", component:HomeMenuCreateComponent},
@@ -118,10 +119,11 @@ const appRoutes:Routes=[
     MatDatepickerModule,
     ApiFetchCourseService,
     ApiGetTermValService,
-    ApiFetchAllCourseService,
+    ApiFetchAllCourseRegisService,
     ApiFetchETCourseService,
     ApiFetchProfileService,
     ApiFetchCounterService,
+    ApiFetchDateService,
     //{provide: LOCALE_ID, useValue: 'en' },
     //{ provide: LOCALE_ID, useValue: "th-TH" }
   ],

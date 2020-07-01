@@ -23,7 +23,11 @@ export interface ETCourse {
 @Injectable()
 export class ApiFetchETCourseService {
 
-  urlFetchETCourse = "http://sevkn.ru.ac.th/ADManage/apinessy/etest/getEtCourse.jsp";
+  public us = sessionStorage.getItem("stdcode");
+  public sem = sessionStorage.getItem("sem");
+  public year = sessionStorage.getItem("year");
+
+  urlFetchETCourse = "http://sevkn.ru.ac.th/ADManage/apinessy/etest/getEtCourse.jsp?"+this.us+"&sem="+this.sem+"&year="+this.year;
 
   constructor(private http: HttpClient) {
     this.getJSON().subscribe(response => {

@@ -2,8 +2,6 @@ import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
-import { ApiGetTermValService } from '../../services/ApiGetValTerm.service';
-import { ApiFetchCourseService } from '../../services/ApiFetchCourseService.service';
 import {
   FormBuilder,
   FormGroup,
@@ -17,7 +15,7 @@ export interface PeriodicElement {
   courseno: string;
   coursename: string;
   credit: string;
- // symbol: string;
+  // symbol: string;
 }
 
 
@@ -30,10 +28,8 @@ export interface PeriodicElement {
 export class CourseComponent implements OnInit {
 
   coursetest = [
-    { courseno: '1', coursename: 'COS2101', credit: 3, status: false },
-    { courseno: '2', coursename: 'COS2102', credit: 3, status: false },
-    { courseno: '3', coursename: 'COS2103', credit: 3, status: false },
-    { courseno: '4', coursename: 'COS2104', credit: 3, status: false }
+    { courseno: 'COS2101' , credit: 3, status: false },
+    { courseno: 'COS2102' , credit: 3, status: false }
   ];
 
   sectionfix = [
@@ -54,11 +50,20 @@ export class CourseComponent implements OnInit {
   tempChkCourseSec = [];
   form: FormGroup;
   chkCourseData = [];
+  cntCourseNo = 0;
+  public strDate = sessionStorage.getItem("enddate");
+  public endDate =  sessionStorage.getItem("startdate");
+  subStrYear = Number(this.strDate.substring(6,10)) - 543;
+  subStrEndYear = Number(this.endDate.substring(6,10)) - 543;
+  subStrMonth = this.strDate.substring(0,2);
+  subStrEndMonth = this.endDate.substring(0,2);
+  subStrDate = this.strDate.substring(3,5);
+  subStrEndDate = this.endDate.substring(3,5);
+
 
   constructor(
-    private apiFetchCourseServices: ApiFetchCourseService,
-    private apiGetTermVal: ApiGetTermValService,
-    private apiFetchETCourse:ApiFetchETCourseService,
+    private apiFetchETCourse: ApiFetchETCourseService,
+   // private apiFetchCounter: ApiFetchCounterService,
     private formBuilder: FormBuilder,
 
   ) {
@@ -68,121 +73,130 @@ export class CourseComponent implements OnInit {
     this.addCheckboxes();
   }
 
-   subtmp : any[];
+  subtmp: any[];
   private addCheckboxes() {
     this.coursetest.forEach((o, i) => {
       const control = new FormControl(i === null); // if first item set to true, else false
-     // comst getCouseName = new FormControl(i)
+      // comst getCouseName = new FormControl(i)
       (this.form.controls.tempChkCourse as FormArray).push(control);
       // this.subtmp.push((this.form.controls.tempChkCourse as FormArray).push(control));
-     // sessionStorage.setItem("todocourse" , JSON.stringify(control) );
+      // sessionStorage.setItem("todocourse" , JSON.stringify(control) );
     });
   }
 
   submit() {
     const selectedOrderIds = this.form.value.tempChkCourse
-      .map((v, i) => (v ? this.coursetest[i].coursename : null))
+      .map((v, i) => (v ? this.coursetest[i].courseno : null))
       .filter(v => v !== null);
     console.log(selectedOrderIds);
   }
 
 
-ngOnInit() {
-  this.apiFetchETCourse.getJSON().subscribe(data => {
-    this.todoCourse = data;
-    //console.log(data.year);e
-   // this.tempCourse.push(data);
-    sessionStorage.setItem("todoCourse", this.todoCourse);
-    // sessionStorage.setItem("sem",data.semester);
+  ngOnInit() {
+      this.getEtCourse();
   }
 
-  )
-}
-
-datemock = [
-  { fixdate: 1 },
-  { fixdate: 2 },
-  { fixdate: 3 }
-
-];
-
-
-startDate = new Date(2020 + 543, 6, 1);
-endtDate = new Date(2020 + 543, 7, 1);
-
-//paint alert day
-dateClass = (d: Date): MatCalendarCellCssClasses => {
-  const date = d.getDate();
-
-  // Highlight the 1st and 20th day of each month.
-  return (date === 1 || date === 15) ? 'dateAleart-class' : '';
-
-}
-
-enableselectSect(){
-  //this.sectionselect =false;
-
-}
-
-
-//disable select holiday
-myFilter = (d: Date | null): boolean => {
-  /*for (let i = 0; i < this.datemock.length; i++) {
-   const element = this.datemock[i].fixdate;
-
-   if ( d ===  true) {
-     const day= (d || new Date()).getDay()
-     return day !== 0 && day !== 6;
-   }
-
- }*/
-  const day = (d || new Date()).getDay()
-
-  // Prevent Saturday and Sunday from being selected.
-
-  return day !== 0 && day !== 6;
-  console.log("myFilter date = " + d);
-}
-
-
-//check box event
-checkValue(event: any) {
-  if (event != "B") {
-    this.selectCourse = false;
-    console.log(" เข้า " + event);
-  } else {
-    this.selectCourse = true;
-    console.log(" เข้า - " + event);
+  getEtCourse() {
+    this.apiFetchETCourse.getJSON().subscribe(data => {
+      this.todoCourse = data.results;
+       this.cntCourseNo =  Object.keys(data).length;
+      //console.log(data.year);
+      // this.tempCourse.push(data);
+      sessionStorage.setItem("todoCourse", this.todoCourse);
+      console.log("cntEt = " + this.cntCourseNo);
+      console.log("sub year = " + this.subStrYear);
+      // sessionStorage.setItem("sem",data.semester);
+    })
   }
 
-  //console.log(event);
-}
 
-checked: boolean[] = [];
-toggleVisibility(courseno) {
-  this.coursetest.filter(arr => {
-    if (arr.courseno == courseno) {
-      arr.status = !arr.status
+  startDate = new Date(Number(this.subStrYear)+543, 6, 1);
+  endtDate = new Date(2020 + 543, 7, 1);
+
+  //paint alert day
+  dateClass = (d: Date): MatCalendarCellCssClasses => {
+    const date = d.getDate();
+
+    // Highlight the 1st and 20th day of each month.
+    return (date === 1 || date === 15) ? 'dateAleart-class' : '';
+
+  }
+
+  enableselectSect() {
+    //this.sectionselect =false;
+
+  }
+
+
+  //disable select holiday
+  myFilter = (d: Date | null): boolean => {
+    /*for (let i = 0; i < this.datemock.length; i++) {
+     const element = this.datemock[i].fixdate;
+
+     if ( d ===  true) {
+       const day= (d || new Date()).getDay()
+       return day !== 0 && day !== 6;
+     }
+
+   }*/
+    const day = (d || new Date()).getDay()
+
+    // Prevent Saturday and Sunday from being selected.
+
+    return day !== 0 && day !== 6;
+   // console.log("myFilter date = " + d);
+  }
+
+
+  //check box event
+  checkValue(event: any) {
+    if (event != "B") {
+      this.selectCourse = false;
+      console.log(" เข้า " + event);
+    } else {
+      this.selectCourse = true;
+      console.log(" เข้า - " + event);
     }
+
+    //console.log(event);
   }
-  )
-  /*if ( this.coursetest[i].courseno == this.coursetest[i].courseno  ) {
-
-    console.log(i)
-    this.coursetest[i].status = true ;
-
-    this.checked[i]=event;
-    //alert(event);
-    console.log(event)
-    console.log(event.source.id)
-   // this.selectCourse = false;
-  } else
-   this.coursetest[i].status = false ;
- //   this.isChecked = e.target.checked;
-    //this.selectCourse = true;*/
-}
 
 
+  pushtest = [];
+  checked: boolean[] = [];
+
+  toggleVisibility(courseno) {
+    this.todoCourse.filter(arr => {
+      if (arr.courseno == courseno) {
+        arr.status = !arr.status
+        this.pushtest.push(arr.courseno);
+        console.log("courseno =" +arr.courseno);
+        console.log("ssssss =" +this.pushtest);
+      }
+    }
+    )
+    /*if ( this.coursetest[i].courseno == this.coursetest[i].courseno  ) {
+
+      console.log(i)
+      this.coursetest[i].status = true ;
+
+      this.checked[i]=event;
+      //alert(event);
+      console.log(event)
+      console.log(event.source.id)
+     // this.selectCourse = false;
+    } else
+     this.coursetest[i].status = false ;
+   //   this.isChecked = e.target.checked;
+      //this.selectCourse = true;*/
+      console.log(this.pushtest)
+  }
+
+dateselected = [];
+  dateSelect() {
+    //this.sectionselect =false;
+
+  }
 
 }
 

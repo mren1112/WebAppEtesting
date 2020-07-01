@@ -13,7 +13,7 @@
     </div>
     <app-profilecomponent></app-profilecomponent>
 
-    <form [formGroup]="form" (ngSubmit)="submit()">
+    <form >
 
     <div class="row">
       <div class="col-12">
@@ -31,11 +31,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr  formArrayName="tempChkCourse" *ngFor="let dt of coursetest , let i = index">
+            <tr *ngFor="let dt of todoCourse , let i = index">
               <td>
                 <b>
-                  <input type="checkbox" color="primary" (change)="toggleVisibility(dt.courseno)"  [formControlName]="i">
-                  # {{dt.courseno}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {{dt.coursename}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ({{dt.credit}})
+                  <input type="checkbox" color="primary" (change)="toggleVisibility(dt.courseno)" >
+                  # {{i+1}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {{dt.courseno}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ({{dt.credit}})
                 </b>
                 <b></b>
 
@@ -43,15 +43,15 @@
                   <p>
                   <mat-form-field class="example-full-width">
                     <mat-label>Choose a date</mat-label>
-                    <input matInput [matDatepickerFilter]="myFilter" [min]="startDate" [max]="endtDate" [matDatepicker]="picker" [(ngModel)]="dateselect" click="enableselectSect">
+                    <input matInput [matDatepickerFilter]="myFilter" [min]="startDate" [max]="endtDate" [matDatepicker]="picker" click="enableselectSect">
                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker [dateClass]="dateClass" [startAt]="startDate" #picker></mat-datepicker>
+                    <mat-datepicker [startAt]="startDate" #picker></mat-datepicker>
                   </mat-form-field>
                   &nbsp;
                   <mat-form-field appearance="">
                     <mat-label>เลือกคาบสอบ</mat-label>
                     <mat-select [disabled]="sectionselect">
-                      <mat-option *ngFor="let secf of sectionfix" value="{{secf.sect}}"> {{secf.sect}}</mat-option>
+                      <mat-option *ngFor="let secf of sectionfix" (change)="dateSelect()" value="{{secf.sect}}"> {{secf.sect}}</mat-option>
                     </mat-select>
                     <mat-hint align="end">ระบุคาบสอบ ^</mat-hint>
                   </mat-form-field>
