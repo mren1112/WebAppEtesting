@@ -28,8 +28,8 @@ export interface PeriodicElement {
 export class CourseComponent implements OnInit {
 
   coursetest = [
-    { courseno: 'COS2101' , credit: 3, status: false },
-    { courseno: 'COS2102' , credit: 3, status: false }
+    { courseno: 'COS2101', credit: 3, status: false },
+    { courseno: 'COS2102', credit: 3, status: false }
   ];
 
   sectionfix = [
@@ -38,6 +38,7 @@ export class CourseComponent implements OnInit {
     { sect: 3 }
   ]
   public todoCourse: any = [];
+  public todoSelectCourse: any = [];
   selectCourseCmplt: boolean = false;
   selectCourse: boolean = true;
   isChecked = false;
@@ -51,19 +52,20 @@ export class CourseComponent implements OnInit {
   form: FormGroup;
   chkCourseData = [];
   cntCourseNo = 0;
+  selectedSection;
   public strDate = sessionStorage.getItem("enddate");
-  public endDate =  sessionStorage.getItem("startdate");
-  subStrYear = Number(this.strDate.substring(6,10)) - 543;
-  subStrEndYear = Number(this.endDate.substring(6,10)) - 543;
-  subStrMonth = this.strDate.substring(0,2);
-  subStrEndMonth = this.endDate.substring(0,2);
-  subStrDate = this.strDate.substring(3,5);
-  subStrEndDate = this.endDate.substring(3,5);
+  public endDate = sessionStorage.getItem("startdate");
+  subStrYear = Number(this.strDate.substring(6, 10)) - 543;
+  subStrEndYear = Number(this.endDate.substring(6, 10)) - 543;
+  subStrMonth = this.strDate.substring(0, 2);
+  subStrEndMonth = this.endDate.substring(0, 2);
+  subStrDate = this.strDate.substring(3, 5);
+  subStrEndDate = this.endDate.substring(3, 5);
 
 
   constructor(
     private apiFetchETCourse: ApiFetchETCourseService,
-   // private apiFetchCounter: ApiFetchCounterService,
+    // private apiFetchCounter: ApiFetchCounterService,
     private formBuilder: FormBuilder,
 
   ) {
@@ -93,13 +95,14 @@ export class CourseComponent implements OnInit {
 
 
   ngOnInit() {
-      this.getEtCourse();
+    this.getEtCourse();
+
   }
 
   getEtCourse() {
     this.apiFetchETCourse.getJSON().subscribe(data => {
       this.todoCourse = data.results;
-       this.cntCourseNo =  Object.keys(data).length;
+      this.cntCourseNo = Object.keys(data).length;
       //console.log(data.year);
       // this.tempCourse.push(data);
       sessionStorage.setItem("todoCourse", this.todoCourse);
@@ -110,7 +113,7 @@ export class CourseComponent implements OnInit {
   }
 
 
-  startDate = new Date(Number(this.subStrYear)+543, 6, 1);
+  startDate = new Date(Number(this.subStrYear) + 543, 6, 1);
   endtDate = new Date(2020 + 543, 7, 1);
 
   //paint alert day
@@ -144,7 +147,7 @@ export class CourseComponent implements OnInit {
     // Prevent Saturday and Sunday from being selected.
 
     return day !== 0 && day !== 6;
-   // console.log("myFilter date = " + d);
+    // console.log("myFilter date = " + d);
   }
 
 
@@ -162,40 +165,62 @@ export class CourseComponent implements OnInit {
   }
 
 
-  pushtest = [];
+  pushtest: any = [];
   checked: boolean[] = [];
 
   toggleVisibility(courseno) {
     this.todoCourse.filter(arr => {
       if (arr.courseno == courseno) {
         arr.status = !arr.status
-        this.pushtest.push(arr.courseno);
-        console.log("courseno =" +arr.courseno);
-        console.log("ssssss =" +this.pushtest);
+        if (arr.status === false) {
+
+          this.pushtest.splice(this.pushtest.indexOf(courseno), 1)
+          this.todoSelectCourse.splice(this.todoSelectCourse.indexOf(courseno), 1)
+          console.log("pushtest =" + this.pushtest);
+          console.log("total todoCourse ->>>>>>>>>>> " + JSON.stringify(this.todoSelectCourse));
+        } else {
+          this.pushtest.push(arr.courseno);
+          this.todoSelectCourse.push({
+            "courseno": arr.courseno,
+            "credit": parseInt(arr.credit),
+            "date": parseInt("xxxx"),
+            "section": parseInt("yyy"),
+
+          });
+
+          console.log("total todoCourse ->>>>>>>>>>> " + JSON.stringify(this.todoSelectCourse));
+          console.log("pushtest =" + this.pushtest);
+        }
       }
-    }
-    )
-    /*if ( this.coursetest[i].courseno == this.coursetest[i].courseno  ) {
+      /* console.log("total todoCourse ->>>>>>>>>>> "+ JSON.stringify(this.todoSelectCourse));
+       sessionStorage.setItem("todoSelectCourse",this.todoSelectCourse)*/
+    })
+    sessionStorage.setItem("todoSelectCourse",this.todoSelectCourse);
+    console.log(this.pushtest);
 
-      console.log(i)
-      this.coursetest[i].status = true ;
-
-      this.checked[i]=event;
-      //alert(event);
-      console.log(event)
-      console.log(event.source.id)
-     // this.selectCourse = false;
-    } else
-     this.coursetest[i].status = false ;
-   //   this.isChecked = e.target.checked;
-      //this.selectCourse = true;*/
-      console.log(this.pushtest)
   }
 
-dateselected = [];
+  dateselected = [];
+  x;
   dateSelect() {
-    //this.sectionselect =false;
+    //this.dateselected.push();
+    console.log("dateselected =" + this.dateselected);
+  }
+  value: Date = new Date();
+  chkdate:Date;
 
+  public onDate(event): void {
+    this.dateselected = event;
+    sessionStorage.setItem("5555",JSON.stringify(this.dateselected));
+    console.log("dateselected =" + this.dateselected);
+   // this.getData(this.roomsFilter.date);
+  }
+
+  selected(event: any){
+    this.selectedSection = event.target.value;
+    sessionStorage.setItem("ssss",this.selectedSection);
+    console.log("sec = " + this.selectedSection);
+    alert(this.selectedSection)
   }
 
 }

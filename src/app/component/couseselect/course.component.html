@@ -35,7 +35,7 @@
               <td>
                 <b>
                   <input type="checkbox" color="primary" (change)="toggleVisibility(dt.courseno)" >
-                  # {{i+1}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {{dt.courseno}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ({{dt.credit}})
+                  # {{i+1}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {{dt.courseno}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ({{dt.credit}}) {{dt.x}}
                 </b>
                 <b></b>
 
@@ -43,19 +43,23 @@
                   <p>
                   <mat-form-field class="example-full-width">
                     <mat-label>Choose a date</mat-label>
-                    <input matInput [matDatepickerFilter]="myFilter" [min]="startDate" [max]="endtDate" [matDatepicker]="picker" click="enableselectSect">
+                    <input matInput [matDatepickerFilter]="myFilter" [min]="startDate" [max]="endtDate"
+                    [id]="dt.courseno" [matDatepicker]="picker">
                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker [startAt]="startDate" #picker></mat-datepicker>
+                    <mat-datepicker [startAt]="startDate" #picker ngDefaultControl ></mat-datepicker>
                   </mat-form-field>
                   &nbsp;
                   <mat-form-field appearance="">
                     <mat-label>เลือกคาบสอบ</mat-label>
-                    <mat-select [disabled]="sectionselect">
-                      <mat-option *ngFor="let secf of sectionfix" (change)="dateSelect()" value="{{secf.sect}}"> {{secf.sect}}</mat-option>
+                    <mat-select [(ngModel)]="selectedSection" name="selectedSection" (change)="selected($event)">
+                      <mat-option *ngFor="let item of sectionfix " [value]="item">{{item.sect}}</mat-option>
                     </mat-select>
+
                     <mat-hint align="end">ระบุคาบสอบ ^</mat-hint>
                   </mat-form-field>
-                </p>
+                  <p></p>
+
+
                 </div>
 
               </td>
