@@ -18,6 +18,11 @@ export interface PeriodicElement {
   // symbol: string;
 }
 
+export class newArray {
+  index: number;
+  couse: string;
+}
+
 
 @Component({
   selector: 'app-course',
@@ -37,6 +42,9 @@ export class CourseComponent implements OnInit {
     { sect: 2 },
     { sect: 3 }
   ]
+
+  public newData: newArray[] = [];
+
   public todoCourse: any = [];
   public todoSelectCourse: any = [];
   selectCourseCmplt: boolean = false;
@@ -52,7 +60,7 @@ export class CourseComponent implements OnInit {
   form: FormGroup;
   chkCourseData = [];
   cntCourseNo = 0;
-  selectedSection;
+  selectedSection = [];
   public strDate = sessionStorage.getItem("enddate");
   public endDate = sessionStorage.getItem("startdate");
   subStrYear = Number(this.strDate.substring(6, 10)) - 543;
@@ -61,7 +69,6 @@ export class CourseComponent implements OnInit {
   subStrEndMonth = this.endDate.substring(0, 2);
   subStrDate = this.strDate.substring(3, 5);
   subStrEndDate = this.endDate.substring(3, 5);
-
 
   constructor(
     private apiFetchETCourse: ApiFetchETCourseService,
@@ -99,15 +106,18 @@ export class CourseComponent implements OnInit {
 
   }
 
+
   getEtCourse() {
     this.apiFetchETCourse.getJSON().subscribe(data => {
       this.todoCourse = data.results;
       this.cntCourseNo = Object.keys(data).length;
+
+      // console.log(this.todoCourse);
       //console.log(data.year);
       // this.tempCourse.push(data);
-      sessionStorage.setItem("todoCourse", this.todoCourse);
-      console.log("cntEt = " + this.cntCourseNo);
-      console.log("sub year = " + this.subStrYear);
+      // sessionStorage.setItem("todoCourse", this.todoCourse);
+      // console.log("cntEt = " + this.cntCourseNo);
+      // console.log("sub year = " + this.subStrYear);
       // sessionStorage.setItem("sem",data.semester);
     })
   }
@@ -183,8 +193,8 @@ export class CourseComponent implements OnInit {
           this.todoSelectCourse.push({
             "courseno": arr.courseno,
             "credit": parseInt(arr.credit),
-            "date": parseInt("xxxx"),
-            "section": parseInt("yyy"),
+            "date": "1111",
+            "section": "",
 
           });
 
@@ -195,33 +205,80 @@ export class CourseComponent implements OnInit {
       /* console.log("total todoCourse ->>>>>>>>>>> "+ JSON.stringify(this.todoSelectCourse));
        sessionStorage.setItem("todoSelectCourse",this.todoSelectCourse)*/
     })
-    sessionStorage.setItem("todoSelectCourse",this.todoSelectCourse);
+    sessionStorage.setItem("todoSelectCourse", JSON.stringify(this.todoSelectCourse));
     console.log(this.pushtest);
 
   }
 
   dateselected = [];
   x;
-  dateSelect() {
-    //this.dateselected.push();
-    console.log("dateselected =" + this.dateselected);
-  }
+
+
+
   value: Date = new Date();
-  chkdate:Date;
+  chkdate: Date;
 
+  ss = [];
   public onDate(event): void {
-    this.dateselected = event;
-    sessionStorage.setItem("5555",JSON.stringify(this.dateselected));
-    console.log("dateselected =" + this.dateselected);
-   // this.getData(this.roomsFilter.date);
+    this.ss = event;
+    console.log(this.ss);
+    // this.getData(this.roomsFilter.date);
   }
 
-  selected(event: any){
+  selected(event: any) {
     this.selectedSection = event.target.value;
-    sessionStorage.setItem("ssss",this.selectedSection);
+    //sessionStorage.setItem("ssss", this.selectedSection);
     console.log("sec = " + this.selectedSection);
     alert(this.selectedSection)
   }
+
+  selectedDay : any [];
+
+  //event handler for the select element's change event
+  changeDropdown(obj: any): void {
+    console.log(obj);
+    console.log(this.selectedSection);
+  }
+
+
+  addData(obj: any, index: any): void {
+    //  this.todoSelectCourse.splice(index,1)
+    //sessionStorage.setItem("todoSelectCourse", JSON.stringify(this.todoSelectCourse));
+    console.log("index = " + index);
+    var tempA = this.todoSelectCourse;
+    var dateno;
+
+
+    console.log("ta1 = " + this.selectedDay);
+   /* for (let i = 0; i < this.selectedDay.length; i++) {
+     // dateno[index] = JSON.stringify(this.selectedDay[i]);
+      var filltered = [index].filter(
+        function (e) {
+          tempA[index].date = dateno[index];
+          console.log("ta2 = " + JSON.stringify(tempA));
+          // return localStorage.setItem("todoSelectCourse", JSON.stringify(tempA));
+        }
+      )
+      localStorage.setItem("todoSelectCourse", JSON.stringify(filltered));
+    }*/
+
+
+    //console.log("filltered = " + JSON.stringify(filltered));
+
+    //console.log("date = "+this.selectedDay);
+
+    //console.log("obj = " + JSON.stringify(obj) );
+
+
+
+
+
+    //this.todoSelectCourse.push("tempA " + tempA);
+
+
+  }
+
+
 
 }
 
