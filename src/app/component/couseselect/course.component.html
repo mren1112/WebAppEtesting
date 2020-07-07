@@ -13,51 +13,64 @@
     </div>
     <app-profilecomponent></app-profilecomponent>
 
-    <form >
+    <form>
 
-    <div class="row">
-      <div class="col-12">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">
-                <h2>แสดงวิชาทั้งหมดที่ลงทะเบียนปีการศึกษา</h2>
-              </th>
-            </tr>
-            <tr>
-              <th scope="col">
-              <b> ลำดับ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; วิชา &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; หน่วยกิต </b>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let dt of todoCourse , let i = index">
-              <td>
-                <b>
-                  <input type="checkbox" color="primary" (change)="toggleVisibility(dt.courseno)" >
-                  # {{i+1}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {{dt.courseno}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ({{dt.credit}}) {{dt.x}}
-                </b>
-                <b></b>
+      <div class="row">
+        <div class="col-12">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">
+                  <h2>แสดงวิชาทั้งหมดที่ลงทะเบียนปีการศึกษา</h2>
+                </th>
+              </tr>
+              <tr>
+                <th scope="col">
+                  <b> ลำดับ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; วิชา
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    หน่วยกิต </b>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let dt of todoCourse , let i = index">
+                <td>
+                  <b>
+                    <input type="checkbox" color="primary" (change)="toggleVisibility(dt.courseno)">
+                    # {{i+1}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{dt.courseno}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    ({{dt.credit}}) {{dt.x}}
+                  </b>
+                  <b></b>
 
-                <div *ngIf="dt.status">
-                  <p>
-                  <!-- <mat-form-field class="example-full-width"> -->
-                    <!--mat-label>Choose a date</mat-label>
+                  <div *ngIf="dt.status">
+                    <p>
+                      <!-- <mat-form-field class="example-full-width"> -->
+                      <!--mat-label>Choose a date</mat-label>
                     <input matInput [matDatepickerFilter]="myFilter" [min]="startDate" [max]="endtDate" [id]="dt.courseno" [matDatepicker]="picker" [(ngModel)]="search_do.custNo" [ngModelOptions]="{standalone: true}">
                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker ngDefaultControl [(ngModel)]="search_do.custNo" [ngModelOptions]="{standalone: true}" (selectedChanged)="onDateTest($event)"></mat-datepicker>
                   </mat-form-field-->
-                  <input type="date" [(ngModel)]="selectedDay[i]" color="primary" (change)="addData(dt,i)"  [ngModelOptions]="{standalone: true}">
+                      <!-- <input type="date" [(ngModel)]="selectedDay[i]" color="primary" (change)="addData(dt,i)"  [ngModelOptions]="{standalone: true}">
 
-                <!-- </mat-form-field> -->
-                  &nbsp;
+               </mat-form-field> -->
+                      <mat-form-field class="example-full-width">
+                        <mat-label>Choose a date</mat-label>
+                        <input matInput [(ngModel)]="selectedDay[i]" [ngModelOptions]="{standalone: true}"
+                          [matDatepicker]="picker" [matDatepickerFilter]="myFilter" [min]="startDate" [max]="endtDate"
+                          (dateInput)="addEvent( $event, i,dt.courseno)"  (datechange)="changeEvent(dt.courseno)" />
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker ngDefaultControl></mat-datepicker>
+                      </mat-form-field>
 
-                  <select [(ngModel)]="selectedSection[i]" (change)="changeDropdown(dt)" [ngModelOptions]="{standalone: true}">
-                    <option *ngFor="let item of sectionfix" [value]="item.sect">{{item.sect}}</option>
-                  </select>
+                      &nbsp;
+                    <div *ngIf="dt.secstatus">
+                      <select [(ngModel)]="selectedSection[i]" [id]="dt.courseno"
+                        (change)="changeDropdown(dt.courseno,i)" [ngModelOptions]="{standalone: true}" style="width: 100px;">
+                        <option *ngFor="let item of sectionfix" [value]="item.sect">{{item.sect}}</option>
+                      </select>
+                    </div>
 
-
-                  <!-- <mat-form-field>
+                    <!-- <mat-form-field>
                     <mat-label>Your Team</mat-label>
                     <mat-select [(ngModel)]="selectedSection" (change)="changeDropdown(selectedSection)" [ngModelOptions]="{standalone: true}">
                       <mat-option *ngFor="let item of sectionfix" value="{{item.sect}}">
@@ -65,40 +78,40 @@
                       </mat-option>
                     </mat-select>
                   </mat-form-field> -->
-                  <h3>Your Team is: {{selectedDay}}</h3>
-                  <p></p>
+                    <h3>Your Team is: {{selectedDay}}</h3>
+                    <p></p>
 
-                </div>
+                  </div>
 
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <mat-divider></mat-divider>
-        <section>
-          <div class="example-label">Raised</div>
-          <div class="example-button-row" style="text-align: center;">
-            <button mat-raised-button color="primary" [disabled]="selectCourseCmplt">
-              <span class="material-icons">
-              check_circle_outline
-              </span> ยืนยัน</button>&nbsp;
-            <button routerLink="/" routerLinkActive="active" mat-raised-button color="warn">
-              <span class="material-icons">
-              cached
-              </span> ยกเลิก</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <mat-divider></mat-divider>
+          <section>
+            <div class="example-label">Raised</div>
+            <div class="example-button-row" style="text-align: center;">
+              <button mat-raised-button color="primary" [disabled]="selectCourseCmplt">
+                <span class="material-icons">
+                  check_circle_outline
+                </span> ยืนยัน</button>&nbsp;
+              <button routerLink="/" routerLinkActive="active" mat-raised-button color="warn">
+                <span class="material-icons">
+                  cached
+                </span> ยกเลิก</button>
               <a routerLink="/confirm" routerLinkActive="active"> Component</a>
 
-          </div>
-        </section>
-        <p>
-          <hr>
+            </div>
+          </section>
+          <p>
+            <hr>
+        </div>
       </div>
-    </div>
-  </form>
+    </form>
 
 
   </div>
-<pre>{{todoCourse | json}}</pre>
+  <pre>{{todoCourse | json}}</pre>
 
 </div>
 <app-footer></app-footer>
