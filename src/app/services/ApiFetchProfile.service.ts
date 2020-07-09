@@ -16,7 +16,7 @@ export interface TodoProfile {
 @Injectable()
 export class ApiFetchProfileService {
 
-  urlFetchETCourse = "http://sevkn.ru.ac.th/ADManage/apinessy/etest/getProfile.jsp?STD_CODE=6001041208";
+  urlFetchETCourse = "http://sevkn.ru.ac.th/ADManage/apinessy/etest/getProfile.jsp?STD_CODE=6290508511";
 
   constructor(private http: HttpClient) {
     this.getJSON().subscribe(response => {

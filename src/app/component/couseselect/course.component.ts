@@ -1,6 +1,11 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
+import { Observable, throwError } from 'rxjs';
+import { map, catchError, retry } from 'rxjs/operators';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { element } from 'protractor';
+
 import {
   MatCalendarCellCssClasses,
   MatDatepickerInputEvent,
@@ -14,6 +19,7 @@ import {
 } from '@angular/forms';
 import { ApiFetchETCourseService } from 'src/app/services/ApiFetchETCourse.service';
 import * as moment from 'moment';
+import { ApiFetchDateSectionService } from 'src/app/services/ApiFecthDateSection.service';
 
 export interface PeriodicElement {
   courseno: string;
@@ -39,12 +45,13 @@ export class CourseComponent implements OnInit {
     { courseno: 'COS2102', credit: 3, status: false },
   ];
 
-  sectionfix = [{ sect: 1 }, { sect: 2 }, { sect: 3 }];
+  sectionfix = [{ section: 1 }, { section: 2 }, { section: 3 }, { section: 4 }];
 
   public newData: newArray[] = [];
 
   public todoCourse: any = [];
   public todoSelectCourse: any = [];
+  public todoSection: any = [];
   selectCourseCmplt: boolean = false;
   selectCourse: boolean = true;
   isChecked = false;
@@ -76,7 +83,8 @@ export class CourseComponent implements OnInit {
 
   constructor(
     private apiFetchETCourse: ApiFetchETCourseService,
-    // private apiFetchCounter: ApiFetchCounterService,
+    private apiFetchDateSection: ApiFetchDateSectionService,
+    private httpClient: HttpClient,
     private formBuilder: FormBuilder
   ) {
     this.form = this.formBuilder.group({
@@ -110,6 +118,7 @@ export class CourseComponent implements OnInit {
   getEtCourse() {
     this.apiFetchETCourse.getJSON().subscribe((data) => {
       this.todoCourse = data.results;
+      sessionStorage.setItem('todoCourse', JSON.stringify(this.todoCourse));
       this.cntCourseNo = Object.keys(data).length;
 
       // console.log(this.todoCourse);
@@ -133,7 +142,6 @@ export class CourseComponent implements OnInit {
       }
     });
   }
-
 
   //paint alert day
   dateClass = (d: Date): MatCalendarCellCssClasses => {
@@ -194,7 +202,10 @@ export class CourseComponent implements OnInit {
           );
           console.log('pushtest =' + this.pushtest);
           sessionStorage.setItem('todoSelectCourse', this.todoSelectCourse);
-          console.log('push null todoCourse ->>>>>>>>>>> ' + JSON.stringify(this.todoSelectCourse));
+          console.log(
+            'push null todoCourse ->>>>>>>>>>> ' +
+              JSON.stringify(this.todoSelectCourse)
+          );
         } else {
           this.pushtest.push(arr.courseno);
           this.todoSelectCourse.push({
@@ -203,8 +214,14 @@ export class CourseComponent implements OnInit {
             date: '1111',
             section: '',
           });
-          sessionStorage.setItem('todoSelectCourse', JSON.stringify(this.todoSelectCourse));
-          console.log('total todoCourse ->>>>>>>>>>> ' + JSON.stringify(this.todoSelectCourse));
+          sessionStorage.setItem(
+            'todoSelectCourse',
+            JSON.stringify(this.todoSelectCourse)
+          );
+          console.log(
+            'total todoCourse ->>>>>>>>>>> ' +
+              JSON.stringify(this.todoSelectCourse)
+          );
           console.log('pushtest =' + this.pushtest);
         }
       }
@@ -215,7 +232,8 @@ export class CourseComponent implements OnInit {
     console.log(this.pushtest);
   }
 
-  dateselected = [];  Date = new Date();
+  dateselected = [];
+  Date = new Date();
   chkdate: Date;
 
   ss = [];
@@ -232,25 +250,21 @@ export class CourseComponent implements OnInit {
     alert(this.selectedSection);
   }
 
-
-
   //event handler for the select element's change event
-  changeDropdown(obj: any,index: any){
-    console.log('yy= '+ obj);
-    console.log('dd= '+ this.selectedSection);
+  changeDropdown(obj: any, index: any) {
+    console.log('yy= ' + obj);
+    console.log('dd= ' + this.selectedSection);
 
     var tempA = this.todoSelectCourse;
-    tempA.filter((arr) =>{
+    tempA.filter((arr) => {
       if (arr.courseno == obj) {
         arr.section = this.selectedSection[index];
-
       }
-    })
+    });
 
-  sessionStorage.setItem('todoSelectCourse', JSON.stringify(tempA));
-  //this.todoSelectCourse.splice(0, 1);
-  console.log('tempA dd After = ' + JSON.stringify(tempA));
-
+    sessionStorage.setItem('todoSelectCourse', JSON.stringify(tempA));
+    //this.todoSelectCourse.splice(0, 1);
+    console.log('tempA dd After = ' + JSON.stringify(tempA));
   }
 
   addData(obj: any, index: any): void {
@@ -260,23 +274,20 @@ export class CourseComponent implements OnInit {
     var tempA = null;
     tempA = this.todoSelectCourse;
     var tmpstr = this.selectedDay;
-
   }
 
-  changeEvent(courseno){
+  changeEvent(courseno) {
     var tempA = this.todoCourse;
-    this.todoCourse.filter((arr) =>{
+    this.todoCourse.filter((arr) => {
       if (arr.courseno == courseno) {
         arr.secstatus = !arr.secstatus;
         console.log('arr.secstatus = ' + arr.secstatus);
       }
-    })
-
+    });
   }
 
-
   isSelectdate = false;
-  addEvent(event: MatDatepickerInputEvent<Date>, index: any,courseno) {
+  addEvent(event: MatDatepickerInputEvent<Date>, index: any, courseno) {
     console.clear();
     // this.todoSelectCourse.splice(index,1)
     //sessionStorage.setItem("todoSelectCourse", JSON.stringify(this.todoSelectCourse));
@@ -290,28 +301,38 @@ export class CourseComponent implements OnInit {
 
     this.events.push(`${event.value}`);
     console.log('this.events = ' + JSON.stringify(this.events));
-    var tmpdatetoStr = moment(new Date(this.events.join())).format("DD/MM/YYYY");
+    var tmpdatetoStr = moment(new Date(this.events.join())).format(
+      'DD/MM/YYYY'
+    );
+    sessionStorage.setItem('tmpdatetoStr', tmpdatetoStr);
     console.log('tmpdatetoStr = ' + tmpdatetoStr);
     var tempA = this.todoSelectCourse;
     var tmpstr = this.selectedDay;
 
+    console.log('tempA if aaa = ' + JSON.stringify(tempA));
 
-      console.log('tempA if aaa = ' + JSON.stringify(tempA));
+    tempA.filter((arr) => {
+      if (arr.courseno == courseno) {
+        arr.date = tmpdatetoStr;
+        //arr.secstatus = !arr.secstatus;
+      }
+    });
 
+    if (tmpdatetoStr != null) {
+      this.apiFetchDateSection.getJSON().subscribe((data) => {
+        this.todoSection = data.results;
+        console.log('this.todoSection = ' + JSON.stringify(this.todoSection));
+      });
 
-      tempA.filter((arr) =>{
-        if (arr.courseno == courseno) {
-          arr.date = tmpdatetoStr;
-          //arr.secstatus = !arr.secstatus;
-        }
-      })
-      
-      this.todoCourse.filter((arr) =>{
-        if (arr.courseno == courseno) {
-          arr.secstatus = !arr.secstatus;
-          console.log('arr.secstatus = ' + arr.secstatus);
-        }
-      })
+      if (this.todoSection != null) {
+        this.todoCourse.filter((arr) => {
+          if (arr.courseno == courseno) {
+            arr.secstatus = !arr.secstatus;
+            //console.log('arr.secstatus = ' + arr.secstatus);
+          }
+        });
+      }
+    }
 
     this.todoSelectCourse = tempA;
     sessionStorage.setItem('todoSelectCourse', JSON.stringify(tempA));
@@ -321,7 +342,5 @@ export class CourseComponent implements OnInit {
     console.log('tempA if After = ' + JSON.stringify(tempA));
 
     //console.log('filltered = ' + JSON.stringify(filltered));
-
   }
-
 }

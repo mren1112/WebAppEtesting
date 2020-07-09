@@ -52,6 +52,7 @@ import { ApiFetchETCourseService } from './services/ApiFetchETCourse.service';
 import { ApiFetchProfileService } from './services/ApiFetchProfile.service';
 import { ApiFetchCounterService } from './services/ApiFetchCounter.service';
 import { ApiFetchDateService } from './services/ApiFetchDate.service';
+import { ApiFetchDateSectionService } from './services/ApiFecthDateSection.service';
 
 const appRoutes:Routes=[
   {path:"", component:HomeMenuCreateComponent},
@@ -124,6 +125,7 @@ const appRoutes:Routes=[
     ApiFetchProfileService,
     ApiFetchCounterService,
     ApiFetchDateService,
+    ApiFetchDateSectionService,
     //{provide: LOCALE_ID, useValue: 'en' },
     //{ provide: LOCALE_ID, useValue: "th-TH" }
   ],
