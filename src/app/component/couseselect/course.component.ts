@@ -46,7 +46,9 @@ export class CourseComponent implements OnInit {
   ];
 
   sectionfix = [{ section: 1 }, { section: 2 }, { section: 3 }, { section: 4 }];
-
+  public us = sessionStorage.getItem("stdcode");
+  public sem = sessionStorage.getItem("sem");
+  public year = sessionStorage.getItem("year");
   public newData: newArray[] = [];
 
   public todoCourse: any = [];
@@ -263,6 +265,7 @@ export class CourseComponent implements OnInit {
     });
 
     sessionStorage.setItem('todoSelectCourse', JSON.stringify(tempA));
+    //this.todoSection = null;
     //this.todoSelectCourse.splice(0, 1);
     console.log('tempA dd After = ' + JSON.stringify(tempA));
   }
@@ -319,19 +322,8 @@ export class CourseComponent implements OnInit {
     });
 
     if (tmpdatetoStr != null) {
-      this.apiFetchDateSection.getJSON().subscribe((data) => {
-        this.todoSection = data.results;
-        console.log('this.todoSection = ' + JSON.stringify(this.todoSection));
-      });
+      this.getSection(tmpdatetoStr,courseno);
 
-      if (this.todoSection != null) {
-        this.todoCourse.filter((arr) => {
-          if (arr.courseno == courseno) {
-            arr.secstatus = !arr.secstatus;
-            //console.log('arr.secstatus = ' + arr.secstatus);
-          }
-        });
-      }
     }
 
     this.todoSelectCourse = tempA;
@@ -342,5 +334,21 @@ export class CourseComponent implements OnInit {
     console.log('tempA if After = ' + JSON.stringify(tempA));
 
     //console.log('filltered = ' + JSON.stringify(filltered));
+  }
+
+  getSection(tmpdatetoStr,courseno) {
+    this.httpClient.get("http://sevkn.ru.ac.th/ADManage/apinessy/etest/getDateSection.jsp?"+this.us+"&sem="+this.sem+"&year="+this.year+"&dateselect="+tmpdatetoStr).subscribe(res =>{
+      this.todoSection = res;
+      alert(JSON.stringify(res))
+      alert(tmpdatetoStr)
+      if (this.todoSection != null) {
+        this.todoCourse.filter((arr) => {
+          if (arr.courseno == courseno) {
+            arr.secstatus = !arr.secstatus;
+            //console.log('arr.secstatus = ' + arr.secstatus);
+          }
+        });
+      }
+    });
   }
 }

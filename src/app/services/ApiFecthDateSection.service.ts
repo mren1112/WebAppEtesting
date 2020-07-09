@@ -12,10 +12,10 @@ export class ApiFetchDateSectionService {
   public us = sessionStorage.getItem("stdcode");
   public sem = sessionStorage.getItem("sem");
   public year = sessionStorage.getItem("year");
-  public tmpdatetoStr = sessionStorage.getItem("tmpdatetoStr");
+  //public tmpdatetoStr = sessionStorage.getItem("tmpdatetoStr");
 
 
-  urlFetchAllCourse= "http://sevkn.ru.ac.th/ADManage/apinessy/etest/getDateSection.jsp?STD_CODE="+this.us+"&sem="+this.sem+"&year="+this.year+"&dateselect="+this.tmpdatetoStr;
+  urlFetchAllCourse= "http://sevkn.ru.ac.th/ADManage/apinessy/etest/getDateSection.jsp?STD_CODE="+this.us+"&sem="+this.sem+"&year="+this.year+"&dateselect=";
 
 
 
