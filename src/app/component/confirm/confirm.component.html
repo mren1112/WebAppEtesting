@@ -30,15 +30,16 @@
            </tr>
          </thead>
          <tbody>
-           <tr>
+           <tr *ngFor="let item of todoConfirmSelectCourse">
              <th scope="row" style="width: 10px;">1</th>
-             <td>MTH1000</td>
-             <td> 23 พ.ค. 63</td>
-             <td>(1) 09.30 - 12.00 น.</td>
+             <td>{{item.courseno}}</td>
+             <td> {{item.date}}</td>
+             <td>{{item.sectime}} น. ({{item.section}})</td>
            </tr>
 
          </tbody>
        </table>
+
 
        <mat-divider></mat-divider>
        <P></P>
@@ -61,5 +62,5 @@
       </div>
     </div>
    </div>
-
+   {{todoConfirmSelectCourse | json}}
 </main>

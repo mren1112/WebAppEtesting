@@ -54,6 +54,8 @@ export class CourseComponent implements OnInit {
   public todoCourse: any = [];
   public todoSelectCourse: any = [];
   public todoSection: any = [];
+  json_tmp: any=[];
+
   selectCourseCmplt: boolean = false;
   selectCourse: boolean = true;
   isChecked = false;
@@ -120,6 +122,8 @@ export class CourseComponent implements OnInit {
   getEtCourse() {
     this.apiFetchETCourse.getJSON().subscribe((data) => {
       this.todoCourse = data.results;
+      //this.todoCourse =this.coursetest;
+
       sessionStorage.setItem('todoCourse', JSON.stringify(this.todoCourse));
       this.cntCourseNo = Object.keys(data).length;
 
@@ -206,7 +210,7 @@ export class CourseComponent implements OnInit {
           sessionStorage.setItem('todoSelectCourse', this.todoSelectCourse);
           console.log(
             'push null todoCourse ->>>>>>>>>>> ' +
-              JSON.stringify(this.todoSelectCourse)
+            JSON.stringify(this.todoSelectCourse)
           );
         } else {
           this.pushtest.push(arr.courseno);
@@ -215,6 +219,7 @@ export class CourseComponent implements OnInit {
             credit: parseInt(arr.credit),
             date: '1111',
             section: '',
+            sectime: 'yy/yy/yyyy'
           });
           sessionStorage.setItem(
             'todoSelectCourse',
@@ -222,7 +227,7 @@ export class CourseComponent implements OnInit {
           );
           console.log(
             'total todoCourse ->>>>>>>>>>> ' +
-              JSON.stringify(this.todoSelectCourse)
+            JSON.stringify(this.todoSelectCourse)
           );
           console.log('pushtest =' + this.pushtest);
         }
@@ -254,15 +259,36 @@ export class CourseComponent implements OnInit {
 
   //event handler for the select element's change event
   changeDropdown(obj: any, index: any) {
+    var tmpsec = "";
+    var sectime="";
+    var tmpsec2 = "xx/xx/xxxx";
+
     console.log('yy= ' + obj);
     console.log('dd= ' + this.selectedSection);
+
+    for (let i = 0; i < this.selectedSection.length; i++) {
+      tmpsec = this.selectedSection[i];
+    }
+
 
     var tempA = this.todoSelectCourse;
     tempA.filter((arr) => {
       if (arr.courseno == obj) {
         arr.section = this.selectedSection[index];
+        if (tmpsec == "1") {
+          sectime = "9.30 - 12.00";
+        } else if (tmpsec == "2") {
+          sectime = "13.00 - 15.30";  alert("6666");
+        }else if (tmpsec == "3") {
+          sectime = "16.00 - 18.30";
+        }else if (tmpsec == "4") {
+          sectime = "19.00 - 21.30";
+        }
+       arr.sectime = sectime;
       }
-    });
+    });console.log('sectime = ' + sectime);
+
+
 
     sessionStorage.setItem('todoSelectCourse', JSON.stringify(tempA));
     //this.todoSection = null;
@@ -321,10 +347,10 @@ export class CourseComponent implements OnInit {
       }
     });
 
-    if (tmpdatetoStr != null) {
-      this.getSection(tmpdatetoStr,courseno);
+    //if (tmpdatetoStr != null) {
+      this.getSection(tmpdatetoStr, courseno);
 
-    }
+    //}
 
     this.todoSelectCourse = tempA;
     sessionStorage.setItem('todoSelectCourse', JSON.stringify(tempA));
@@ -336,12 +362,47 @@ export class CourseComponent implements OnInit {
     //console.log('filltered = ' + JSON.stringify(filltered));
   }
 
-  getSection(tmpdatetoStr,courseno) {
-    this.httpClient.get("http://sevkn.ru.ac.th/ADManage/apinessy/etest/getDateSection.jsp?"+this.us+"&sem="+this.sem+"&year="+this.year+"&dateselect="+tmpdatetoStr).subscribe(res =>{
-      this.todoSection = res;
-      alert(JSON.stringify(res))
-      alert(tmpdatetoStr)
+  getSection(tmpdatetoStr,courseno
+    ) {
+    this.httpClient.get("http://sevkn.ru.ac.th/ADManage/apinessy/etest/getDateSection.jsp?" + this.us + "&sem=" + this.sem
+    + "&year=" + this.year + "&dateselect=" + tmpdatetoStr + "&courseno=" + courseno).subscribe(res => {
+    this.todoSection = res;
+
+
+    var seemCourseno = false;
+    var inxJson_tmp = 0;
+    for (let i = 0; i < this.json_tmp.length; i++) {
+      if (this.json_tmp[i].courseno == this.todoSection[0].courseno) {
+        seemCourseno = true;
+        inxJson_tmp=i;
+      }
+    }
+
+    if (seemCourseno) {
+      this.json_tmp[inxJson_tmp].date = this.todoSection[0].date;
+      this.json_tmp[inxJson_tmp].section = this.todoSection[0].section;
+    }else{
+      this.json_tmp.push(this.todoSection[0]);
+    }
+
+    if( this.json_tmp.length == 0){
+      console.log( "null");
+      this.json_tmp.push(this.todoSection[0]);
+    }
+
+
+
+    console.log( this.json_tmp);
+
+    this.todoSection = this.json_tmp;
+     // alert(JSON.stringify(res))
+     // alert(tmpdatetoStr)
+
+    // this.todoSection = this.json_mock;
+
       if (this.todoSection != null) {
+
+
         this.todoCourse.filter((arr) => {
           if (arr.courseno == courseno) {
             arr.secstatus = !arr.secstatus;
@@ -351,4 +412,23 @@ export class CourseComponent implements OnInit {
       }
     });
   }
+
+
+/*
+
+  json_mock=[
+    {"courseno":"THA1003",
+    "date":"02/02/2020",
+    "data":[1,4]},
+            {"courseno":"PHI1003",
+             "date":"02/02/2020",
+             "data":[1,2,3,4]
+            }
+
+
+
+            ];
+
+*/
+
 }
