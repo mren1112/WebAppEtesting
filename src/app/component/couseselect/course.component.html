@@ -63,7 +63,7 @@
                       </mat-form-field> &nbsp;&nbsp;
 
                       <label *ngIf="dt.secstatus" for="{{dt.courseno}}">select section</label>&nbsp;
-                      <select  [(ngModel)]="selectedSection[i]" [id]="dt.courseno"
+                      <select *ngIf="dt.secstatus" [(ngModel)]="selectedSection[i]" [id]="dt.courseno"
                         (change)="changeDropdown(dt.courseno,i)" [ngModelOptions]="{standalone: true}">
 
                         <!--<option *ngFor="let item of todoSection[0].data"  [value]="item">{{item}}</option> -->

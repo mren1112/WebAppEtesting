@@ -347,10 +347,10 @@ export class CourseComponent implements OnInit {
       }
     });
 
-    //if (tmpdatetoStr != null) {
+    if (tmpdatetoStr != null) {
       this.getSection(tmpdatetoStr, courseno);
 
-    //}
+    }
 
     this.todoSelectCourse = tempA;
     sessionStorage.setItem('todoSelectCourse', JSON.stringify(tempA));
@@ -400,7 +400,7 @@ export class CourseComponent implements OnInit {
 
     // this.todoSection = this.json_mock;
 
-      if (this.todoSection != null) {
+      if (this.todoSection.section == null) {
 
 
         this.todoCourse.filter((arr) => {
