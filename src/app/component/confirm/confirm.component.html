@@ -30,7 +30,7 @@
            </tr>
          </thead>
          <tbody>
-           <tr *ngFor="let item of todoConfirmSelectCourse">
+           <tr *ngFor="let item of todoCourse">
              <th scope="row" style="width: 10px;">1</th>
              <td>{{item.courseno}}</td>
              <td> {{item.date}}</td>
@@ -63,7 +63,9 @@
        <P></P>
        <section>
          <div class="example-button-row" style="text-align: center;">
-           <button mat-raised-button color="primary" >
+       <!--  <button mat-raised-button color="primary"  routerLink="/payment" routerLinkActive="active" (click)="confirm()">-->
+
+           <button mat-raised-button color="primary" (click)="confirm()">
              <span class="material-icons">
              check_circle_outline
              </span> ยืนยัน</button>&nbsp;
@@ -80,5 +82,5 @@
       </div>
     </div>
    </div>
-   {{todoConfirmSelectCourse | json}}
+   {{todoCourse | json}}
 </main>

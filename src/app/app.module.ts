@@ -54,6 +54,7 @@ import { ApiFetchCounterService } from './services/ApiFetchCounter.service';
 import { ApiFetchDateService } from './services/ApiFetchDate.service';
 import { ApiFetchDateSectionService } from './services/ApiFecthDateSection.service';
 import { ApiConfirmService } from './services/ApiConfirm.service';
+import { HttpModule } from '@angular/http';
 
 const appRoutes:Routes=[
   {path:"", component:HomeMenuCreateComponent},
@@ -92,6 +93,7 @@ const appRoutes:Routes=[
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatToolbarModule,
@@ -127,7 +129,7 @@ const appRoutes:Routes=[
     ApiFetchCounterService,
     ApiFetchDateService,
     ApiFetchDateSectionService,
-    ApiConfirmService
+    ApiConfirmService,
     //{provide: LOCALE_ID, useValue: 'en' },
     //{ provide: LOCALE_ID, useValue: "th-TH" }
   ],

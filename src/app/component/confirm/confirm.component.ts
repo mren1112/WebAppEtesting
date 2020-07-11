@@ -13,6 +13,7 @@ import {
   ValidatorFn,
 } from '@angular/forms';
 import * as moment from 'moment';
+import { ApiConfirmService } from '../../services/ApiConfirm.service';
 
 
 @Component({
@@ -28,18 +29,65 @@ export class ConfirmComponent implements OnInit{
     { courseno: 'COS2102', credit: 3, status: false },
   ];
 
-  public us;
-  public sem;
-  public year;
-  public todoConfirmSelectCourse;
+
   //todotest: any  = localStorage.getItem("todo");
   public cntTodoCourse;
+
+//-----------------------------
+public todoCourse: any=[];
+  public tmpCourse: any=[];
+  public sumCredit:number;
+  public iCourse: any=[];
+  public iCredit: any=[];
+  public iFeelab: any=[];
+  public iCourclass: any=[];
+  public iSection: any=[];
+  public iType: any=[];
+  public iExamdate: any=[];
+  public sumMoney;
+  public subyear;
+  public year;
+  public semester;
+
+  public todocredit:  any=[];
+  public todo:  any=[];
+public aCredit;
+  public aCreditCost;
+  public aMa;
+  public aMaCost;
+  public aStastd;
+  public aStastdCost;
+  public aNews;
+  public aNewsCost;
+  public aLab;
+  public aLabCost;
+  public aCommu;
+  public aCommuCost;
+  public stdstatus;
+  public totalCredit;
+  public fac;
+  public majorno;
   public total;
-
-
+  public name;
+  public grad = sessionStorage.getItem("neargrad");;
+  public us;
+  public feeTemp;
+  public feeNo;
+  public adddroptype;
+  public sumCreditTodo;
+  public sumCreditTmp;
+  public isenabled: boolean = false;
+  public alert='';
+  public stdcodeEnc;
+  public tel;
+  public stdyear;
+  public creditMax;
+  public creditMin;
+  public creditMaxEnd;
+//----------------------------
   constructor(
-    private httpClient: HttpClient, ){
-      
+    private httpClient: HttpClient,private confirmservice:ApiConfirmService){
+
   }
 
   ngOnInit(){
@@ -49,18 +97,18 @@ export class ConfirmComponent implements OnInit{
 
   chkTodoSelectCourse(){
     this.us = sessionStorage.getItem("stdcode");
-    this.sem = sessionStorage.getItem("sem");
+    this.semester = sessionStorage.getItem("sem");
     this.year = sessionStorage.getItem("year");
-  this.todoConfirmSelectCourse = JSON.parse(sessionStorage.getItem("todoSelectCourse"));
-  this.cntTodoCourse = Object.keys(this.todoConfirmSelectCourse).length;
+  this.todoCourse = JSON.parse(sessionStorage.getItem("todoSelectCourse"));
+  this.cntTodoCourse = Object.keys(this.todoCourse).length;
 
   this.total = Number(this.cntTodoCourse) * 50;
   if (this.total != 0) {
     sessionStorage.setItem("total",this.total)
   }
 
-    if (this.todoConfirmSelectCourse != null && this.cntTodoCourse != 0) {
-      console.log("todoConfirmSelectCourse = " + this.todoConfirmSelectCourse);
+    if (this.todoCourse != null && this.cntTodoCourse != 0) {
+      console.log("todoConfirmSelectCourse = " + this.todoCourse);
       console.log("total course = " + this.cntTodoCourse);
 
      // alert("wtf1"+ this.todoConfirmSelectCourse);
@@ -70,6 +118,27 @@ export class ConfirmComponent implements OnInit{
 
   }
 
+  confirm(){
 
+
+    var tempA =  JSON.parse(sessionStorage.getItem("todoCourse"));
+    this.sumCredit = 0;
+
+
+
+    this.confirmservice.doConfirm(
+      this.us ,
+
+
+      )
+    .then((data:any) => {});
+
+    this.iCourse= [];
+    this.iCredit= [];
+    this.iFeelab= [];
+    this.iSection= [];
+    this.iCourclass= [];
+    this.aLabCost= [];
+  }
 
 }
