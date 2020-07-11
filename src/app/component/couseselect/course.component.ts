@@ -46,9 +46,9 @@ export class CourseComponent implements OnInit {
   ];
 
   sectionfix = [{ section: 1 }, { section: 2 }, { section: 3 }, { section: 4 }];
-  public us = sessionStorage.getItem("stdcode");
-  public sem = sessionStorage.getItem("sem");
-  public year = sessionStorage.getItem("year");
+  public us;
+  public sem;
+  public year;
   public newData: newArray[] = [];
 
   public todoCourse: any = [];
@@ -71,8 +71,8 @@ export class CourseComponent implements OnInit {
   cntCourseNo = 0;
   selectedSection = [];
 
-  public strDate = sessionStorage.getItem('enddate');
-  public endDate = sessionStorage.getItem('startdate');
+  public strDate;
+  public endDate;
   subStrYear;
   subStrEndYear;
   subStrMonth;
@@ -116,6 +116,11 @@ export class CourseComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.us = sessionStorage.getItem("stdcode");
+    this.sem = sessionStorage.getItem("sem");
+    this.year = sessionStorage.getItem("year");
+    this.strDate = sessionStorage.getItem('enddate');
+    this.endDate = sessionStorage.getItem('startdate');
     this.getEtCourse();
   }
 

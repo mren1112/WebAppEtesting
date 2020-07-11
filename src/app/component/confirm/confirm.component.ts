@@ -28,29 +28,40 @@ export class ConfirmComponent implements OnInit{
     { courseno: 'COS2102', credit: 3, status: false },
   ];
 
-  public us = sessionStorage.getItem("stdcode");
-  public sem = sessionStorage.getItem("sem");
-  public year = sessionStorage.getItem("year");
-   todoConfirmSelectCourse = JSON.parse(sessionStorage.getItem("todoSelectCourse"));
-  todotest: any  = localStorage.getItem("todo");
+  public us;
+  public sem;
+  public year;
+  public todoConfirmSelectCourse;
+  //todotest: any  = localStorage.getItem("todo");
+  public cntTodoCourse;
+  public total;
 
-  form: FormGroup;
+
   constructor(
-    private httpClient: HttpClient,
-    private formBuilder: FormBuilder){
-      this.form = this.formBuilder.group({
-        tempChkCourse: new FormArray([]),
-      });
+    private httpClient: HttpClient, ){
+      
   }
 
   ngOnInit(){
+
     this.chkTodoSelectCourse();
   }
 
   chkTodoSelectCourse(){
+    this.us = sessionStorage.getItem("stdcode");
+    this.sem = sessionStorage.getItem("sem");
+    this.year = sessionStorage.getItem("year");
+  this.todoConfirmSelectCourse = JSON.parse(sessionStorage.getItem("todoSelectCourse"));
+  this.cntTodoCourse = Object.keys(this.todoConfirmSelectCourse).length;
 
-    if (this.todoConfirmSelectCourse != null) {
+  this.total = Number(this.cntTodoCourse) * 50;
+  if (this.total != 0) {
+    sessionStorage.setItem("total",this.total)
+  }
+
+    if (this.todoConfirmSelectCourse != null && this.cntTodoCourse != 0) {
       console.log("todoConfirmSelectCourse = " + this.todoConfirmSelectCourse);
+      console.log("total course = " + this.cntTodoCourse);
 
      // alert("wtf1"+ this.todoConfirmSelectCourse);
     } else {
@@ -58,4 +69,7 @@ export class ConfirmComponent implements OnInit{
     }
 
   }
+
+
+
 }
