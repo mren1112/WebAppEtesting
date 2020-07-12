@@ -14,7 +14,7 @@ import {
 } from '@angular/forms';
 import * as moment from 'moment';
 import { ApiConfirmService } from '../../services/ApiConfirm.service';
-
+import { Http } from '@angular/http';
 
 @Component({
     selector: 'app-confirm',
@@ -35,6 +35,7 @@ export class ConfirmComponent implements OnInit{
 
 //-----------------------------
 public todoCourse: any=[];
+public tmptodoCourse: any=[];
   public tmpCourse: any=[];
   public sumCredit:number;
   public iCourse: any=[];
@@ -86,13 +87,17 @@ public aCredit;
   public creditMaxEnd;
 //----------------------------
   constructor(
-    private httpClient: HttpClient,private confirmservice:ApiConfirmService){
+    private httpClient: HttpClient,
+    private confirmservice:ApiConfirmService,
+
+    ){
 
   }
 
   ngOnInit(){
 
     this.chkTodoSelectCourse();
+    this.chbkconfirm();
   }
 
   chkTodoSelectCourse(){
@@ -118,27 +123,56 @@ public aCredit;
 
   }
 
+  chbkconfirm(){
+     this.tmptodoCourse = this.todoCourse;
+    var chksection;
+    var tmpSection:any[] =[];
+    for (let i = 0; i < this.tmptodoCourse .length; i++) {
+      if (this.todoCourse[i].courseno != null) {
+        this.httpClient.get("http://sevkn.ru.ac.th/ADManage/apinessy/etest/chkDateSection.jsp?STD_CODE=" + this.us + "&sem=" + this.semester
+        + "&year=" + this.year + "&dateselect=" + this.tmptodoCourse[i].date + "&period=" + this.tmptodoCourse[i].section).subscribe(res => {
+        chksection = res;
+
+            //tmpSection[i] =chksection.result;
+           // tmptodoCourse[i].push({tmpSection: chksection.result})
+          // this.tmptodoCourse.filter((arr) => {
+            this.tmptodoCourse[i].tmpSection = chksection.result;
+        //  });
+
+        if (this.tmptodoCourse[i].tmpSection == 0) {
+
+        }
+            console.log("tmpSection = "+JSON.stringify(this.tmptodoCourse));
+      });
+      }
+
+
+    }
+  }
+
+
+
   confirm(){
 
 
-    var tempA =  JSON.parse(sessionStorage.getItem("todoCourse"));
-    this.sumCredit = 0;
+      var tempA =  JSON.parse(sessionStorage.getItem("todoCourse"));
+      this.sumCredit = 0;
+
+      this.confirmservice.doConfirm(
+        this.us ,
 
 
+        )
+      .then((data:any) => {});
 
-    this.confirmservice.doConfirm(
-      this.us ,
+      this.iCourse= [];
+      this.iCredit= [];
+      this.iFeelab= [];
+      this.iSection= [];
+      this.iCourclass= [];
+      this.aLabCost= [];
+    }
 
 
-      )
-    .then((data:any) => {});
-
-    this.iCourse= [];
-    this.iCredit= [];
-    this.iFeelab= [];
-    this.iSection= [];
-    this.iCourclass= [];
-    this.aLabCost= [];
-  }
 
 }

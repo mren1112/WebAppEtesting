@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 export class ApiConfirmService {
 constructor(public http: Http) { }
 //npm install @angular/http@latest
-
+//https://devtest.ru.ac.th/ThaiQR/eTestQR?totalAmount=500&username=6299999991&tel=08123456789&duedate=200320
 /*doConfirm(username:string){
   const body = new HttpParams()
     .set('username', username);

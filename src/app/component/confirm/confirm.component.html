@@ -30,7 +30,7 @@
            </tr>
          </thead>
          <tbody>
-           <tr *ngFor="let item of todoCourse">
+           <tr *ngFor="let item of tmptodoCourse">
              <th scope="row" style="width: 10px;">1</th>
              <td>{{item.courseno}}</td>
              <td> {{item.date}}</td>
@@ -65,11 +65,11 @@
          <div class="example-button-row" style="text-align: center;">
        <!--  <button mat-raised-button color="primary"  routerLink="/payment" routerLinkActive="active" (click)="confirm()">-->
 
-           <button mat-raised-button color="primary" (click)="confirm()">
+           <button mat-raised-button color="primary" routerLink="/payment" routerLinkActive="active" (click)="confirm()">
              <span class="material-icons">
              check_circle_outline
              </span> ยืนยัน</button>&nbsp;
-           <button mat-raised-button color="warn">
+           <button mat-raised-button color="warn" routerLink="/course" routerLinkActive="active">
             <span class="material-icons">
               fast_rewind
               </span> ยกเลิก</button>
