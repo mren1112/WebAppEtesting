@@ -123,6 +123,7 @@ public aCredit;
 
   }
 
+  isenabled =true;
   chbkconfirm(){
      this.tmptodoCourse = this.todoCourse;
     var chksection;
@@ -133,10 +134,16 @@ public aCredit;
         + "&year=" + this.year + "&dateselect=" + this.tmptodoCourse[i].date + "&period=" + this.tmptodoCourse[i].section).subscribe(res => {
         chksection = res;
 
-            //tmpSection[i] =chksection.result;
+            tmpSection[i] =chksection.result;
+
+             if (tmpSection[i] == 0) {
+              this.isenabled =false;
+              this.tmptodoCourse[i].tmpSection = '!คาบสอบที่เลือกเต็ม';
+             }
            // tmptodoCourse[i].push({tmpSection: chksection.result})
           // this.tmptodoCourse.filter((arr) => {
-            this.tmptodoCourse[i].tmpSection = chksection.result;
+
+
         //  });
 
         if (this.tmptodoCourse[i].tmpSection == 0) {
