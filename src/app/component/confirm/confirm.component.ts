@@ -139,6 +139,8 @@ public aCredit;
              if (tmpSection[i] == 0) {
               this.isenabled =false;
               this.tmptodoCourse[i].tmpSection = '!คาบสอบที่เลือกเต็ม';
+             }else{
+              this.confirm();
              }
            // tmptodoCourse[i].push({tmpSection: chksection.result})
           // this.tmptodoCourse.filter((arr) => {
