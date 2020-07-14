@@ -128,8 +128,6 @@ export class CourseComponent implements OnInit {
     this.apiFetchETCourse.getJSON().subscribe((data) => {
       this.todoCourse = data.results;
       //this.todoCourse =this.coursetest;
-
-      sessionStorage.setItem('todoCourse', JSON.stringify(this.todoCourse));
       this.cntCourseNo = Object.keys(data).length;
 
       // console.log(this.todoCourse);
@@ -222,7 +220,7 @@ export class CourseComponent implements OnInit {
           this.todoSelectCourse.push({
             courseno: arr.courseno,
             credit: parseInt(arr.credit),
-            date: '1111',
+            examdate: '1111',
             section: '',
             sectime: 'yy/yy/yyyy',
             tmpSection: '',
@@ -269,13 +267,12 @@ export class CourseComponent implements OnInit {
     var sectime="";
     var tmpsec2 = "xx/xx/xxxx";
 
-    console.log('yy= ' + obj);
-    console.log('dd= ' + this.selectedSection);
+    console.log('course= ' + obj);
+    console.log('selectedSection= ' + this.selectedSection);
 
     for (let i = 0; i < this.selectedSection.length; i++) {
       tmpsec = this.selectedSection[i];
     }
-
 
     var tempA = this.todoSelectCourse;
     tempA.filter((arr) => {
@@ -292,14 +289,15 @@ export class CourseComponent implements OnInit {
         }
        arr.sectime = sectime;
       }
-    });console.log('sectime = ' + sectime);
+    });
+    console.log('sectime = ' + sectime);
 
 
 
     sessionStorage.setItem('todoSelectCourse', JSON.stringify(tempA));
     //this.todoSection = null;
     //this.todoSelectCourse.splice(0, 1);
-    console.log('tempA dd After = ' + JSON.stringify(tempA));
+  // console.log('tempA dd After = ' + JSON.stringify(tempA));
   }
 
   addData(obj: any, index: any): void {
@@ -332,7 +330,7 @@ export class CourseComponent implements OnInit {
     console.log('courseno = ' + courseno);
     // console.log('this.events null = ' + JSON.stringify(this.events));
 
-    console.log('this.selectedDay = ' + JSON.stringify(this.selectedDay));
+    //console.log('this.selectedDay = ' + JSON.stringify(this.selectedDay));
 
     this.events.push(`${event.value}`);
     console.log('this.events = ' + JSON.stringify(this.events));
@@ -340,7 +338,7 @@ export class CourseComponent implements OnInit {
       'DD/MM/YYYY'
     );
     sessionStorage.setItem('tmpdatetoStr', tmpdatetoStr);
-    console.log('tmpdatetoStr = ' + tmpdatetoStr);
+   // console.log('tmpdatetoStr = ' + tmpdatetoStr);
     var tempA = this.todoSelectCourse;
     var tmpstr = this.selectedDay;
 
@@ -348,7 +346,7 @@ export class CourseComponent implements OnInit {
 
     tempA.filter((arr) => {
       if (arr.courseno == courseno) {
-        arr.date = tmpdatetoStr;
+        arr.examdate = tmpdatetoStr;
         //arr.secstatus = !arr.secstatus;
       }
     });
@@ -363,7 +361,7 @@ export class CourseComponent implements OnInit {
     this.events.splice(0, 1);
 
     /*console.log('this.todoSelectCourse if After = ' + JSON.stringify(this.todoSelectCourse));*/
-    console.log('tempA if After = ' + JSON.stringify(tempA));
+   // console.log('tempA if After = ' + JSON.stringify(tempA));
 
     //console.log('filltered = ' + JSON.stringify(filltered));
   }
@@ -385,7 +383,7 @@ export class CourseComponent implements OnInit {
     }
 
     if (seemCourseno) {
-      this.json_tmp[inxJson_tmp].date = this.todoSection[0].date;
+      this.json_tmp[inxJson_tmp].examdate = this.todoSection[0].examdate;
       this.json_tmp[inxJson_tmp].section = this.todoSection[0].section;
     }else{
       this.json_tmp.push(this.todoSection[0]);
@@ -424,10 +422,10 @@ export class CourseComponent implements OnInit {
 
   json_mock=[
     {"courseno":"THA1003",
-    "date":"02/02/2020",
+    "examdate":"02/02/2020",
     "data":[1,4]},
             {"courseno":"PHI1003",
-             "date":"02/02/2020",
+             "examdate":"02/02/2020",
              "data":[1,2,3,4]
             }
 

@@ -36,13 +36,13 @@ export class HomeMenuCreateComponent implements OnInit {
       this.todoProfile = data;
       console.log("todoProfile "+ JSON.stringify(data) );
       console.log("stdcode "+ JSON.stringify(data.STD_CODE) );
-      sessionStorage.setItem("stdcode", data.STD_CODE);
+     /*sessionStorage.setItem("stdcode", data.STD_CODE);
       sessionStorage.setItem("namethai", data.NameThai);
       sessionStorage.setItem("facno", data.FacNo);
       sessionStorage.setItem("majorno", data.MajorNo);
       sessionStorage.setItem("majornamthai", data.MajorNameThai);
       sessionStorage.setItem("facName", data.FacNameThai);
-      sessionStorage.setItem("birth", data.Birth);
+      sessionStorage.setItem("birth", data.Birth);*/
       //this.us = JSON.stringify(data.STD_CODE);
     }
 

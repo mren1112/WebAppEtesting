@@ -31,6 +31,12 @@ export class ApiFetchETCourseService {
 
   constructor(private http: HttpClient) {
     this.getJSON().subscribe(response => {
+      if (response.grad === "") {
+        sessionStorage.setItem('grad', response.grad);
+      } else {
+        sessionStorage.setItem('grad', "");
+      }
+      sessionStorage.setItem('todoCourse', JSON.stringify(response));
       console.log(response);
     });
   }

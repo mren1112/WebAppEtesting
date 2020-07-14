@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 export class ApiConfirmService {
 constructor(public http: Http) { }
 //npm install @angular/http@latest
-//https://devtest.ru.ac.th/ThaiQR/eTestQR?totalAmount=500&username=6299999991&tel=08123456789&duedate=200320
+//https://devtest.ru.ac.th/ThaiQR/eTestQR?totalAmount=500&username=6299999991&tel=0812345678&duedate=200320
 /*doConfirm(username:string){
   const body = new HttpParams()
     .set('username', username);
@@ -20,17 +20,29 @@ constructor(public http: Http) { }
 }
 }*/
 
-doConfirm(username:string) {
+doConfirm(username:string,year:string,semester:string,cntCourseNo:string,grad:string,total:string,facno:string,iExamdate:any,iSection:any,iCourse:any,iCredit:any) {
   return new Promise((resolve,reject)=>{
     var headers = new Headers();
       headers.append('Content-Type', 'application/x-www-form-urlencoded');
       let options = new RequestOptions({headers:headers, method:'POST'});
       let urlSearchParams = new URLSearchParams();
-      urlSearchParams.append('username', username)
-    let body = urlSearchParams.toString()
-   console.log("save = "+JSON.stringify(body) );
+      urlSearchParams.append('username', username);
+      urlSearchParams.append('year', year);
+      urlSearchParams.append('semester', semester);
+      urlSearchParams.append('numCourse', cntCourseNo);
+      urlSearchParams.append('grad', grad);
+      urlSearchParams.append('total', total);
+      urlSearchParams.append('facno', facno);
+      urlSearchParams.append('examdate', iExamdate);
+      urlSearchParams.append('section', iSection);
+      urlSearchParams.append('course', iCourse);
+      urlSearchParams.append('credit', iCredit);
 
-    this.http.post('http://sevkn.ru.ac.th/ADManage/apinessy/etest/test.jsp',body,options)
+    let body = urlSearchParams.toString()
+   console.log("save = "+JSON.stringify(body));
+
+   this.http.post('http://sevkn.ru.ac.th/ADManage/apinessy/etest/saveEtest.jsp',body,options)
+   //this.http.post('http://10.2.5.243/mregion/saveEtest.jsp',body,options)
     .pipe(map(res=>res.json()))
     .subscribe(data =>{
       resolve(data);

@@ -69,7 +69,7 @@
                         <!--<option *ngFor="let item of todoSection[0].data"  [value]="item">{{item}}</option> -->
                         <ng-container *ngFor="let item of todoSection">
                         <ng-container  *ngIf="item.courseno === dt.courseno">
-                          <option *ngFor="let data of item.section" [value]="item.section[i]">section {{data}}</option>
+                          <option *ngFor="let data of item.section" [value]="data">section {{data}}</option>
                         </ng-container>
                         </ng-container>
                       </select>

@@ -19,7 +19,14 @@ export class ApiFetchProfileService {
   urlFetchETCourse = "http://sevkn.ru.ac.th/ADManage/apinessy/etest/getProfile.jsp?STD_CODE=6290508511";
 
   constructor(private http: HttpClient) {
-    this.getJSON().subscribe(response => {
+    this.getJSON().subscribe(data => {
+      sessionStorage.setItem("stdcode", data.STD_CODE);
+      sessionStorage.setItem("namethai", data.NameThai);
+      sessionStorage.setItem("facno", data.FacNo);
+      sessionStorage.setItem("majorno", data.MajorNo);
+      sessionStorage.setItem("majornamthai", data.MajorNameThai);
+      sessionStorage.setItem("facName", data.FacNameThai);
+      sessionStorage.setItem("birth", data.Birth);
       //console.log(response);
      // sessionStorage.setItem("stdcode", response.STD_CODE);
     });
