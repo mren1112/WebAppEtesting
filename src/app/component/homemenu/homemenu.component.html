@@ -41,7 +41,8 @@
         </a>
       </div>
     </div>
-
+    <div *ngIf="showSpinner" class="spinner"></div>
+    <div *ngIf="showSpinner" class="txtspinner">loading...</div>
     <div class="row">
       <div class="col-md-6" style="text-align: right;  padding-bottom: 3%;">
         <a routerLink="/policy" routerLinkActive="active" class="myBrownButton">
@@ -62,17 +63,7 @@
       </div>
     </div>
 
-    <div class="row">
 
-      <div class="col-md-12">
-        <a routerLink="/testing" routerLinkActive="active" class="mySkyblueButton">
-          <span class="material-icons" style="margin-top: 15%; margin-bottom: 10%;">
-            setting
-          </span>
-          <p> testing </p>
-        </a>
-      </div>
-    </div>
 
   </div>
 </main>

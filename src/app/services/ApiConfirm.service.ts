@@ -41,8 +41,8 @@ doConfirm(username:string,year:string,semester:string,cntCourseNo:string,grad:st
     let body = urlSearchParams.toString()
    console.log("save = "+JSON.stringify(body));
 
-   this.http.post('http://sevkn.ru.ac.th/ADManage/apinessy/etest/saveEtest.jsp',body,options)
-   //this.http.post('http://10.2.5.243/mregion/saveEtest.jsp',body,options)
+   //this.http.post('http://sevkn.ru.ac.th/ADManage/apinessy/etest/saveEtest.jsp',body,options)
+   this.http.post('http://10.2.5.243/mregion/saveEtest.jsp',body,options)
     .pipe(map(res=>res.json()))
     .subscribe(data =>{
       resolve(data);

@@ -122,6 +122,17 @@ export class CourseComponent implements OnInit {
     this.strDate = sessionStorage.getItem('enddate');
     this.endDate = sessionStorage.getItem('startdate');
     this.getEtCourse();
+    this.loading();
+  }
+
+  showSpinner = false;
+  loading() {
+    if (this.todoCourse == "" || this.todoCourse == null  || this.todoCourse == undefined) {
+      this.showSpinner =true;
+          setTimeout(() => {
+              this.showSpinner = false;
+          }, 5000);
+    }
   }
 
   getEtCourse() {

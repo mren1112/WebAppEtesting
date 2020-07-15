@@ -90,8 +90,20 @@ export class ConfirmComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.loading();
     this.chkTodoSelectCourse();
-    this.chbkconfirm();
+    //this.chbkconfirm();
+
+  }
+
+  showSpinner = false;
+  loading() {
+    if (this.todoCourse == "" || this.todoCourse == null  || this.todoCourse == undefined) {
+      this.showSpinner =true;
+          setTimeout(() => {
+              this.showSpinner = false;
+          }, 3000);
+    }
   }
 
   chkTodoSelectCourse() {
@@ -102,7 +114,7 @@ export class ConfirmComponent implements OnInit {
     this.grad = sessionStorage.getItem('grad');
     this.todoCourse = JSON.parse(sessionStorage.getItem('todoSelectCourse'));
     this.cntTodoCourse = Object.keys(this.todoCourse).length;
-
+    this.tmptodoCourse = JSON.parse(sessionStorage.getItem('todoSelectCourse'));
     this.total = Number(this.cntTodoCourse) * 50;
     if (this.total != 0) {
       sessionStorage.setItem('total', this.total);
@@ -119,8 +131,8 @@ export class ConfirmComponent implements OnInit {
   }
 
   //isenabled = true;
-  chbkconfirm() {
-    this.tmptodoCourse = this.todoCourse;
+  chekconfirm() {
+
     var chksection;
     var tmpSection: any[] = [];
     for (let i = 0; i < this.tmptodoCourse.length; i++) {
@@ -164,6 +176,13 @@ export class ConfirmComponent implements OnInit {
 
   confirm() {
     var tempA = JSON.parse(sessionStorage.getItem('todoSelectCourse'));
+
+    if (tempA == null) {
+          this.isenabled = false;
+          this.loading();
+    } else {
+      this.isenabled = true;
+    }
     //console.log('tempA confirm = ' + JSON.stringify(tempA));
     this.sumCredit = 0;
     var x:any = [];

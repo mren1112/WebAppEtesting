@@ -115,7 +115,8 @@
       </div>
     </form>
 
-
+    <div *ngIf="showSpinner" class="spinner"></div>
+    <div *ngIf="showSpinner" class="txtspinner">loading...</div>
   </div>
   <pre>{{todoSection | json}}</pre>
   <p></p>

@@ -27,6 +27,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -115,6 +117,7 @@ const appRoutes:Routes=[
     MatMenuModule,
     ReactiveFormsModule,
     FormsModule,
+    MatProgressSpinnerModule,
      RouterModule.forRoot(appRoutes),
 
   ],
