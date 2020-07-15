@@ -1,6 +1,5 @@
 main {
   width: 95%;
-
   margin: auto;
 }
 
@@ -36,164 +35,176 @@ main {
   top: 1px;
 }
 
-
 .mypinkkButton {
-	box-shadow:inset 0px 26px 0px -24px #e67a73;
-	background-color:#e4685d;
-	border-radius:4px;
-	border:1px solid #ffffff;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:20px;
-	padding:32px 76px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #b23e35;
+  box-shadow: inset 0px 26px 0px -24px #e67a73;
+  background-color: #e4685d;
+  border-radius: 4px;
+  border: 1px solid #ffffff;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 20px;
+  padding: 32px 76px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #b23e35;
 }
+
 .mypinkkButton:hover {
-	background-color:#eb675e;
+  background-color: #eb675e;
 }
+
 .mypinkkButton:active {
-	position:relative;
-	top:1px;
+  position: relative;
+  top: 1px;
 }
 
 .myYellowButton {
-  width:150px;
-	box-shadow: 0px 1px 0px 0px #fff6af;
-	background:linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
-	background-color:#ffec64;
-	border-radius:3px;
-	border:1px solid #ffaa22;
-	display:inline-block;
-	cursor:pointer;
-	color:#333333;
-	font-family:Arial;
-	font-size: 15px;
-	font-weight:bold;
-	padding:3px 3px;
-	text-decoration:none;
-  text-shadow:0px 1px 0px #ffee66;
+  width: 150px;
+  box-shadow: 0px 1px 0px 0px #fff6af;
+  background: linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
+  background-color: #ffec64;
+  border-radius: 3px;
+  border: 1px solid #ffaa22;
+  display: inline-block;
+  cursor: pointer;
+  color: #333333;
+  font-family: Arial;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 3px 3px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #ffee66;
   text-align: center;
 }
+
 .myYellowButton:hover {
-	background:linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
-	background-color:#ffab23;
+  background: linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
+  background-color: #ffab23;
 }
+
 .myYellowButton:active {
-	position:relative;
-	top:1px;
+  position: relative;
+  top: 1px;
 }
 
 .myGreenButton {
-  width:150px;
-	box-shadow:inset 0px -2px 0px 0px #a4e271;
-	background:linear-gradient(to bottom, #89c403 5%, #77a809 100%);
-	background-color:#89c403;
-	border-radius:3px;
-	border:1px solid #74b807;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:15px;
-	font-weight:bold;
-	padding:3px 3px;
-	text-decoration:none;
-  text-shadow:0px 1px 0px #528009;
+  width: 150px;
+  box-shadow: inset 0px -2px 0px 0px #a4e271;
+  background: linear-gradient(to bottom, #89c403 5%, #77a809 100%);
+  background-color: #89c403;
+  border-radius: 3px;
+  border: 1px solid #74b807;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 3px 3px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #528009;
   text-align: center;
 }
+
 .myGreenButton:hover {
-	background:linear-gradient(to bottom, #77a809 5%, #89c403 100%);
-	background-color:#77a809;
+  background: linear-gradient(to bottom, #77a809 5%, #89c403 100%);
+  background-color: #77a809;
 }
+
 .myGreenButton:active {
-	position:relative;
-	top:1px;
+  position: relative;
+  top: 1px;
 }
 
 .myPinkButton {
-  width:150px;
-	box-shadow:inset 0px 1px 0px 0px #fbafe3;
-	background:linear-gradient(to bottom, #ff5bb0 5%, #ef027d 100%);
-	background-color:#ff5bb0;
-	border-radius:3px;
-	border:1px solid #ee1eb5;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:15px;
-	font-weight:bold;
-	padding:3px 3px;
-	text-decoration:none;
-  text-shadow:0px 1px 0px #c70067;
+  width: 150px;
+  box-shadow: inset 0px 1px 0px 0px #fbafe3;
+  background: linear-gradient(to bottom, #ff5bb0 5%, #ef027d 100%);
+  background-color: #ff5bb0;
+  border-radius: 3px;
+  border: 1px solid #ee1eb5;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 3px 3px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #c70067;
   text-align: center;
 }
+
 .myPinkButton:hover {
-	background:linear-gradient(to bottom, #ef027d 5%, #ff5bb0 100%);
-	background-color:#ef027d;
+  background: linear-gradient(to bottom, #ef027d 5%, #ff5bb0 100%);
+  background-color: #ef027d;
 }
+
 .myPinkButton:active {
-	position:relative;
-	top:1px;
+  position: relative;
+  top: 1px;
 }
+
 .mySkyblueButton {
   width: 150px;
-	box-shadow:inset 0px 0px 0px 0px #dcecfb;
-	background:linear-gradient(to bottom, #bddbfa 5%, #80b5ea 100%);
-	background-color:#bddbfa;
-	border-radius:3px;
-	border:1px solid #84bbf3;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:15px;
-	font-weight:bold;
-	padding:3px 3px;
-	text-decoration:none;
-  text-shadow:0px 1px 0px #528ecc;
+  box-shadow: inset 0px 0px 0px 0px #dcecfb;
+  background: linear-gradient(to bottom, #bddbfa 5%, #80b5ea 100%);
+  background-color: #bddbfa;
+  border-radius: 3px;
+  border: 1px solid #84bbf3;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 3px 3px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #528ecc;
   text-align: center;
 }
+
 .mySkyblueButton:hover {
-	background:linear-gradient(to bottom, #80b5ea 5%, #bddbfa 100%);
-	background-color:#80b5ea;
+  background: linear-gradient(to bottom, #80b5ea 5%, #bddbfa 100%);
+  background-color: #80b5ea;
 }
+
 .mySkyblueButton:active {
-	position:relative;
-	top:1px;
+  position: relative;
+  top: 1px;
 }
 
 .myBrownButton {
   width: 150px;
-	box-shadow:inset 0px 1px 0px 0px #a6827e;
-	background:linear-gradient(to bottom, #7d5d3b 5%, #634b30 100%);
-	background-color:#7d5d3b;
-	border-radius:1px;
-	border:1px solid #54381e;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-  font-size:13px;
+  box-shadow: inset 0px 1px 0px 0px #a6827e;
+  background: linear-gradient(to bottom, #7d5d3b 5%, #634b30 100%);
+  background-color: #7d5d3b;
+  border-radius: 1px;
+  border: 1px solid #54381e;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 13px;
   font-weight: bold;
-	padding:3px 3px;
-	text-decoration:none;
-  text-shadow:0px 1px 0px #4d3534;
+  padding: 3px 3px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #4d3534;
   text-align: center;
 }
+
 .myBrownButton:hover {
-	background:linear-gradient(to bottom, #634b30 5%, #7d5d3b 100%);
-	background-color:#634b30;
-}
-.myBrownButton:active {
-	position:relative;
-	top:1px;
+  background: linear-gradient(to bottom, #634b30 5%, #7d5d3b 100%);
+  background-color: #634b30;
 }
 
-.spinner{
+.myBrownButton:active {
+  position: relative;
+  top: 1px;
+}
+
+.spinner {
   border: 16px solid silver;
   border-top: 16px solid #3c6382;
   border-radius: 50%;
@@ -202,17 +213,22 @@ main {
   animation: spin 500ms linear infinite;
   top: 30%;
   left: 40%;
-position: absolute;;
+  position: absolute;
+  z-index: 99 !important;
 }
 
-@keyframes spin{
-   0% {transform: rotate(0deg)}
-   100% {transform: rotate(-360deg)}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg)
+  }
+  100% {
+    transform: rotate(-360deg)
+  }
 }
 
-
-.txtspinner{
+.txtspinner {
   top: 45%;
   left: 43%;
-position: absolute;;
+  position: absolute;
+  ;
 }
