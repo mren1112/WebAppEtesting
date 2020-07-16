@@ -16,7 +16,7 @@ import {
   FormArray,
   FormControl,
   ValidatorFn,
-  Validators
+  Validators,
 } from '@angular/forms';
 import { ApiFetchETCourseService } from 'src/app/services/ApiFetchETCourse.service';
 import * as moment from 'moment';
@@ -55,7 +55,7 @@ export class CourseComponent implements OnInit {
   public todoCourse: any = [];
   public todoSelectCourse: any = [];
   public todoSection: any = [];
-  json_tmp: any=[];
+  json_tmp: any = [];
 
   selectCourseCmplt: boolean = false;
   selectCourse: boolean = true;
@@ -85,9 +85,9 @@ export class CourseComponent implements OnInit {
   eventstmp = [{ date: null }];
   startDate = new Date(Number(this.subStrYear) + 543, 6, 1);
   endtDate = new Date(2020 + 543, 7, 1);
-
+  isEnable: boolean = true;
   registerForm: FormGroup;
-    submitted = false;
+  submitted = false;
 
   constructor(
     private apiFetchETCourse: ApiFetchETCourseService,
@@ -95,12 +95,7 @@ export class CourseComponent implements OnInit {
     private httpClient: HttpClient,
     private formBuilder: FormBuilder
   ) {
-
-
     //this.addCheckboxes();
-
-
-
   }
 
   subtmp: any[];
@@ -122,40 +117,42 @@ export class CourseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.us = sessionStorage.getItem("stdcode");
-    this.sem = sessionStorage.getItem("sem");
-    this.year = sessionStorage.getItem("year");
+    this.us = sessionStorage.getItem('stdcode');
+    this.sem = sessionStorage.getItem('sem');
+    this.year = sessionStorage.getItem('year');
     this.strDate = sessionStorage.getItem('enddate');
     this.endDate = sessionStorage.getItem('startdate');
     this.getEtCourse();
     this.loading();
     //this.checkConfirm();
-
-
   }
 
   showSpinner: boolean = false;
   loading() {
-    if (this.todoCourse == "" || this.todoCourse == null  || this.todoCourse == undefined) {
-      this.showSpinner =true;
-          setTimeout(() => {
-              this.showSpinner = false;
-          }, 5000);
+    if (
+      this.todoCourse == '' ||
+      this.todoCourse == null ||
+      this.todoCourse == undefined
+    ) {
+      this.showSpinner = true;
+      setTimeout(() => {
+        this.showSpinner = false;
+      }, 5000);
     }
   }
 
-  isEnable = true;
   checkConfirm() {
     var tempA = this.todoSelectCourse;
     for (let i = 0; i < tempA.length; i++) {
-        if (tempA[i].courseno == "" || tempA[i].courseno == null  || tempA[i].courseno == undefined) {
-          this.isEnable = true;
-        }else{
-          this.isEnable = false;
-        }
+      if (tempA[i].section == '') {
+        this.isEnable = true;
+       // alert('if');
+        break;
+      } else {
+        this.isEnable = false;
+       // alert('else');
+      }
     }
-
-    alert(this.selectedSection);
   }
 
   getEtCourse() {
@@ -176,7 +173,6 @@ export class CourseComponent implements OnInit {
       }
     });
   }
-
 
   //paint alert day
   dateClass = (d: Date): MatCalendarCellCssClasses => {
@@ -205,7 +201,7 @@ export class CourseComponent implements OnInit {
 
     // Prevent Saturday and Sunday from being selected.
 
-    return day !== 0 && day !== 6;
+    return day !== 1 && day !== 2;
     // console.log("myFilter date = " + d);
   };
 
@@ -236,7 +232,10 @@ export class CourseComponent implements OnInit {
             1
           );
           console.log('pushtest =' + this.pushtest);
-          sessionStorage.setItem('todoSelectCourse', this.todoSelectCourse);
+          sessionStorage.setItem(
+            'todoSelectCourse',
+            JSON.stringify(this.todoSelectCourse)
+          );
           console.log(
             'push null todoCourse ->>>>>>>>>>> ' +
             JSON.stringify(this.todoSelectCourse)
@@ -246,15 +245,16 @@ export class CourseComponent implements OnInit {
           this.todoSelectCourse.push({
             courseno: arr.courseno,
             credit: parseInt(arr.credit),
-            examdate: '1111',
+            examdate: '',
             section: '',
-            sectime: 'yy/yy/yyyy',
+            sectime: '',
             tmpSection: '',
           });
           sessionStorage.setItem(
             'todoSelectCourse',
             JSON.stringify(this.todoSelectCourse)
           );
+          this.checkConfirm();
           console.log(
             'total todoCourse ->>>>>>>>>>> ' +
             JSON.stringify(this.todoSelectCourse)
@@ -289,9 +289,9 @@ export class CourseComponent implements OnInit {
 
   //event handler for the select element's change event
   changeDropdown(obj: any, index: any) {
-    var tmpsec = "";
-    var sectime="";
-    var tmpsec2 = "xx/xx/xxxx";
+    var tmpsec = '';
+    var sectime = '';
+    var tmpsec2 = 'xx/xx/xxxx';
 
     console.log('course= ' + obj);
     console.log('selectedSection= ' + this.selectedSection);
@@ -304,35 +304,26 @@ export class CourseComponent implements OnInit {
     tempA.filter((arr) => {
       if (arr.courseno == obj) {
         arr.section = this.selectedSection[index];
-        if (tmpsec == "1") {
-          sectime = "9.30 - 12.00";
-        } else if (tmpsec == "2") {
-          sectime = "13.00 - 15.30";  //alert("6666");
-        }else if (tmpsec == "3") {
-          sectime = "16.00 - 18.30";
-        }else if (tmpsec == "4") {
-          sectime = "19.00 - 21.30";
+        if (tmpsec == '1') {
+          sectime = '9.30 - 12.00';
+        } else if (tmpsec == '2') {
+          sectime = '13.00 - 15.30'; //alert("6666");
+        } else if (tmpsec == '3') {
+          sectime = '16.00 - 18.30';
+        } else if (tmpsec == '4') {
+          sectime = '19.00 - 21.30';
         }
-       arr.sectime = sectime;
+        arr.sectime = sectime;
       }
     });
     console.log('sectime = ' + sectime);
 
-
-
     sessionStorage.setItem('todoSelectCourse', JSON.stringify(tempA));
-
-    for (let i = 0; i < tempA.length; i++) {
-      if (tempA[i].section == "") {
-        this.isEnable = false;alert("555555554");
-      }else{
-        this.isEnable = false;
-      }
-  }
+    this.checkConfirm();
 
     //this.todoSection = null;
     //this.todoSelectCourse.splice(0, 1);
-  // console.log('tempA dd After = ' + JSON.stringify(tempA));
+    // console.log('tempA dd After = ' + JSON.stringify(tempA));
   }
 
   addData(obj: any, index: any): void {
@@ -352,8 +343,6 @@ export class CourseComponent implements OnInit {
         console.log('arr.secstatus = ' + arr.secstatus);
       }
     });
-
-
   }
 
   isSelectdate = false;
@@ -375,7 +364,7 @@ export class CourseComponent implements OnInit {
       'DD/MM/YYYY'
     );
     sessionStorage.setItem('tmpdatetoStr', tmpdatetoStr);
-   // console.log('tmpdatetoStr = ' + tmpdatetoStr);
+    // console.log('tmpdatetoStr = ' + tmpdatetoStr);
     var tempA = this.todoSelectCourse;
     var tmpstr = this.selectedDay;
 
@@ -384,13 +373,14 @@ export class CourseComponent implements OnInit {
     tempA.filter((arr) => {
       if (arr.courseno == courseno) {
         arr.examdate = tmpdatetoStr;
+        arr.section = '';
+        this.checkConfirm();
         //arr.secstatus = !arr.secstatus;
       }
     });
 
     if (tmpdatetoStr != null) {
       this.getSection(tmpdatetoStr, courseno);
-
     }
 
     this.todoSelectCourse = tempA;
@@ -398,65 +388,71 @@ export class CourseComponent implements OnInit {
     this.events.splice(0, 1);
 
     /*console.log('this.todoSelectCourse if After = ' + JSON.stringify(this.todoSelectCourse));*/
-   // console.log('tempA if After = ' + JSON.stringify(tempA));
+    // console.log('tempA if After = ' + JSON.stringify(tempA));
 
     //console.log('filltered = ' + JSON.stringify(filltered));
   }
 
-  getSection(tmpdatetoStr,courseno) {
-    this.httpClient.get("http://sevkn.ru.ac.th/ADManage/apinessy/etest/getDateSection.jsp?STD_CODE=" + this.us + "&sem=" + this.sem
-    + "&year=" + this.year + "&dateselect=" + tmpdatetoStr + "&courseno=" + courseno).subscribe(res => {
-    this.todoSection = res;
+  getSection(tmpdatetoStr, courseno) {
+    this.httpClient
+      .get(
+        'http://sevkn.ru.ac.th/ADManage/apinessy/etest/getDateSection.jsp?STD_CODE=' +
+        this.us +
+        '&sem=' +
+        this.sem +
+        '&year=' +
+        this.year +
+        '&dateselect=' +
+        tmpdatetoStr +
+        '&courseno=' +
+        courseno
+      )
+      .subscribe((res) => {
+        this.todoSection = res;
 
-
-    var seemCourseno = false;
-    var inxJson_tmp = 0;
-    for (let i = 0; i < this.json_tmp.length; i++) {
-      if (this.json_tmp[i].courseno == this.todoSection[0].courseno) {
-        seemCourseno = true;
-        inxJson_tmp=i;
-      }
-    }
-
-    if (seemCourseno) {
-      this.json_tmp[inxJson_tmp].examdate = this.todoSection[0].examdate;
-      this.json_tmp[inxJson_tmp].section = this.todoSection[0].section;
-    }else{
-      this.json_tmp.push(this.todoSection[0]);
-    }
-
-    if( this.json_tmp.length == 0){
-      console.log( "null");
-      this.json_tmp.push(this.todoSection[0]);
-    }
-
-
-
-    console.log( this.json_tmp);
-
-    this.todoSection = this.json_tmp;
-     // alert(JSON.stringify(res))
-     // alert(tmpdatetoStr)
-
-    // this.todoSection = this.json_mock;
-
-      if (this.todoSection.section == null) {
-
-
-        this.todoCourse.filter((arr) => {
-          if (arr.courseno == courseno) {
-            arr.secstatus = !arr.secstatus;
-           // alert(arr.secstatus);
-            //console.log('arr.secstatus = ' + arr.secstatus);
+        var seemCourseno = false;
+        var inxJson_tmp = 0;
+        for (let i = 0; i < this.json_tmp.length; i++) {
+          if (this.json_tmp[i].courseno == this.todoSection[0].courseno) {
+            seemCourseno = true;
+            inxJson_tmp = i;
           }
-        });
+        }
 
-      }
-    });
+        if (seemCourseno) {
+          this.json_tmp[inxJson_tmp].examdate = this.todoSection[0].examdate;
+          this.json_tmp[inxJson_tmp].section = this.todoSection[0].section;
+        } else {
+          this.json_tmp.push(this.todoSection[0]);
+        }
+
+        if (this.json_tmp.length == 0) {
+          console.log('null');
+          this.json_tmp.push(this.todoSection[0]);
+        }
+
+        console.log(this.json_tmp);
+
+        this.todoSection = this.json_tmp;
+        // alert(JSON.stringify(res))
+        // alert(tmpdatetoStr)
+
+        // this.todoSection = this.json_mock;
+
+        if (this.todoSection.section == null) {
+          this.todoCourse.filter((arr) => {
+            if (arr.courseno == courseno) {
+              arr.secstatus = true;
+
+              // alert(arr.secstatus);
+              //console.log('arr.secstatus = ' + arr.secstatus);
+            }
+          });
+        }
+      });
   }
 
-
-/*
+  /*
 
   json_mock=[
     {"courseno":"THA1003",
@@ -472,5 +468,4 @@ export class CourseComponent implements OnInit {
             ];
 
 */
-
 }

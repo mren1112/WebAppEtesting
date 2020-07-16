@@ -31,3 +31,29 @@ main {
 .table-striped>tbody>tr:nth-child(2n+1)>th {
   background-color: #f8e8c6;
 }
+
+
+.spinner{
+  border: 16px solid silver;
+  border-top: 16px solid #3c6382;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  animation: spin 500ms linear infinite;
+  top: 30%;
+  left: 50%;
+position: absolute;z-index: 99 !important;
+}
+
+@keyframes spin{
+   0% {transform: rotate(0deg)}
+   100% {transform: rotate(-360deg)}
+}
+
+
+.txtspinner{
+  top: 45%;
+  left: 53%;
+position: absolute;;
+}
+

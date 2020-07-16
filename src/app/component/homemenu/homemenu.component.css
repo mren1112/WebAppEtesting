@@ -212,7 +212,7 @@ main {
   height: 80px;
   animation: spin 500ms linear infinite;
   top: 30%;
-  left: 40%;
+  left: 50%;
   position: absolute;
   z-index: 99 !important;
 }
@@ -228,7 +228,7 @@ main {
 
 .txtspinner {
   top: 45%;
-  left: 43%;
+  left: 53%;
   position: absolute;
   ;
 }
