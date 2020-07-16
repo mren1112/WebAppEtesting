@@ -59,7 +59,8 @@ import { ApiConfirmService } from './services/ApiConfirm.service';
 import { HttpModule } from '@angular/http';
 
 const appRoutes:Routes=[
-  {path:"", component:HomeMenuCreateComponent},
+  //{path:"", component:HomeMenuCreateComponent},
+  {path: 'std_code/:id',component: HomeMenuCreateComponent},
   {path:"course", component:CourseComponent},
   {path:'confirm', component:ConfirmComponent },
   {path:"payment", component:PaymentComponent},
@@ -70,6 +71,7 @@ const appRoutes:Routes=[
   {path:"policy", component:PolicyCreateComponent},
   {path:"qrpagelist", component:QrpagelistCreateComponent},
   {path:"testing", component:TestComponent},
+
 
 ]
 

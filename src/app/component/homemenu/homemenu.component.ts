@@ -1,5 +1,5 @@
 import { Component, Injectable, OnInit } from "@angular/core";
-import { Event, Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError, RouterEvent } from "@angular/router";
+import { Event, Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError, RouterEvent, ActivatedRoute } from "@angular/router";
 import { ApiFetchProfileService, TodoProfile } from 'src/app/services/ApiFetchProfile.service';
 import { stringify } from 'querystring';
 import { ApiFetchCounterService } from 'src/app/services/ApiFetchCounter.service';
@@ -23,13 +23,13 @@ export class HomeMenuCreateComponent implements OnInit {
 
   showLoading = true;
   //----------------------------------------
-
+  public id: string;
 
 
   constructor(
     private apiFetchProfile: ApiFetchProfileService,
     private apiGetCounter: ApiFetchCounterService,
-    private _router: Router,
+    private _router: Router,private route: ActivatedRoute
   ) {
    /*9 this._router.events.subscribe((routerEvent: Event) => {
       if (routerEvent instanceof NavigationStart) {
@@ -47,8 +47,16 @@ export class HomeMenuCreateComponent implements OnInit {
 
 
   ngOnInit() {
+    this.id = this.route.snapshot.params.id;
+//std_code = this.route.snapshot.paramMap.get('std_code');
+    console.log("id = "+this.id);
+    sessionStorage.setItem("stdcode",this.id);
 
-    this.getProfile();
+    if (sessionStorage.getItem("stdcode") != null ) {
+
+      this.getProfile(this.id);
+    }else{alert("555");}
+
     this.loading();
     this.getCounter();
   }
@@ -60,11 +68,13 @@ export class HomeMenuCreateComponent implements OnInit {
       this.showSpinner =true;
           setTimeout(() => {
               this.showSpinner = false;
-          }, 5000);
+          }, 3000);
     }
   }
 
-  getProfile() {
+  getProfile(id) {
+
+
     this.apiFetchProfile.getJSON().subscribe(data => {
       this.todoProfile = data;
       console.log("todoProfile " + JSON.stringify(data));

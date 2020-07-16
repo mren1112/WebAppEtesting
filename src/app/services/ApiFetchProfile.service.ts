@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { element } from 'protractor';
 import { map, catchError } from 'rxjs/operators';
+import { Http } from '@angular/http';
 
 
 export interface TodoProfile {
@@ -16,11 +17,14 @@ export interface TodoProfile {
 @Injectable()
 export class ApiFetchProfileService {
 
-  urlFetchETCourse = "http://sevkn.ru.ac.th/ADManage/apinessy/etest/getProfile.jsp?STD_CODE=6290508511";
+  public us = sessionStorage.getItem("stdcode");
 
-  constructor(private http: HttpClient) {
+
+  //urlFetchETCourse = "http://sevkn.ru.ac.th/ADManage/apinessy/etest/getProfile.jsp?STD_CODE=6290508511";
+  urlFetchETCourse = "http://sevkn.ru.ac.th/ADManage/apinessy/etest/getProfile.jsp?STD_CODE="+this.us;
+  constructor(private httppp: HttpClient,private http:Http) {
     this.getJSON().subscribe(data => {
-      sessionStorage.setItem("stdcode", data.STD_CODE);
+      //sessionStorage.setItem("stdcode", data.STD_CODE);
       sessionStorage.setItem("namethai", data.NameThai);
       sessionStorage.setItem("facno", data.FacNo);
       sessionStorage.setItem("majorno", data.MajorNo);
@@ -32,7 +36,7 @@ export class ApiFetchProfileService {
     });
   }
   getJSON(): Observable<any> {
-    return this.http.get(this.urlFetchETCourse)
+    return this.httppp.get(this.urlFetchETCourse)
                 .pipe(map((response: any)=> response ),
                       catchError(err => {return (err)}));
   }
