@@ -59,8 +59,9 @@ import { ApiConfirmService } from './services/ApiConfirm.service';
 import { HttpModule } from '@angular/http';
 
 const appRoutes:Routes=[
-  //{path:"", component:HomeMenuCreateComponent},
-  {path: 'std_code/:id',component: HomeMenuCreateComponent},
+
+  {path:"home/:id",component: HomeMenuCreateComponent},
+  {path:"", component:HomeMenuCreateComponent},
   {path:"course", component:CourseComponent},
   {path:'confirm', component:ConfirmComponent },
   {path:"payment", component:PaymentComponent},
@@ -120,7 +121,8 @@ const appRoutes:Routes=[
     ReactiveFormsModule,
     FormsModule,
     MatProgressSpinnerModule,
-     RouterModule.forRoot(appRoutes),
+    // RouterModule.forRoot(appRoutes),
+     RouterModule.forRoot(appRoutes,{ useHash: true })
 
   ],
   exports: [RouterModule],

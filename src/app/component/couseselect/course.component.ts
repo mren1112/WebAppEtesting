@@ -395,18 +395,8 @@ export class CourseComponent implements OnInit {
 
   getSection(tmpdatetoStr, courseno) {
     this.httpClient
-      .get(
-        'http://sevkn.ru.ac.th/ADManage/apinessy/etest/getDateSection.jsp?STD_CODE=' +
-        this.us +
-        '&sem=' +
-        this.sem +
-        '&year=' +
-        this.year +
-        '&dateselect=' +
-        tmpdatetoStr +
-        '&courseno=' +
-        courseno
-      )
+      .get('http://sevkn.ru.ac.th/ADManage/apinessy/etest/getDateSection.jsp?STD_CODE=' +
+        this.us + '&sem=' + this.sem + '&year=' + this.year + '&dateselect=' + tmpdatetoStr + '&courseno=' + courseno)
       .subscribe((res) => {
         this.todoSection = res;
 

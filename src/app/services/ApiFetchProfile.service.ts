@@ -20,24 +20,27 @@ export class ApiFetchProfileService {
   public us = sessionStorage.getItem("stdcode");
 
 
-  //urlFetchETCourse = "http://sevkn.ru.ac.th/ADManage/apinessy/etest/getProfile.jsp?STD_CODE=6290508511";
-  urlFetchETCourse = "http://sevkn.ru.ac.th/ADManage/apinessy/etest/getProfile.jsp?STD_CODE="+this.us;
+  urlFetchETCourse = "http://sevkn.ru.ac.th/ADManage/apinessy/etest/getProfile.jsp?STD_CODE=6290508511";
+ //urlFetchETCourse = "http://sevkn.ru.ac.th/ADManage/apinessy/etest/getProfile.jsp?STD_CODE="+this.us;
   constructor(private httppp: HttpClient,private http:Http) {
-    this.getJSON().subscribe(data => {
+    /*this.getJSON().subscribe(data => {
       //sessionStorage.setItem("stdcode", data.STD_CODE);
       sessionStorage.setItem("namethai", data.NameThai);
       sessionStorage.setItem("facno", data.FacNo);
       sessionStorage.setItem("majorno", data.MajorNo);
       sessionStorage.setItem("majornamthai", data.MajorNameThai);
       sessionStorage.setItem("facName", data.FacNameThai);
-      sessionStorage.setItem("birth", data.Birth);
+      sessionStorage.setItem("birth", data.Birth);*/
       //console.log(response);
      // sessionStorage.setItem("stdcode", response.STD_CODE);
-    });
+   // });
   }
-  getJSON(): Observable<any> {
-    return this.httppp.get(this.urlFetchETCourse)
+  getJSON(username:string){
+    return this.httppp.get('http://sevkn.ru.ac.th/ADManage/apinessy/etest/getProfile.jsp?STD_CODE='+username)
                 .pipe(map((response: any)=> response ),
                       catchError(err => {return (err)}));
   }
+
+
+
 }
