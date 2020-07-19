@@ -25,7 +25,7 @@ export class HomeMenuCreateComponent implements OnInit {
 
   showLoading = true;
   //----------------------------------------
-  public id: string;
+  public id;
 
 
   constructor(
@@ -53,38 +53,60 @@ export class HomeMenuCreateComponent implements OnInit {
     // this.id = this.route.snapshot.params.id;
     //this.id = this.route.snapshot.paramMap.get('id');
      //console.log("id = "+this.id);
-  this.route.paramMap.subscribe(params => {
+ /* this.route.paramMap.subscribe(params => {
     this.id = params.get('id');
     console.log("idddd = "+this.id);
     });
-
     if (this.id === null ) {
 
+      alert("null");
+    }else{
       this.getProfile();
-    }else{alert("555");
+      alert("not null");
+
     this.loading();
-  }
+  }*/
 
+    //
+    this.loading();
     this.getProfile();
-
     this.getCounter();
   }
 
 
   showSpinner = false;
   loading() {
+
     if (sessionStorage.getItem("stdcode") == "" || sessionStorage.getItem("stdcode") == null || sessionStorage.getItem("stdcode") == undefined) {
+        sessionStorage.clear();
+        window.location.href = 'https://beta-e-service.ru.ac.th/';
+    } else {
       this.showSpinner = true;
       setTimeout(() => {
         this.showSpinner = false;
-      }, 5000);
+      }, 3000);
     }
   }
 
+  mySubscription: any;
   getProfile() {
+
+    if (sessionStorage.getItem("stdcode") != "") {
+      this.id = sessionStorage.getItem("stdcode");
+    } else {
+      this._router.routeReuseStrategy.shouldReuseRoute = function () {
+        return false;
+      };
+      this.mySubscription = this._router.events.subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          // Trick the Router into believing it's last link wasn't previously loaded
+          this._router.navigated = false;
+        }
+      });
+      this.loading();
+    }
     console.log("id = "+this.id);
-    sessionStorage.setItem("stdcode", this.id);
-    this.loading();
+
     /*this.apiFetchProfile.getJSON().subscribe(data => {
       this.todoProfile = data;
       console.log("todoProfile " + JSON.stringify(data));
@@ -101,7 +123,6 @@ export class HomeMenuCreateComponent implements OnInit {
 
     this.apiFetchProfile.getJSON(this.id)
       .subscribe((data) => {
-
         this.todoProfile = data;
         console.log("todoProfile " + JSON.stringify(data));
         console.log("stdcode " + JSON.stringify(this.todoProfile.STD_CODE));

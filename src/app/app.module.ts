@@ -57,10 +57,12 @@ import { ApiFetchDateService } from './services/ApiFetchDate.service';
 import { ApiFetchDateSectionService } from './services/ApiFecthDateSection.service';
 import { ApiConfirmService } from './services/ApiConfirm.service';
 import { HttpModule } from '@angular/http';
+import { LandingPageComponent } from './component/landing/landing.component';
 
 const appRoutes:Routes=[
-
-  {path:"home/:id",component: HomeMenuCreateComponent},
+  //home/6290508511
+  {path:"ind/:id",component: LandingPageComponent},
+  //{path:"home/:id",component: HomeMenuCreateComponent},
   {path:"", component:HomeMenuCreateComponent},
   {path:"course", component:CourseComponent},
   {path:'confirm', component:ConfirmComponent },
@@ -93,6 +95,7 @@ const appRoutes:Routes=[
     QrpagelistCreateComponent,
     ProfileComponent,
     TestComponent,
+    LandingPageComponent
 
 
   ],
