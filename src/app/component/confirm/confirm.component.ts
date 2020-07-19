@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,inject } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Observable, throwError } from 'rxjs';
@@ -16,6 +16,7 @@ import * as moment from 'moment';
 import { ApiConfirmService } from '../../services/ApiConfirm.service';
 import { Http } from '@angular/http';
 
+
 @Component({
   selector: 'app-confirm',
   templateUrl: './confirm.component.html',
@@ -29,6 +30,7 @@ export class ConfirmComponent implements OnInit {
 
   //todotest: any  = localStorage.getItem("todo");
   public cntTodoCourse;
+
 
   //-----------------------------
   public todoCourse: any = [];
@@ -86,7 +88,9 @@ export class ConfirmComponent implements OnInit {
   //----------------------------
   constructor(
     private httpClient: HttpClient,
-    private confirmservice: ApiConfirmService
+    private confirmservice: ApiConfirmService,
+
+
   ) {}
 
   ngOnInit() {
@@ -156,7 +160,7 @@ export class ConfirmComponent implements OnInit {
             tmpSection[i] = chksection.result;
 
             if (tmpSection[i] == 0) {
-              this.isenabled = false;
+              this.isenabled = true;
               this.tmptodoCourse[i].tmpSection = '!คาบสอบที่เลือกเต็ม';
             } else {
               this.confirm();
@@ -175,6 +179,8 @@ export class ConfirmComponent implements OnInit {
   }
 
   confirm() {
+
+    //this.openModal(template);
     var tempA = JSON.parse(sessionStorage.getItem('todoSelectCourse'));
 
     if (tempA == null) {
@@ -223,5 +229,17 @@ export class ConfirmComponent implements OnInit {
     //his.aLabCost= [];
   }
 
+ /* openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+  }
 
+  confirmDialog(): void {
+    this.message = 'Confirmed!';
+    this.modalRef.hide();
+  }
+
+  declineDialog(): void {
+    this.message = 'Declined!';
+    this.modalRef.hide();
+  }*/
 }

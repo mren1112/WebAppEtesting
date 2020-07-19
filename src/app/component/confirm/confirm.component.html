@@ -65,7 +65,7 @@
          <div class="example-button-row" style="text-align: center;">
        <!--  <button mat-raised-button color="primary"  routerLink="/payment" routerLinkActive="active" (click)="confirm()">-->
 
-           <button mat-raised-button color="primary" [disabled]="isenabled" routerLink="/payment" routerLinkActive="active" (click)="chekconfirm()">
+        <button mat-raised-button color="primary" [disabled]="isenabled" routerLink="/payment" routerLinkActive="active" (click)="chekconfirm()">
              <span class="material-icons">
              check_circle_outline
              </span> ยืนยัน</button>&nbsp;
@@ -83,5 +83,6 @@
    </div>
    <div *ngIf="showSpinner" class="spinner"></div>
        <div *ngIf="showSpinner" class="txtspinner">loading...</div>
+
 
       </main>
