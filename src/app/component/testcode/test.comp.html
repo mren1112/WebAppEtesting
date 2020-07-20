@@ -1,12 +1,10 @@
-<form [formGroup]="form" (ngSubmit)="submit()">
-  <label
-    formArrayName="orders"
-    *ngFor="let order of ordersData; let i = index"
-  >
-    <input type="checkbox" [formControlName]="i" />
-    {{ordersData[i].name}}
-  </label>
-
-  <div *ngIf="!form.valid">At least one order must be selected</div>
-  <button>submit</button>
-</form>
+<button type="button" class="btn btn-primary" (click)="openModal(template)">Open modal</button>
+<br><br>
+<pre class="card card-block card-header">{{message}}</pre>
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Do you want to confirm?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()" >Yes</button>
+    <button type="button" class="btn btn-primary" (click)="decline()" >No</button>
+  </div>
+</ng-template>

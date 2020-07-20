@@ -1,4 +1,6 @@
-import { Component } from "@angular/core";
+import { Component, TemplateRef } from '@angular/core';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+
 import {
   FormBuilder,
   FormGroup,
@@ -15,7 +17,8 @@ import {
 
 
 export class TestComponent {
-
+  modalRef: BsModalRef;
+  message: string;
   form: FormGroup;
   ordersData = [
     { id: 100, name: 'order 1' },
@@ -24,13 +27,28 @@ export class TestComponent {
     { id: 400, name: 'order 4' }
   ];
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,private modalService: BsModalService) {
     this.form = this.formBuilder.group({
       orders: new FormArray([], minSelectedCheckboxes(1))
     });
 
     this.addCheckboxes();
   }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+  }
+
+  confirm(): void {
+    this.message = 'Confirmed!';
+    this.modalRef.hide();
+  }
+
+  decline(): void {
+    this.message = 'Declined!';
+    this.modalRef.hide();
+  }
+
 
   private addCheckboxes() {
     this.ordersData.forEach((o, i) => {

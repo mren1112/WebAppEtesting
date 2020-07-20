@@ -9,7 +9,7 @@ import {
 } from '@angular/common/http';
 import { Observable, throwError } from "rxjs";
 import "@angular/compiler";
-import { RouterModule,Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { MatToolbarModule, MatToolbarRow } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -27,7 +27,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -58,22 +59,25 @@ import { ApiFetchDateSectionService } from './services/ApiFecthDateSection.servi
 import { ApiConfirmService } from './services/ApiConfirm.service';
 import { HttpModule } from '@angular/http';
 import { LandingPageComponent } from './component/landing/landing.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { BsModalService, ModalModule } from 'ngx-bootstrap/modal';
 
-const appRoutes:Routes=[
+
+const appRoutes: Routes = [
   //home/6290508511
-  {path:"ind/:id",component: LandingPageComponent},
+  { path: "ind/:id", component: LandingPageComponent },
   //{path:"home/:id",component: HomeMenuCreateComponent},
-  {path:"", component:HomeMenuCreateComponent},
-  {path:"course", component:CourseComponent},
-  {path:'confirm', component:ConfirmComponent },
-  {path:"payment", component:PaymentComponent},
-  {path:"info", component:InfoCreateComponent},
-  {path:"regisall", component:RegisAllCourseCreateComponent},
-  {path:"hisregisall", component:HisRegisAllCreateComponent},
-  {path:"recieptall", component:RecieptAllCreateComponent},
-  {path:"policy", component:PolicyCreateComponent},
-  {path:"qrpagelist", component:QrpagelistCreateComponent},
-  {path:"testing", component:TestComponent},
+  { path: "", component: HomeMenuCreateComponent },
+  { path: "course", component: CourseComponent },
+  { path: 'confirm', component: ConfirmComponent },
+  { path: "payment", component: PaymentComponent },
+  { path: "info", component: InfoCreateComponent },
+  { path: "regisall", component: RegisAllCourseCreateComponent },
+  { path: "hisregisall", component: HisRegisAllCreateComponent },
+  { path: "recieptall", component: RecieptAllCreateComponent },
+  { path: "policy", component: PolicyCreateComponent },
+  { path: "qrpagelist", component: QrpagelistCreateComponent },
+  { path: "testing", component: TestComponent },
 
 
 ]
@@ -95,7 +99,8 @@ const appRoutes:Routes=[
     QrpagelistCreateComponent,
     ProfileComponent,
     TestComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    //CustomMaterialModule
 
 
   ],
@@ -119,13 +124,15 @@ const appRoutes:Routes=[
     FormsModule,
     MatDividerModule,
     HttpClientModule,
+    MatDialogModule,
     MatIconModule,
     MatMenuModule,
     ReactiveFormsModule,
     FormsModule,
     MatProgressSpinnerModule,
-    // RouterModule.forRoot(appRoutes),
-     RouterModule.forRoot(appRoutes,{ useHash: true })
+    //BsModalService,
+    ModalModule.forRoot(),
+    RouterModule.forRoot(appRoutes, { useHash: true })
 
   ],
   exports: [RouterModule],
@@ -140,9 +147,12 @@ const appRoutes:Routes=[
     ApiFetchDateService,
     ApiFetchDateSectionService,
     ApiConfirmService,
+    BsModalService
     //{provide: LOCALE_ID, useValue: 'en' },
     //{ provide: LOCALE_ID, useValue: "th-TH" }
   ],
+  //declarations: [ ConfirmDialogComponent],
+  //  entryComponents: [ConfirmDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

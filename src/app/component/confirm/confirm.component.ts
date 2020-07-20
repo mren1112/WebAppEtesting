@@ -1,4 +1,4 @@
-import { Component, OnInit,inject } from '@angular/core';
+import { Component, OnInit,inject,Output,EventEmitter,TemplateRef } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Observable, throwError } from 'rxjs';
@@ -15,7 +15,8 @@ import {
 import * as moment from 'moment';
 import { ApiConfirmService } from '../../services/ApiConfirm.service';
 import { Http } from '@angular/http';
-
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-confirm',
@@ -27,7 +28,8 @@ export class ConfirmComponent implements OnInit {
     { courseno: 'COS2101', credit: 3, status: false },
     { courseno: 'COS2102', credit: 3, status: false },
   ];
-
+  modalRef: BsModalRef;
+  message: string;
   //todotest: any  = localStorage.getItem("todo");
   public cntTodoCourse;
 
@@ -86,12 +88,18 @@ export class ConfirmComponent implements OnInit {
   public creditMin;
   public creditMaxEnd;
   //----------------------------
+
+
   constructor(
     private httpClient: HttpClient,
     private confirmservice: ApiConfirmService,
+    public dialog: MatDialog,
+    private modalService: BsModalService
+   ) {
 
 
-  ) {}
+  }
+
 
   ngOnInit() {
     this.loading();
@@ -136,6 +144,7 @@ export class ConfirmComponent implements OnInit {
 
   //isenabled = true;
   chekconfirm() {
+   // alert('55555')
 
     var chksection;
     var tmpSection: any[] = [];
@@ -143,10 +152,7 @@ export class ConfirmComponent implements OnInit {
       if (this.todoCourse[i].courseno != null) {
         this.httpClient
           .get(
-            'http://sevkn.ru.ac.th/ADManage/apinessy/etest/chkDateSection.jsp?STD_CODE=' +
-              this.us +
-              '&sem=' +
-              this.semester +
+            'http://sevkn.ru.ac.th/ADManage/apinessy/etest/chkDateSection.jsp?STD_CODE=' + this.us + '&sem=' + this.semester +
               '&year=' +
               this.year +
               '&dateselect=' +
@@ -229,17 +235,20 @@ export class ConfirmComponent implements OnInit {
     //his.aLabCost= [];
   }
 
- /* openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, {class: 'modal-md'});
   }
 
-  confirmDialog(): void {
+  btnconfirm(): void {
     this.message = 'Confirmed!';
+    this.chekconfirm();
     this.modalRef.hide();
   }
 
-  declineDialog(): void {
+  btndecline(): void {
     this.message = 'Declined!';
     this.modalRef.hide();
-  }*/
+  }
 }
