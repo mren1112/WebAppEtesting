@@ -21,6 +21,7 @@ import {
 import { ApiFetchETCourseService } from 'src/app/services/ApiFetchETCourse.service';
 import * as moment from 'moment';
 import { ApiFetchDateSectionService } from 'src/app/services/ApiFecthDateSection.service';
+import { Location } from '@angular/common';
 
 export interface PeriodicElement {
   courseno: string;
@@ -93,7 +94,7 @@ export class CourseComponent implements OnInit {
     private apiFetchETCourse: ApiFetchETCourseService,
     private apiFetchDateSection: ApiFetchDateSectionService,
     private httpClient: HttpClient,
-    private formBuilder: FormBuilder
+    private _location: Location
   ) {
     //this.addCheckboxes();
   }
@@ -117,11 +118,20 @@ export class CourseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.us = sessionStorage.getItem('stdcode');
-    this.sem = sessionStorage.getItem('sem');
-    this.year = sessionStorage.getItem('year');
-    this.strDate = sessionStorage.getItem('enddate');
-    this.endDate = sessionStorage.getItem('startdate');
+
+    if (sessionStorage.getItem('stdcode') == null) {
+      alert('please login again');
+      this.backClicked();
+    } else {
+      this.us = sessionStorage.getItem('stdcode');
+      this.sem = sessionStorage.getItem('sem');
+      this.year = sessionStorage.getItem('year');
+      this.strDate = sessionStorage.getItem('enddate');
+      this.endDate = sessionStorage.getItem('startdate');
+    }
+
+
+
     this.getEtCourse();
     this.loading();
     //this.checkConfirm();
@@ -139,6 +149,12 @@ export class CourseComponent implements OnInit {
         this.showSpinner = false;
       }, 5000);
     }
+  }
+
+  backClicked() {
+   // this._location.back();
+   sessionStorage.clear();
+   window.location.href = 'https://beta-e-service.ru.ac.th/';
   }
 
   checkConfirm() {
@@ -160,16 +176,15 @@ export class CourseComponent implements OnInit {
       this.todoCourse = data.results;
       //this.todoCourse =this.coursetest;
       this.cntCourseNo = Object.keys(data).length;
-      if (
-        sessionStorage.getItem('enddate') != '' &&
-        sessionStorage.getItem('startdate') != ''
-      ) {
+      if (sessionStorage.getItem('enddate') != '' && sessionStorage.getItem('startdate') != '' && sessionStorage.getItem('stdcode') != null) {
         this.subStrYear = Number(this.strDate.substring(6, 10)) - 543;
         this.subStrEndYear = Number(this.endDate.substring(6, 10)) - 543;
         this.subStrMonth = this.strDate.substring(0, 2);
         this.subStrEndMonth = this.endDate.substring(0, 2);
         this.subStrDate = this.strDate.substring(3, 5);
         this.subStrEndDate = this.endDate.substring(3, 5);
+      }else{
+        this.backClicked();
       }
     });
   }

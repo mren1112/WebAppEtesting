@@ -66,13 +66,21 @@ export class HomeMenuCreateComponent implements OnInit {
 
     this.loading();
   }*/
-
+  if (sessionStorage.getItem('stdcode') == null) {
+    alert('please login again');
+    this.backClicked();
+  }
     //
     this.loading();
     this.getProfile();
     this.getCounter();
   }
 
+  backClicked() {
+    // this._location.back();
+    sessionStorage.clear();
+    window.location.href = 'https://beta-e-service.ru.ac.th/';
+  }
 
   showSpinner = false;
   loading() {

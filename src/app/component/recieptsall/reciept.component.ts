@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 
 @Component({
@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./reciept.component.css']
 
 })
-export class RecieptAllCreateComponent{
+export class RecieptAllCreateComponent implements OnInit{
 
    _dtmocrep = [
     {}
@@ -16,5 +16,16 @@ export class RecieptAllCreateComponent{
   constructor(){
 
   }
+  ngOnInit() {
+    if (sessionStorage.getItem('stdcode') == null) {
+      alert('please login again');
+      this.backClicked();
+    }
+  }
 
+  backClicked() {
+    // this._location.back();
+    sessionStorage.clear();
+    window.location.href = 'https://beta-e-service.ru.ac.th/';
+  }
 }

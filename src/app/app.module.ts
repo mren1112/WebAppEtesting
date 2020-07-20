@@ -61,6 +61,7 @@ import { HttpModule } from '@angular/http';
 import { LandingPageComponent } from './component/landing/landing.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BsModalService, ModalModule } from 'ngx-bootstrap/modal';
+import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 
 
 const appRoutes: Routes = [
@@ -132,6 +133,7 @@ const appRoutes: Routes = [
     MatProgressSpinnerModule,
     //BsModalService,
     ModalModule.forRoot(),
+    //BackButtonDisableModule.forRoot({preserveScrollPosition: true}),
     RouterModule.forRoot(appRoutes, { useHash: true })
 
   ],

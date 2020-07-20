@@ -23,6 +23,9 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
   templateUrl: './confirm.component.html',
   styleUrls: ['./confirm.component.css'],
 })
+
+
+
 export class ConfirmComponent implements OnInit {
   coursetest = [
     { courseno: 'COS2101', credit: 3, status: false },
@@ -102,8 +105,14 @@ export class ConfirmComponent implements OnInit {
 
 
   ngOnInit() {
+    if (sessionStorage.getItem('stdcode') == null) {
+      alert('please login again');
+      this.backClicked();
+    } else {
     this.loading();
     this.chkTodoSelectCourse();
+    }
+
     //this.chbkconfirm();
 
   }
@@ -117,6 +126,12 @@ export class ConfirmComponent implements OnInit {
           }, 3000);
     }
   }
+
+  backClicked() {
+    // this._location.back();
+    sessionStorage.clear();
+    window.location.href = 'https://beta-e-service.ru.ac.th/';
+   }
 
   chkTodoSelectCourse() {
     this.us = sessionStorage.getItem('stdcode');
@@ -132,14 +147,7 @@ export class ConfirmComponent implements OnInit {
       sessionStorage.setItem('total', this.total);
     }
 
-    if (this.todoCourse != null && this.cntTodoCourse != 0) {
-      //console.log('todoConfirmSelectCourse = ' + this.todoCourse);
-     // console.log('total course = ' + this.cntTodoCourse);
 
-      // alert("wtf1"+ this.todoConfirmSelectCourse);
-    } else {
-      alert('wtf2');
-    }
   }
 
   //isenabled = true;
