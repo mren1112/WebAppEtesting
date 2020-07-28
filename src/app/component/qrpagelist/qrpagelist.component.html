@@ -25,14 +25,14 @@
          <thead>
            <tr>
              <th scope="col" style="width: 10px;">#No</th>
-             <th scope="col">ลงทะเบี่ยนวันที่</th>
+             <th scope="col">กรุณาชำระเงินภายในวันที่</th>
              <th scope="col">รับ Qr Code </th>
            </tr>
          </thead>
          <tbody>
-           <tr>
-             <th scope="row" style="width: 10px;">1</th>
-             <td>10 ส.ค. 2563</td>
+           <tr *ngFor="let dt of todoQrdatalist; let i = index;">
+             <th scope="row" style="width: 10px;">{{i+1}}</th>
+             <td>{{dt.repdate}} 23.55 น.</td>
              <td> <a href="google.com" color="primary">
               <span class="material-icons">
                 qr_code

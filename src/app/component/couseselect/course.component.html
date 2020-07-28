@@ -56,23 +56,26 @@
                       <mat-form-field class="example-full-width">
                         <mat-label>Choose a date</mat-label>
                         <input matInput [(ngModel)]="selectedDay[i]" [ngModelOptions]="{standalone: true}"
-                          [matDatepicker]="picker" [matDatepickerFilter]="myFilter" [min]="startDate" [max]="endtDate"
+                          [matDatepicker]="picker" [matDatepickerFilter]="myFilter" [min]="startDate"
                           (dateChange)="addEvent( $event, i,dt.courseno)" (datechange)="changeEvent(dt.courseno,i)" />
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker ngDefaultControl></mat-datepicker>
                       </mat-form-field> &nbsp;&nbsp;
 
+
                       <label *ngIf="dt.secstatus" for="{{dt.courseno}}">select section</label>&nbsp;
                       <select *ngIf="dt.secstatus" [(ngModel)]="selectedSection[i]" [id]="dt.courseno"
                         (change)="changeDropdown(dt.courseno,i)" [ngModelOptions]="{standalone: true}">
-
-                        <!--<option *ngFor="let item of todoSection[0].data"  [value]="item">{{item}}</option> -->
                         <ng-container *ngFor="let item of todoSection">
                         <ng-container  *ngIf="item.courseno === dt.courseno">
                           <option *ngFor="let data of item.section" [value]="data">section {{data}}</option>
                         </ng-container>
                         </ng-container>
                       </select>
+                      <ng-container *ngIf="statusSectSelect">
+                        <label >{{msgSection}}</label>&nbsp;
+                    </ng-container>
+
 
                       <!--mat-form-field *ngIf="dt.secstatus">
                         <mat-label>select section</mat-label>

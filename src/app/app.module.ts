@@ -61,7 +61,10 @@ import { HttpModule } from '@angular/http';
 import { LandingPageComponent } from './component/landing/landing.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BsModalService, ModalModule } from 'ngx-bootstrap/modal';
-import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
+import { ApiFetchQrPaymentService } from './services/ApiFetchQrpayment.service';
+import { ApiFetchRecieptService } from './services/ApiFetchReciept.service';
+import { ApiCheckSelectDateService } from './services/ApiCheckSelectDate.service';
+//import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 
 
 const appRoutes: Routes = [
@@ -101,6 +104,7 @@ const appRoutes: Routes = [
     ProfileComponent,
     TestComponent,
     LandingPageComponent,
+
     //CustomMaterialModule
 
 
@@ -149,7 +153,10 @@ const appRoutes: Routes = [
     ApiFetchDateService,
     ApiFetchDateSectionService,
     ApiConfirmService,
-    BsModalService
+    BsModalService,
+    ApiFetchQrPaymentService,
+    ApiFetchRecieptService,
+    ApiCheckSelectDateService,
     //{provide: LOCALE_ID, useValue: 'en' },
     //{ provide: LOCALE_ID, useValue: "th-TH" }
   ],
