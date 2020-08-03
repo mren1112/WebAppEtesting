@@ -1,14 +1,14 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
   integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
+  <app-header></app-header>
 <div class="content" role="main">
   <div class="container">
 
-    <div class="row">
+    <div class="row" style="margin-bottom: 20px;">
       <div class="col-12">
-        ---
+
         <p>
-          <hr>
+
       </div>
     </div>
     <app-profilecomponent></app-profilecomponent>
@@ -21,7 +21,9 @@
             <thead>
               <tr>
                 <th scope="col">
-                  <h2>แสดงวิชาทั้งหมดที่ลงทะเบียนปีการศึกษา</h2>
+                  <h2><span class="material-icons">
+                    event
+                  </span> &nbsp;&nbsp;แสดงวิชาที่สามารลงทะเบียนสอบ E-testing ได้</h2>
                 </th>
               </tr>
               <tr>
@@ -36,7 +38,7 @@
               <tr *ngFor="let dt of todoCourse , let i = index">
                 <td>
                   <b>
-                    <input type="checkbox" color="primary" (change)="toggleVisibility(dt.courseno)">
+                    <input type="checkbox" color="primary" (click)="toggleVisibility(dt.courseno,i)">
                     # {{i+1}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{dt.courseno}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     ({{dt.credit}}) {{dt.x}}
                   </b>
@@ -53,7 +55,7 @@
                       <!-- <input type="date" [(ngModel)]="selectedDay[i]" color="primary" (change)="addData(dt,i)"  [ngModelOptions]="{standalone: true}">
 
                </mat-form-field> -->
-                      <mat-form-field class="example-full-width">
+                        <mat-form-field class="example-full-width">
                         <mat-label>Choose a date</mat-label>
                         <input matInput [(ngModel)]="selectedDay[i]" [ngModelOptions]="{standalone: true}"
                           [matDatepicker]="picker" [matDatepickerFilter]="myFilter" [min]="startDate"
@@ -62,19 +64,21 @@
                         <mat-datepicker #picker ngDefaultControl></mat-datepicker>
                       </mat-form-field> &nbsp;&nbsp;
 
-
                       <label *ngIf="dt.secstatus" for="{{dt.courseno}}">select section</label>&nbsp;
                       <select *ngIf="dt.secstatus" [(ngModel)]="selectedSection[i]" [id]="dt.courseno"
                         (change)="changeDropdown(dt.courseno,i)" [ngModelOptions]="{standalone: true}">
                         <ng-container *ngFor="let item of todoSection">
-                        <ng-container  *ngIf="item.courseno === dt.courseno">
+                        <ng-container  *ngIf="item.courseno === dt.courseno" >
                           <option *ngFor="let data of item.section" [value]="data">section {{data}}</option>
                         </ng-container>
                         </ng-container>
                       </select>
-                      <ng-container *ngIf="statusSectSelect">
-                        <label >{{msgSection}}</label>&nbsp;
+                      <ng-container *ngIf="dt.secmsgstatus">
+                        <label style="color: red;">{{dt.msg}}</label>&nbsp;
                     </ng-container>
+                    <div *ngFor="let dd of todoSection" >
+                      {{ dd.section}}
+                    </div>
 
 
                       <!--mat-form-field *ngIf="dt.secstatus">
@@ -116,14 +120,14 @@
         </div>
       </div>
     </form>
-
-    <div *ngIf="showSpinner" class="spinner"></div>
-    <div *ngIf="showSpinner" class="txtspinner">loading...</div>
-  </div>
-  <pre>{{todoSection | json}}</pre>
+<!--pre>{{todoSection | json}}</pre>
   <p></p>
   <pre>{{todoCourse | json}}</pre>
   <p></p>
-  <pre>{{todoSelectCourse | json}}</pre>
+  <pre>{{todoSelectCourse | json}}</pre -->
+     <div *ngIf="showSpinner" class="spinner"></div>
+    <div *ngIf="showSpinner" class="txtspinner">loading...</div>
+  </div>
+
 </div>
 <app-footer></app-footer>

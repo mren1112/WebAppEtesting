@@ -2,6 +2,7 @@
   integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<app-header></app-header>
 <main>
 
 
@@ -34,7 +35,7 @@
             <tr *ngFor="let item of tmptodoCourse , let i = index">
               <th scope="row" style="width: 10px;">{{i+1}}</th>
               <td>{{item.courseno}}</td>
-              <td> {{item.date}}</td>
+              <td> {{item.examdate}}</td>
               <td>{{item.sectime}} น. ({{item.section}}) <h6 style="color: red;">&nbsp;{{item.tmpSection}}</h6>
               </td>
             </tr>
@@ -47,7 +48,7 @@
             <table class="table table-striped">
               <tr style="text-align: right; background-color: #fff5d2;">
                 <td style="text-align: right;">
-                  <b> ค่าลงทะเบีนสอบวิชาละ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 50 บาท.</b></td>
+                  <b> ค่าลงทะเบีนสอบวิชาละ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{perCourse}} บาท.</b></td>
               </tr>
               <tr style="text-align: right; background-color: #ffeaa7;">
                 <td style="text-align: right;">

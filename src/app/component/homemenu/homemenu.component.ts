@@ -141,7 +141,7 @@ export class HomeMenuCreateComponent implements OnInit {
         sessionStorage.setItem("majornamthai", this.todoProfile.MajorNameThai);
         sessionStorage.setItem("facName", this.todoProfile.FacNameThai);
         sessionStorage.setItem("birth", this.todoProfile.Birth);
-
+        sessionStorage.setItem("tel", this.todoProfile.tel);
           });
 
   }

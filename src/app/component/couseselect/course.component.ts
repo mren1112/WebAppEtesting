@@ -23,6 +23,7 @@ import * as moment from 'moment';
 import { ApiFetchDateSectionService } from 'src/app/services/ApiFecthDateSection.service';
 import { Location } from '@angular/common';
 import { ApiCheckSelectDateService } from 'src/app/services/ApiCheckSelectDate.service';
+import { ApiFetchDateService } from 'src/app/services/ApiFetchDate.service';
 
 export interface PeriodicElement {
   courseno: string;
@@ -85,16 +86,22 @@ export class CourseComponent implements OnInit {
   events: string[] = [];
   selectedDay: string[] = [];
   eventstmp = [{ date: null }];
-  startDate = new Date(2020 + 543, 7, 27);
-  endtDate = new Date(2020 + 543, 7, 31);
+  startDate;
+  endtDate;
   isEnable: boolean = true;
   registerForm: FormGroup;
   submitted = false;
-
+  public dateCurrent= new Date();
+  public arrDateToStr: any = [];
+  public todoCalendar: any = [];
+  msgSectionsta = false;
+  statusSectSelect = false;
+  cntDate;
   constructor(
     private apiFetchETCourse: ApiFetchETCourseService,
     private apiFetchDateSection: ApiFetchDateSectionService,
     private apiCheckSelectDate: ApiCheckSelectDateService,
+    private apiFetchDate: ApiFetchDateService,
     private httpClient: HttpClient,
     private _location: Location
   ) {
@@ -121,6 +128,30 @@ export class CourseComponent implements OnInit {
 
   ngOnInit() {
 
+    this.loading();
+    this.getCalendar();
+    this.onLoadPage();
+    this.setCalendar();
+    this.getEtCourse();
+
+  }
+
+  setCalendar() {
+
+    var tmpdate = this.dateCurrent;
+    var numberOfDaysToAdd = 5;
+    tmpdate.setDate(tmpdate.getDate() + numberOfDaysToAdd);
+
+    this.arrDateToStr.push(this.dateCurrent);
+    var tmpDateCurrent = moment(new Date(this.arrDateToStr.join())).format('DDMMYYYY');
+    //alert(tmpDateCurrent.substring(4))
+    //alert(tmpDateCurrent.substring(0,2));
+    this.startDate = new Date(Number(tmpDateCurrent.substring(4)) + 543, (Number(tmpDateCurrent.substring(2,4)) -1), Number(tmpDateCurrent.substring(0,2)));
+    this.endtDate = new Date(2020 + 543, 7, 31);
+
+  }
+
+  onLoadPage() {
     if (sessionStorage.getItem('stdcode') == null) {
       alert('please login again');
       this.backClicked();
@@ -132,12 +163,47 @@ export class CourseComponent implements OnInit {
       this.endDate = sessionStorage.getItem('startdate');
     }
 
-
-
-    this.getEtCourse();
-    this.loading();
-    //this.checkConfirm();
   }
+
+  getCalendar() {
+
+    this.apiFetchDate.getJSON().subscribe(res=> {
+      this.todoCalendar = res.results;
+      console.log(JSON.stringify(this.todoCalendar));
+    });
+
+
+
+  }
+
+  //paint alert day
+  dateClass = (d: Date): MatCalendarCellCssClasses => {
+    const date = d.getDate();
+
+    // Highlight the 1st and 20th day of each month.
+    return date === 0 || date === 0 ? 'dateAleart-class' : '';
+  };
+
+
+  holidayList: any[] =[];
+  //disable select holidayList
+  myFilter = (d: Date | null): boolean => {
+
+    /*this.holidayList=[new Date(2563, 8, 21).getTime(),
+      new Date(2563, 8, 20).getTime()
+    ];*/
+
+    //this.holidayList.push(new Date(2563, 8, 21).getTime());
+
+    for (let i = 0; i < this.todoCalendar.length; i++) {
+      //this.holidayList=[new Date(Number(this.todoCalendar[i].tmpYear), Number(this.todoCalendar[i].tmpMonth), Number(this.todoCalendar[i].tmpDate)).getTime()];
+      this.holidayList.push(new Date(Number(this.todoCalendar[i].tmpYear), Number(this.todoCalendar[i].tmpMonth)-1, Number(this.todoCalendar[i].tmpDate)).getTime());
+    }
+
+    const time= d.getTime();
+    //console.log("Gettime : " + time);
+    return  this.holidayList.find(x=>x==time)
+  };
 
   showSpinner: boolean = false;
   loading() {
@@ -195,31 +261,6 @@ export class CourseComponent implements OnInit {
     });
   }
 
-  //paint alert day
-  dateClass = (d: Date): MatCalendarCellCssClasses => {
-    const date = d.getDate();
-
-    // Highlight the 1st and 20th day of each month.
-    return date === 0 || date === 0 ? 'dateAleart-class' : '';
-  };
-
-  enableselectSect() {
-    //this.sectionselect =false;
-  }
-  holidayList;
-  //disable select holiday
-  myFilter = (d: Date | null): boolean => {
-  // const day = d;
-
-  this.holidayList=[new Date(2563, 7, 29).getTime()]
-  const time= d.getTime()
-  //console.log("Gettime : " + time);
-  return  !this.holidayList.find(x=>x==time)
-
-
-    //return day !== 0  ;
-    // console.log("myFilter date = " + d);
-  };
 
   //check box event
   checkValue(event: any) {
@@ -236,20 +277,30 @@ export class CourseComponent implements OnInit {
 
   pushtest: any = [];
   checked: boolean[] = [];
+  selectedCourse;
 
-  toggleVisibility(courseno) {
+  toggleVisibility(courseno,inx) {
     this.todoCourse.filter((arr) => {
       if (arr.courseno == courseno) {
         arr.status = !arr.status;
         if (arr.status === false) {
-          this.pushtest.splice(this.pushtest.indexOf(courseno), 1);
-          this.todoSelectCourse.splice(
-            this.todoSelectCourse.indexOf(courseno), 1);
-          console.log('pushtest =' + this.pushtest);
-          sessionStorage.setItem('todoSelectCourse',
-            JSON.stringify(this.todoSelectCourse));
+         // alert(this.pushtest.indexOf(courseno));
+          this.selectedDay[inx] = '';
+          this.selectedSection[inx] = '';
+          //arr.secstatus = false;
 
-          console.log('push null todoCourse ->>>>>>>>>>> ' + JSON.stringify(this.todoSelectCourse) );
+          for (var i =0; i < this.todoSelectCourse.length; i++)
+          if (this.todoSelectCourse[i].courseno === courseno) {
+            this.todoSelectCourse.splice(i, 1);this.pushtest.splice(i,1);
+             break;
+          }
+
+         //  this.pushtest.splice(this.pushtest.indexOf(courseno), 1);
+           //this.todoSelectCourse.splice(this.todoSelectCourse.indexOf(courseno), 1);
+          console.log('pushtest =' + this.pushtest);
+          sessionStorage.setItem('todoSelectCourse',JSON.stringify(this.todoSelectCourse));
+
+          console.log('splice todoCourse ->>>>>>>>>>> ' + JSON.stringify(this.todoSelectCourse) );
         } else {
           this.pushtest.push(arr.courseno);
           this.todoSelectCourse.push({
@@ -260,14 +311,10 @@ export class CourseComponent implements OnInit {
             sectime: '',
             tmpSection: '',
           });
-          sessionStorage.setItem(
-            'todoSelectCourse',
-            JSON.stringify(this.todoSelectCourse)
+          sessionStorage.setItem('todoSelectCourse',JSON.stringify(this.todoSelectCourse)
           );
          // this.checkConfirm();
-          console.log(
-            'total todoCourse ->>>>>>>>>>> ' +
-            JSON.stringify(this.todoSelectCourse)
+          console.log('total todoCourse ->>>>>>>>>>> ' + JSON.stringify(this.todoSelectCourse)
           );
           console.log('pushtest =' + this.pushtest);
         }
@@ -350,8 +397,8 @@ export class CourseComponent implements OnInit {
     var tempA = this.todoCourse;
     this.todoCourse.filter((arr) => {
       if (arr.courseno == obj.courseno) {
-        //arr.secstatus = !arr.secstatus;
-        console.log('arr.secstatus = ' + arr.secstatus);
+        arr.secstatus = false;
+       // console.log('arr.secstatus = ' + arr.secstatus);
       }
     });
   }
@@ -370,7 +417,7 @@ export class CourseComponent implements OnInit {
     //console.log('this.selectedDay = ' + JSON.stringify(this.selectedDay));
 
     this.events.push(`${event.value}`);
-    console.log('this.events = ' + JSON.stringify(this.events));
+    //console.log('this.events = ' + JSON.stringify(this.events));
     var tmpdatetoStr = moment(new Date(this.events.join())).format(
       'DD/MM/YYYY'
     );
@@ -384,7 +431,7 @@ export class CourseComponent implements OnInit {
     var tmpDate = `${event.value}`;
     // var tmpstr = this.selectedDay;
 
-    console.log('tempA if aaa = ' + JSON.stringify(tempA));
+    //console.log('tempA if aaa = ' + JSON.stringify(tempA));
 
     tempA.filter((arr) => {
       if (arr.courseno == courseno) {
@@ -397,7 +444,7 @@ export class CourseComponent implements OnInit {
 
     if (tmpdatetoStr != null) {
 
-      this.getSection(tmpdatetoStr, courseno, tmpdatetoStr2, tmpDate);
+      this.getSection(tmpdatetoStr, courseno, tmpdatetoStr2, tmpDate,index);
 
     }
 
@@ -407,32 +454,23 @@ export class CourseComponent implements OnInit {
 
   }
 
-  msgSection = 'no data';
-  msgSectionsta = false;
-  statusSectSelect = false;
-  cntDate;
 
-  getSection(tmpdatetoStr, courseno, tmpdatetoStr2, tmpDate) {
-    this.calculateDate(tmpDate);
+  getSection(tmpdatetoStr, courseno, tmpdatetoStr2, tmpDate,index) {
     console.log('cntDate = ' + this.cntDate);
 
-    /*if (this.cntDate < 5) {
-      alert(this.cntDate);
-      this.statusSectSelect = false;
-    } else {
-      alert('esle date = ' + this.cntDate);
-      this.statusSectSelect = true;
-    }*/
+   /* this.httpClient.get('http://sevkn.ru.ac.th/ADManage/apinessy/etest/getDateSection.jsp?STD_CODE=' +
+       this.us + '&sem=' + this.sem + '&year=' + this.year + '&dateselect=' + tmpdatetoStr + '&courseno=' + courseno + '&tmpdateselect=' + tmpdatetoStr2)
+       .subscribe((res) => {*/
 
-    //this.httpClient
-    // .get('http://sevkn.ru.ac.th/ADManage/apinessy/etest/getDateSection.jsp?STD_CODE=' +
-    //  this.us + '&sem=' + this.sem + '&year=' + this.year + '&dateselect=' + tmpdatetoStr + '&courseno=' + courseno + '&tmpdateselect=' + tmpdatetoStr2)
-
-    this.apiCheckSelectDate.getJSON(this.us, this.sem, this.year, tmpdatetoStr, courseno, tmpdatetoStr2)
-      .subscribe((res) => {
+//if (courseno != null) {
+  this.httpClient.get('http://sevkn.ru.ac.th/ADManage/apinessy/etest/getDateSection.jsp?STD_CODE=' +
+  this.us + '&sem=' + this.sem + '&year=' + this.year + '&dateselect=' + tmpdatetoStr + '&courseno=' + courseno + '&tmpdateselect=' + tmpdatetoStr2).subscribe((res) => {
+    /* this.apiCheckSelectDate.getJSON(this.us, this.sem, this.year, tmpdatetoStr, courseno, tmpdatetoStr2)
+      .subscribe((res) => {*/
         this.todoSection = res;
         var seemCourseno = false;
         var inxJson_tmp = 0;
+
 
         for (let i = 0; i < this.json_tmp.length; i++) {
           if (this.json_tmp[i].courseno == this.todoSection[0].courseno) {
@@ -444,7 +482,6 @@ export class CourseComponent implements OnInit {
         if (seemCourseno) {
           this.json_tmp[inxJson_tmp].examdate = this.todoSection[0].examdate;
           this.json_tmp[inxJson_tmp].section = this.todoSection[0].section;
-          this.json_tmp[inxJson_tmp].cntdate = this.todoSection[0].cntdate;
           console.log('tmps seemCourseno = ' + this.todoSection[0].cntdate);
 
         } else {
@@ -460,44 +497,33 @@ export class CourseComponent implements OnInit {
         this.todoSection = this.json_tmp;
 
         if (this.todoSection.examdate == null) {
-          this.todoCourse.filter((arr) => {
-            if (arr.courseno == courseno && this.cntDate > 4) {
+           this.todoCourse.filter((arr) => {
+        //    console.log('todoCourse =' + JSON.stringify(this.todoCourse));
+            if (arr.courseno == courseno ) {
               arr.secstatus = true;
 
-              // alert(arr.secstatus);
-              //console.log('arr.secstatus = ' + arr.secstatus);
-            }else{
-              this.statusSectSelect = true;
             }
           });
         }
-
       });
+   // }
 
   }
 
-  /*
-
-  json_mock=[
+  /*json_mock=[
     {"courseno":"THA1003",
     "examdate":"02/02/2020",
     "data":[1,4]},
             {"courseno":"PHI1003",
              "examdate":"02/02/2020",
              "data":[1,2,3,4]
-            }
-
-
-
-            ];
-
-*/
+            }];*/
 
   calculateDate(dateSent) {
     let currentDate = new Date();
     dateSent = new Date(dateSent);
     var ttt = Math.floor(Date.UTC(dateSent.getFullYear(), dateSent.getMonth(), dateSent.getDate())
-      - Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate())) / (1000 * 60 * 60 * 24);
+      - Date.UTC((currentDate.getFullYear()+543), currentDate.getMonth(), currentDate.getDate())) / (1000 * 60 * 60 * 24);
     this.cntDate = ttt;
     //console.log('dateSent = ' + dateSent);
     //console.log('ttt = ' + ttt);

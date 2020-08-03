@@ -14,6 +14,7 @@ export class ProfileComponent{
   majorname = sessionStorage.getItem("majornamthai");
   namethai = sessionStorage.getItem("namethai");
   facname = sessionStorage.getItem("facName");
+  tel = sessionStorage.getItem("tel");
   constructor(){
 
   }

@@ -17,6 +17,7 @@ import { ApiConfirmService } from '../../services/ApiConfirm.service';
 import { Http } from '@angular/http';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-confirm',
@@ -36,6 +37,7 @@ export class ConfirmComponent implements OnInit {
   //todotest: any  = localStorage.getItem("todo");
   public cntTodoCourse;
 
+  public perCourse = 100;
 
   //-----------------------------
   public todoCourse: any = [];
@@ -97,7 +99,8 @@ export class ConfirmComponent implements OnInit {
     private httpClient: HttpClient,
     private confirmservice: ApiConfirmService,
     public dialog: MatDialog,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private _router: Router, private route: ActivatedRoute,
    ) {
 
 
@@ -142,7 +145,8 @@ export class ConfirmComponent implements OnInit {
     this.todoCourse = JSON.parse(sessionStorage.getItem('todoSelectCourse'));
     this.cntTodoCourse = Object.keys(this.todoCourse).length;
     this.tmptodoCourse = JSON.parse(sessionStorage.getItem('todoSelectCourse'));
-    this.total = Number(this.cntTodoCourse) * 50;
+    console.log('tmptodoCourse = ' + JSON.stringify(this.tmptodoCourse));
+    this.total = Number(this.cntTodoCourse) * this.perCourse;
     if (this.total != 0) {
       sessionStorage.setItem('total', this.total);
     }
