@@ -47,6 +47,8 @@ doConfirm(username:string,year:string,semester:string,cntCourseNo:string,grad:st
     .subscribe(data =>{
       resolve(data);
       console.log("data  "+ JSON.stringify(data) );
+      console.log("Etsno = "+ JSON.stringify(data.Etsno) );
+      localStorage.setItem("Etsno",JSON.stringify(data.Etsno));
     },error => {
         reject(error);
     })

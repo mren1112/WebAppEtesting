@@ -8,7 +8,7 @@ main {
 .tabmaintable {
   width: 95%;
   padding-top: 10px;
-  background:linear-gradient(to bottom, #89c403 5%, #77a809 100%);
+  background:linear-gradient(to bottom, #f7ac0a 5%, #ff961f 100%);
   -webkit-box-shadow: 9px 10px 0px -7px rgba(128, 128, 128, 1);
   -moz-box-shadow: 9px 10px 0px -7px rgba(128, 128, 128, 1);
   box-shadow: 9px 10px 0px -7px rgba(128, 128, 128, 1);
@@ -29,7 +29,7 @@ main {
 
 .table-striped>tbody>tr:nth-child(2n+1)>td,
 .table-striped>tbody>tr:nth-child(2n+1)>th {
-  background-color: #feca57;
+  background-color: #ffeaa7;
 }
 
 

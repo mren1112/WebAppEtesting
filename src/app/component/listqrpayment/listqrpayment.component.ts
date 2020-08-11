@@ -4,15 +4,18 @@ import { ApiFetchQrPaymentService } from 'src/app/services/ApiFetchQrpayment.ser
 import * as moment from 'moment';
 
 @Component({
-  selector: 'app-qrlist',
-  templateUrl: './qrpagelist.component.html',
-  styleUrls: ['./qrpagelist.component.css'],
+  selector: 'app-listqrpayment',
+  templateUrl: './listqrpayment.component.html',
+  styleUrls: ['./listqrpayment.component.css'],
   providers: [DatePipe]
 })
-export class QrpagelistCreateComponent implements OnInit {
+export class ListQrPaymentComponent implements OnInit {
 
+  public us = sessionStorage.getItem('stdcode');
 
-  public us;
+  public currentTime = new Date();
+  public todoQrdatalist: any = [];
+  // public us;
   public sem;
   public year;
   public telnum;
@@ -28,8 +31,6 @@ export class QrpagelistCreateComponent implements OnInit {
   public txtsem;
   public namethai;
 
-  public currentTime = new Date();
-  public todoQrdatalist: any = [];
   //get Date
   curDate = new Date();
   public arrDateToStr: any[] = [];
@@ -38,16 +39,15 @@ export class QrpagelistCreateComponent implements OnInit {
   }
   ngOnInit() {
     console.log(this.currentTime);
-    // this.getQrDatalist();
     if (sessionStorage.getItem('stdcode') == null) {
       alert('please login again');
       this.backClicked();
     } else {
       this.getQrDatalist();
     }
-
-
   }
+
+
 
   backClicked() {
     // this._location.back();
@@ -94,10 +94,11 @@ export class QrpagelistCreateComponent implements OnInit {
     }
 
 
-    this.apiFetchQrPaylist.getJSON().subscribe((data) => {
+
+    /*this.apiFetchQrPaylist.getJSON().subscribe((data) => {
       this.todoQrdatalist = data.results;
 
-    });
+    });*/
 
   }
 

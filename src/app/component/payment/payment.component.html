@@ -11,7 +11,7 @@
               <div class="col-12">
                 <img class="card-img-top" src="../../../assets/img/ru_QR.jpg" alt="Card image cap">
                 <img class="card-body" style="width: 90%;"
-                  src="https://devtest.ru.ac.th/ThaiQR/ADQR?totalAmount={{total}}&username={{usr}}&tel={{tel}}&duedate=110720">
+                  src="{{urlFecthqar}}">
               </div>
             </div>
             <div class="row">
@@ -19,16 +19,20 @@
                 <p class="card-text">ลงทะเบี่ยนสอบ E-Testing</p>
               </div>
               <div class="col-6">
-                <p class="card-text"><b>1000.00 บาท (TH/B).</b> </p>
+                <p class=""><b>{{total}}.00 บาท (TH/B).</b> </p>
               </div>
             </div>
             <div class="row">
               <div class="col-6">
-                <p class="card-text">ลงทะเบี่ยนสอบ E-Testing</p>
+                <p class="">ปีการศึกษา {{txtsem}}/{{year}}</p>
               </div>
+              <div class="col-6">ชื่อผู้ชำระเงิน {{namethai}}</div>
+            </div>
+            <div class="row">
               <div class="col-6">
-                <p class="card-text">รหัส {{usr}}</p>
+                <p class="card-text"></p>
               </div>
+              <div class="col-6"></div>
             </div>
             <div class="row">
               <div class="col-12 ">
@@ -66,18 +70,13 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>MTH1000</td>
-                <td>สอบ 23 พ.ค. 63</td>
-                <td>1 09.30 - 12.00 น.</td>
+              <tr *ngFor="let dt of todoCourse; let i = index;">
+                <th scope="row">{{i+1}}</th>
+                <td>{{dt.courseno}}</td>
+                <td>{{dt.examdate}}</td>
+                <td>{{dt.sectime}} น. ({{dt.section}}) </td>
               </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>MTH1000</td>
-                <td>สอบ 23 พ.ค. 63</td>
-                <td>1 09.30 - 12.00 น.</td>
-              </tr>
+
             </tbody>
           </table>
 
@@ -95,9 +94,12 @@
           </section>
           <p>
             <hr>
+            {{urlFecthqar}}
         </div>
       </div>
     </div>
   </div>
 
 </main>
+
+<app-footer></app-footer>

@@ -1,7 +1,9 @@
 main {
+  margin-top: 10%;
   padding-top: 30px;
   width: 95%;
   margin: auto;
+  background-color: #fad390;
 
 }
 
@@ -9,9 +11,6 @@ main {
   width: 95%;
   padding-top: 10px;
   background:linear-gradient(to bottom, #f7ac0a 5%, #ff961f 100%);
-  -webkit-box-shadow: 9px 10px 0px -7px rgba(128, 128, 128, 1);
-  -moz-box-shadow: 9px 10px 0px -7px rgba(128, 128, 128, 1);
-  box-shadow: 9px 10px 0px -7px rgba(128, 128, 128, 1);
 
 }
 
@@ -20,11 +19,12 @@ main {
   color: white;
 
 }
+table {
+  border-color: rgb(233, 120, 14);
+  border: 1;
+  background-color: white;
+  width: 100%;
 
-.container{
-  -webkit-box-shadow: 9px 10px 0px -7px rgba(128, 128, 128, 1);
-  -moz-box-shadow: 9px 10px 0px -7px rgba(128, 128, 128, 1);
-  box-shadow: 9px 10px 0px -7px rgba(128, 128, 128, 1);
 }
 
 .table-striped>tbody>tr:nth-child(2n+1)>td,

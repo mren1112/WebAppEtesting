@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
   integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
   <app-header></app-header>
 <div class="content" role="main">
   <div class="container">
@@ -12,20 +13,23 @@
       </div>
     </div>
     <app-profilecomponent></app-profilecomponent>
-
+      <hr>
     <form>
+      <div class="row" style="margin-bottom: 15px;">
+        <div class="col-md-12 tabmaintable" >
+          <div class="texrheader">
+            <h2> <span class="material-icons">
+            event
+          </span> &nbsp;&nbsp;แสดงวิชาที่สามารถลงทะเบียนสอบ E-testing ได้ปีการศึกษา {{sem}}/{{year}}
+            </h2>  </div>
+        </div>
+      </div>
 
+      <ng-container *ngIf="chktodoCourse">
       <div class="row">
         <div class="col-12">
           <table class="table table-striped">
             <thead>
-              <tr>
-                <th scope="col">
-                  <h2><span class="material-icons">
-                    event
-                  </span> &nbsp;&nbsp;แสดงวิชาที่สามารลงทะเบียนสอบ E-testing ได้</h2>
-                </th>
-              </tr>
               <tr>
                 <th scope="col">
                   <b> ลำดับ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; วิชา
@@ -76,10 +80,6 @@
                       <ng-container *ngIf="dt.secmsgstatus">
                         <label style="color: red;">{{dt.msg}}</label>&nbsp;
                     </ng-container>
-                    <div *ngFor="let dd of todoSection" >
-                      {{ dd.section}}
-                    </div>
-
 
                       <!--mat-form-field *ngIf="dt.secstatus">
                         <mat-label>select section</mat-label>
@@ -119,6 +119,20 @@
             <hr>
         </div>
       </div>
+<!-- end table -->
+</ng-container>
+<ng-container *ngIf="!chktodoCourse">
+  <div class="row">
+    <div class="col-12" style="text-align: center;"> <p></p><h1 style="color: red;">ท่านไม่มีวิชาที่สามารถลงทะเบียนสอบได้</h1><p>
+      <button routerLink="/" routerLinkActive="active" mat-raised-button color="warn">
+        <span class="material-icons">
+          home
+        </span> กลับสู่หน้าหลัก</button>
+
+    </p></div>
+  </div>
+</ng-container>
+
     </form>
 <!--pre>{{todoSection | json}}</pre>
   <p></p>

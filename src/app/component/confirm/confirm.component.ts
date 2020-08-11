@@ -77,7 +77,7 @@ export class ConfirmComponent implements OnInit {
   public majorno;
   public total;
   public name;
-  public grad = sessionStorage.getItem('neargrad');
+  public grad;
   public us;
   public feeTemp;
   public feeNo;
@@ -137,6 +137,7 @@ export class ConfirmComponent implements OnInit {
    }
 
   chkTodoSelectCourse() {
+    this.grad = sessionStorage.getItem('neargrad');
     this.us = sessionStorage.getItem('stdcode');
     this.semester = sessionStorage.getItem('sem');
     this.year = sessionStorage.getItem('year');

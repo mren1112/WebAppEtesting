@@ -97,6 +97,7 @@ export class CourseComponent implements OnInit {
   msgSectionsta = false;
   statusSectSelect = false;
   cntDate;
+  chktodoCourse = true;
   constructor(
     private apiFetchETCourse: ApiFetchETCourseService,
     private apiFetchDateSection: ApiFetchDateSectionService,
@@ -247,6 +248,7 @@ export class CourseComponent implements OnInit {
     this.apiFetchETCourse.getJSON().subscribe((data) => {
       this.todoCourse = data.results;
       //this.todoCourse =this.coursetest;
+      console.log('------------- ' +this.todoCourse)
       this.cntCourseNo = Object.keys(data).length;
       if (sessionStorage.getItem('enddate') != '' && sessionStorage.getItem('startdate') != '' && sessionStorage.getItem('stdcode') != null) {
         this.subStrYear = Number(this.strDate.substring(6, 10)) - 543;
@@ -259,6 +261,12 @@ export class CourseComponent implements OnInit {
         this.backClicked();
       }
     });
+
+    if (this.todoCourse == null ||
+       this.todoCourse == "") {
+     // alert('55454');
+        this.chktodoCourse = false;
+    }
   }
 
 
@@ -462,11 +470,11 @@ export class CourseComponent implements OnInit {
        this.us + '&sem=' + this.sem + '&year=' + this.year + '&dateselect=' + tmpdatetoStr + '&courseno=' + courseno + '&tmpdateselect=' + tmpdatetoStr2)
        .subscribe((res) => {*/
 
-//if (courseno != null) {
-  this.httpClient.get('http://sevkn.ru.ac.th/ADManage/apinessy/etest/getDateSection.jsp?STD_CODE=' +
-  this.us + '&sem=' + this.sem + '&year=' + this.year + '&dateselect=' + tmpdatetoStr + '&courseno=' + courseno + '&tmpdateselect=' + tmpdatetoStr2).subscribe((res) => {
-    /* this.apiCheckSelectDate.getJSON(this.us, this.sem, this.year, tmpdatetoStr, courseno, tmpdatetoStr2)
-      .subscribe((res) => {*/
+if (courseno != null) {
+  /*this.httpClient.get('http://sevkn.ru.ac.th/ADManage/apinessy/etest/getDateSection.jsp?STD_CODE=' +
+  this.us + '&sem=' + this.sem + '&year=' + this.year + '&dateselect=' + tmpdatetoStr + '&courseno=' + courseno + '&tmpdateselect=' + tmpdatetoStr2).subscribe((res) => {*/
+    this.apiCheckSelectDate.getJSON(this.us, this.sem, this.year, tmpdatetoStr, courseno, tmpdatetoStr2)
+      .subscribe((res) => {
         this.todoSection = res;
         var seemCourseno = false;
         var inxJson_tmp = 0;
@@ -506,7 +514,7 @@ export class CourseComponent implements OnInit {
           });
         }
       });
-   // }
+    }
 
   }
 

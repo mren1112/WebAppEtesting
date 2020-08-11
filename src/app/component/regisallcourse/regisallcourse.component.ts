@@ -11,12 +11,12 @@ import { ApiFetchAllCourseRegisService } from '../../services/ApiFetchAllCourseR
 export class RegisAllCourseCreateComponent implements OnInit {
 
   public allCourse: any = [];
-  us = sessionStorage.getItem("stdcode");
-  sem = sessionStorage.getItem("sem");
-  year = sessionStorage.getItem("year");
-  majorname = sessionStorage.getItem("majornamthai");
-  namethai = sessionStorage.getItem("sem");
-  facname = sessionStorage.getItem("facName");
+  public us;
+  public sem;
+  public year;
+  public majorname;
+  public namethai;
+  public facname;
 
   constructor(
     private apiFetchAllCourseRegis: ApiFetchAllCourseRegisService
@@ -24,9 +24,24 @@ export class RegisAllCourseCreateComponent implements OnInit {
   ) {
 
   }
+
   ngOnInit() {
+    this.fecthStorage();
     this.getAllCourseRegis();
 }
+
+  fecthStorage() {
+    this.us = sessionStorage.getItem("stdcode");
+    this.sem = sessionStorage.getItem("sem");
+    if (this.sem === '3') {
+        this.sem = "summer";
+    }
+    this.year = sessionStorage.getItem("year");
+    this.majorname = sessionStorage.getItem("majornamthai");
+    this.namethai = sessionStorage.getItem("sem");
+    this.facname = sessionStorage.getItem("facName");
+}
+
   getAllCourseRegis() {
     this.apiFetchAllCourseRegis.getJSON().subscribe(res => {
       this.allCourse = res.rec;

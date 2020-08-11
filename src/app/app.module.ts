@@ -64,6 +64,8 @@ import { BsModalService, ModalModule } from 'ngx-bootstrap/modal';
 import { ApiFetchQrPaymentService } from './services/ApiFetchQrpayment.service';
 import { ApiFetchRecieptService } from './services/ApiFetchReciept.service';
 import { ApiCheckSelectDateService } from './services/ApiCheckSelectDate.service';
+import { SliptComponent } from './component/slipts/slipt.component';
+import { ListQrPaymentComponent } from './component/listqrpayment/listqrpayment.component';
 //import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 
 
@@ -82,7 +84,7 @@ const appRoutes: Routes = [
   { path: "policy", component: PolicyCreateComponent },
   { path: "qrpagelist", component: QrpagelistCreateComponent },
   { path: "testing", component: TestComponent },
-
+  { path: "slipt", component: SliptComponent },
 
 ]
 
@@ -104,7 +106,8 @@ const appRoutes: Routes = [
     ProfileComponent,
     TestComponent,
     LandingPageComponent,
-
+    SliptComponent,
+    ListQrPaymentComponent,
     //CustomMaterialModule
 
 
