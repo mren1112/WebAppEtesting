@@ -39,12 +39,12 @@ integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7
                 <tr *ngFor="let dt of todoQrdatalist; let i = index;">
                   <th scope="row" style="width: 10px;">{{i+1}}</th>
                   <td>{{dt.repdate}} 23.55 น.</td>
-                  <td> <a href="google.com" color="primary">
+                  <td> <button (click)="getQrcodefromlist(dt.refkey) ">
                    <span class="material-icons">
                      qr_code
                      </span>
                      กดรับ
-                  </a></td>
+                    </button></td>
                 </tr>
 
               </tbody>
@@ -64,7 +64,7 @@ integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7
 
        <P></P>
        <section style="margin-top: 15px;">
-         <div class="example-button-row" style="text-align: center;"> 
+         <div class="example-button-row" style="text-align: center;">
            <button  routerLink="/" routerLinkActive="active" mat-raised-button color="warn">
             <span class="material-icons">
               home

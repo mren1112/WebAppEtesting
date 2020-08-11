@@ -97,7 +97,7 @@ export class QrpagelistCreateComponent implements OnInit {
 
     this.apiFetchQrPaylist.getJSON().subscribe((data) => {
       this.todoQrdatalist = data.results;
-
+      console.log('data = ' + JSON.stringify( this.todoQrdatalist));
       if (this.todoQrdatalist == "") {
 
         this.chkTodoCourse = true;
@@ -105,6 +105,10 @@ export class QrpagelistCreateComponent implements OnInit {
 
     });
 
+  }
+
+  getQrcodefromlist(refkey) {
+    alert('xxx')
   }
 
 }
