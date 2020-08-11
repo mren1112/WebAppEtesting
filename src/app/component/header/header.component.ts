@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import { Component, OnInit } from '@angular/core';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { BnNgIdleService } from 'bn-ng-idle'; // import it to your component
 
 @Component({
   selector: 'app-header',
@@ -8,13 +9,39 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 
 }
 )
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
+  public us;
 
+  constructor(private bnIdle: BnNgIdleService) {
+    this.bnIdle.startWatching(3600).subscribe((res) => {
+      if(res) {
+          //console.log("session expired");
+          alert("Session expired, please login again");
+      }
+    })
+  }
 
+  ngOnInit() {
+    this.us = sessionStorage.getItem("stdcode");
+    if (this.us== null) {
+      alert('please login again');
+      this.backClicked();
+    }
+  }
+
+  logout() {
+    sessionStorage.removeItem("stdcode");
+    sessionStorage.clear();
+    window.location.href = 'https://beta-e-service.ru.ac.th/';
+  }
+
+  backClicked() {
+    // this._location.back();
+    sessionStorage.clear();
+    window.location.href = 'https://beta-e-service.ru.ac.th/';
+  }
 }
 export class ToolbarMultirowExample {
-
-  
 
 
 }

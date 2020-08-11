@@ -13,6 +13,8 @@ export class InfoCreateComponent implements OnInit{
     {}
   ]
 
+  public chkdatainfo = false;
+
   constructor(){
 
   }

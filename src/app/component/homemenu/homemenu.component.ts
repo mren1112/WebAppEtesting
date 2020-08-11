@@ -92,7 +92,7 @@ export class HomeMenuCreateComponent implements OnInit {
       this.showSpinner = true;
       setTimeout(() => {
         this.showSpinner = false;
-      }, 3000);
+      }, 2000);
     }
   }
 

@@ -16,7 +16,7 @@ export interface TodoCounter {
 @Injectable()
 export class ApiFetchCounterService {
 
-  urlFetchETCourse = "http://sevkn.ru.ac.th/ADManage/apinessy/etest/getCounter.jsp";
+  urlFetchETCourse = "http://sevkn.ru.ac.th/etest/getCounter.jsp";
 
   constructor(private http: HttpClient) {
     this.getJSON().subscribe(response => {

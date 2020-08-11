@@ -27,7 +27,7 @@ export class ApiFetchETCourseService {
   public sem = sessionStorage.getItem("sem");
   public year = sessionStorage.getItem("year");
 
-  urlFetchETCourse = "http://sevkn.ru.ac.th/ADManage/apinessy/etest/getEtCourse.jsp?STD_CODE="+this.us+"&sem="+this.sem+"&year="+this.year;
+  urlFetchETCourse = "http://sevkn.ru.ac.th/etest/getEtCourse.jsp?STD_CODE="+this.us+"&sem="+this.sem+"&year="+this.year;
 
   constructor(private http: HttpClient) {
     this.getJSON().subscribe(response => {

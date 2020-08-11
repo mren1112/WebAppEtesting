@@ -68,6 +68,7 @@ import { SliptComponent } from './component/slipts/slipt.component';
 import { ListQrPaymentComponent } from './component/listqrpayment/listqrpayment.component';
 //import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 
+import { BnNgIdleService } from 'bn-ng-idle'; // import bn-ng-idle service
 
 const appRoutes: Routes = [
   //home/6290508511
@@ -159,7 +160,7 @@ const appRoutes: Routes = [
     BsModalService,
     ApiFetchQrPaymentService,
     ApiFetchRecieptService,
-    ApiCheckSelectDateService,
+    ApiCheckSelectDateService,BnNgIdleService
     //{provide: LOCALE_ID, useValue: 'en' },
     //{ provide: LOCALE_ID, useValue: "th-TH" }
   ],

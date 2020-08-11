@@ -36,7 +36,7 @@ export class ApiFetchProfileService {
    // });
   }
   getJSON(username:string){
-    return this.httppp.get('http://sevkn.ru.ac.th/ADManage/apinessy/etest/getProfile.jsp?STD_CODE='+username)
+    return this.httppp.get('http://sevkn.ru.ac.th/etest/getProfile.jsp?STD_CODE='+username)
                 .pipe(map((response: any)=> response ),
                       catchError(err => {return (err)}));
   }

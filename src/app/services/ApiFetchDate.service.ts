@@ -10,7 +10,7 @@ export class ApiFetchDateService {
   public year = sessionStorage.getItem("year");
   public sem = sessionStorage.getItem("sem");
 
-  urlFetch = "http://sevkn.ru.ac.th/ADManage/apinessy/etest/getOPCalendar.jsp?year="+this.year + '&sem=' + this.sem;
+  urlFetch = "http://sevkn.ru.ac.th/etest/getOPCalendar.jsp?year="+this.year + '&sem=' + this.sem;
 
   constructor(private http: HttpClient) {
     this.getJSON().subscribe(data => {

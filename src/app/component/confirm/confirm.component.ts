@@ -126,7 +126,7 @@ export class ConfirmComponent implements OnInit {
       this.showSpinner =true;
           setTimeout(() => {
               this.showSpinner = false;
-          }, 3000);
+          }, 1000);
     }
   }
 
@@ -165,7 +165,7 @@ export class ConfirmComponent implements OnInit {
       if (this.todoCourse[i].courseno != null) {
         this.httpClient
           .get(
-            'http://sevkn.ru.ac.th/ADManage/apinessy/etest/chkDateSection.jsp?STD_CODE=' + this.us + '&sem=' + this.semester +
+            'http://sevkn.ru.ac.th/etest/chkDateSection.jsp?STD_CODE=' + this.us + '&sem=' + this.semester +
               '&year=' +
               this.year +
               '&dateselect=' +

@@ -36,7 +36,7 @@ export class ApiCheckSelectDateService {
    // });
   }
   getJSON(username:string,sem:string,year:string,tmpdatetoStr:any,courseno:any,tmpdatetoStr2:any){
-    return this.httppp.get('http://sevkn.ru.ac.th/ADManage/apinessy/etest/getDateSection.jsp?STD_CODE=' +
+    return this.httppp.get('http://sevkn.ru.ac.th/etest/getDateSection.jsp?STD_CODE=' +
     username + '&sem=' + sem + '&year=' + year + '&dateselect=' + tmpdatetoStr + '&courseno=' + courseno + '&tmpdateselect=' + tmpdatetoStr2)
                 .pipe(map((response: any)=> response ),
                       catchError(err => {return (err)}));

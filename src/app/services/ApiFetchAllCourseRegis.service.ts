@@ -12,9 +12,9 @@ export class ApiFetchAllCourseRegisService {
   public us = sessionStorage.getItem("stdcode");
   public sem = sessionStorage.getItem("sem");
   public year = sessionStorage.getItem("year");
-  
 
-  urlFetchAllCourse= "http://sevkn.ru.ac.th/ADManage/apinessy/etest/getAllCourseRegis.jsp?STD_CODE="+this.us+"&sem="+this.sem+"&year="+this.year;
+
+  urlFetchAllCourse= "http://sevkn.ru.ac.th/etest/getAllCourseRegis.jsp?STD_CODE="+this.us+"&sem="+this.sem+"&year="+this.year;
 
 
 

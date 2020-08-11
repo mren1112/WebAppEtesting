@@ -45,12 +45,15 @@ integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7
 
        <mat-divider></mat-divider>
        <P></P>
-       <section>
-         <div class="example-button-row" style="text-align: center;">
-          <button class="btn text-white text-center"  routerLink="/"  style="background:#ff0000;"
-          target="_blank"><i class="fa fa-home fa-fw fa-1x py-1"></i> กลับสู่หน้าหลัก </button>
-         </div>
-       </section>
+       <section style="margin-top: 15px;">
+        <div class="example-button-row" style="text-align: center;">
+          <button  routerLink="/" routerLinkActive="active" mat-raised-button color="warn">
+           <span class="material-icons">
+             home
+             </span> กลับสู่หน้าหลัก</button>
+
+        </div>
+      </section>
        <p>
          <hr>
       </div>
@@ -59,9 +62,5 @@ integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7
 
 </main>
 <p></p>
-<app-footer></app-footer>
-
-ิ
-
-
+<app-footer></app-footer> 
 </body>

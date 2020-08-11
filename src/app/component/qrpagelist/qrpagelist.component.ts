@@ -33,6 +33,7 @@ export class QrpagelistCreateComponent implements OnInit {
   //get Date
   curDate = new Date();
   public arrDateToStr: any[] = [];
+  public chkTodoCourse =false;
   constructor(private apiFetchQrPaylist: ApiFetchQrPaymentService) {
 
   }
@@ -96,6 +97,11 @@ export class QrpagelistCreateComponent implements OnInit {
 
     this.apiFetchQrPaylist.getJSON().subscribe((data) => {
       this.todoQrdatalist = data.results;
+
+      if (this.todoQrdatalist == "") {
+
+        this.chkTodoCourse = true;
+      }
 
     });
 
