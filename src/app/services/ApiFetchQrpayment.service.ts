@@ -15,7 +15,7 @@ export class ApiFetchQrPaymentService {
   //public tmpdatetoStr = sessionStorage.getItem("tmpdatetoStr");
 
 
-  urlFetch = "http://sevkn.ru.ac.th/etest/getQrpaylist.jsp?STD_CODE="+this.us+"&sem="+this.sem+"&year="+this.year;
+  urlFetch = "http://sevkn.ru.ac.th/etest/getQrpaylist.jsp?STD_CODE=";
 
 
 
@@ -26,7 +26,7 @@ export class ApiFetchQrPaymentService {
     });
   }
   getJSON(): Observable<any> {
-    return this.http.get(this.urlFetch)
+    return this.http.get(this.urlFetch+this.us+"&sem="+this.sem+"&year="+this.year)
                 .pipe(map((response: any)=> response ),
                       catchError(err => {return (err)}));
   }

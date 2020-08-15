@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ApiFetchQrPaymentService } from 'src/app/services/ApiFetchQrpayment.service';
 import * as moment from 'moment';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ApiFectSelectPayQrService } from 'src/app/services/ApiFecthSelectPayQr.service';
 
 @Component({
   selector: 'app-qrlist',
@@ -16,7 +18,7 @@ export class QrpagelistCreateComponent implements OnInit {
   public sem;
   public year;
   public telnum;
-  public refkey = 'ETS631000001';
+  public refkey;
   public total;
   public duedate;
 
@@ -34,7 +36,11 @@ export class QrpagelistCreateComponent implements OnInit {
   curDate = new Date();
   public arrDateToStr: any[] = [];
   public chkTodoCourse =false;
-  constructor(private apiFetchQrPaylist: ApiFetchQrPaymentService) {
+  constructor(private apiFetchQrPaylist: ApiFetchQrPaymentService,
+    private router:Router,
+    private activerouter:ActivatedRoute,
+    private apifecthSelecPayQr: ApiFectSelectPayQrService
+    ) {
 
   }
   ngOnInit() {
@@ -61,7 +67,7 @@ export class QrpagelistCreateComponent implements OnInit {
     this.year = sessionStorage.getItem("year");
     this.us = sessionStorage.getItem("stdcode");
     this.telnum = sessionStorage.getItem("tel");
-    this.total = sessionStorage.getItem("total");
+    //this.total = sessionStorage.getItem("total");
     //this.refkey = localStorage.getItem("Etsno");
     this.namethai = sessionStorage.getItem("namethai");
 
@@ -107,8 +113,31 @@ export class QrpagelistCreateComponent implements OnInit {
 
   }
 
+  //public tmptodoCourse: any = [];
   getQrcodefromlist(refkey) {
-    alert('xxx')
+
+    this.apifecthSelecPayQr.getJSON(this.us,this.sem,this.year,refkey).subscribe((res)=> {
+        this.tmptodoCourse = res.results;
+        localStorage.setItem('todoCoursess',this.tmptodoCourse);
+        if (this.tmptodoCourse == "") {
+          console.log(' this.err = ' + JSON.stringify( this.tmptodoCourse));
+        } else {
+          console.log(' this.tmptodoCourse = ' + JSON.stringify( this.tmptodoCourse));
+          alert(' this.tmptodoCourse = ' + JSON.stringify( this.tmptodoCourse));
+          localStorage.setItem('todoCoursess',this.tmptodoCourse);
+          localStorage.setItem('totals',this.tmptodoCourse.total);
+          localStorage.setItem('refkey',this.tmptodoCourse.refkey);
+          localStorage.setItem('duedate',this.tmptodoCourse.duedate);
+
+          console.log('total = ' + JSON.stringify(this.tmptodoCourse.total) );
+           console.log('refkey = ' + this.tmptodoCourse.refkey);
+          console.log('duedate = ' + this.tmptodoCourse.duedate);
+        }
+    });
+    this.router.navigate(['listqrpayment']);
   }
 
+  setArrStorage(refkey) {
+    this.router.navigate(['payment']);
+  }
 }

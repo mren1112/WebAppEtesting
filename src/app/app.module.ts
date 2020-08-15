@@ -69,6 +69,7 @@ import { ListQrPaymentComponent } from './component/listqrpayment/listqrpayment.
 //import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 
 import { BnNgIdleService } from 'bn-ng-idle'; // import bn-ng-idle service
+import { ApiFectSelectPayQrService } from './services/ApiFecthSelectPayQr.service';
 
 const appRoutes: Routes = [
   //home/6290508511
@@ -86,7 +87,7 @@ const appRoutes: Routes = [
   { path: "qrpagelist", component: QrpagelistCreateComponent },
   { path: "testing", component: TestComponent },
   { path: "slipt", component: SliptComponent },
-
+  { path: "listqrpayment", component: ListQrPaymentComponent },
 ]
 
 @NgModule({
@@ -160,7 +161,9 @@ const appRoutes: Routes = [
     BsModalService,
     ApiFetchQrPaymentService,
     ApiFetchRecieptService,
-    ApiCheckSelectDateService,BnNgIdleService
+    ApiCheckSelectDateService,
+    BnNgIdleService,
+    ApiFectSelectPayQrService
     //{provide: LOCALE_ID, useValue: 'en' },
     //{ provide: LOCALE_ID, useValue: "th-TH" }
   ],

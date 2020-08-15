@@ -70,7 +70,7 @@ export class PaymentComponent implements OnInit {
     console.log('total = ' + this.total);
 
     if (this.sem == '3') {
-        this.txtsem = 'ฤดูร้อน'
+        this.txtsem = 'ฤดูร้อน';
     } else {
         this.txtsem = this.sem;
     }

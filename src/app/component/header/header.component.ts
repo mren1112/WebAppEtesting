@@ -17,6 +17,7 @@ export class HeaderComponent implements OnInit {
       if(res) {
           //console.log("session expired");
           alert("Session expired, please login again");
+         // this.logout();
       }
     })
   }
