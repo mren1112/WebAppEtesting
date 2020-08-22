@@ -47,8 +47,11 @@ doConfirm(username:string,year:string,semester:string,cntCourseNo:string,grad:st
     .subscribe(data =>{
       resolve(data);
       console.log("data  "+ JSON.stringify(data) );
-      console.log("Etsno = "+ JSON.stringify(data.Etsno) );
-      localStorage.setItem("Etsno",JSON.stringify(data.Etsno));
+      console.log("Etsno = "+ JSON.stringify("ETS"+data.Etsno) );
+      console.log("sta = "+ JSON.stringify(data.sta));
+      console.log("examdate = "+ JSON.stringify(data.examdate));
+      sessionStorage.setItem("sta",data.sta);
+      sessionStorage.setItem("Etsno",data.Etsno);
     },error => {
         reject(error);
     })

@@ -13,11 +13,11 @@ export class HeaderComponent implements OnInit {
   public us;
 
   constructor(private bnIdle: BnNgIdleService) {
-    this.bnIdle.startWatching(3600).subscribe((res) => {
+    this.bnIdle.startWatching(1800).subscribe((res) => {
       if(res) {
           //console.log("session expired");
           alert("Session expired, please login again");
-         // this.logout();
+          this.logout();
       }
     })
   }

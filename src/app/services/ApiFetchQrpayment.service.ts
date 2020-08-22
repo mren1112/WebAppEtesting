@@ -20,10 +20,10 @@ export class ApiFetchQrPaymentService {
 
 
   constructor(private http: HttpClient) {
-    this.getJSON().subscribe(response => {
+    /*this.getJSON().subscribe(response => {
       //console.log(response);
      // sessionStorage.setItem("stdcode", response.STD_CODE);
-    });
+    });*/
   }
   getJSON(): Observable<any> {
     return this.http.get(this.urlFetch+this.us+"&sem="+this.sem+"&year="+this.year)

@@ -295,7 +295,7 @@ export class CourseComponent implements OnInit {
          // alert(this.pushtest.indexOf(courseno));
           this.selectedDay[inx] = '';
           this.selectedSection[inx] = '';
-          //arr.secstatus = false;
+          arr.secstatus = false;
 
           for (var i =0; i < this.todoSelectCourse.length; i++)
           if (this.todoSelectCourse[i].courseno === courseno) {

@@ -21,7 +21,7 @@ export class QrpagelistCreateComponent implements OnInit {
   public refkey;
   public total;
   public duedate;
-
+  public duetime = "2359";
   public urfltest = 'https://devtest.ru.ac.th/ThaiQR/eTestQR?totalAmount=1&username=6299999991&tel=0812345678&duedate=200820&yearsem=631&refnum=000001';
   public urlFecthqar;
   public todoCourse: any = [];
@@ -44,6 +44,7 @@ export class QrpagelistCreateComponent implements OnInit {
 
   }
   ngOnInit() {
+    sessionStorage.removeItem('refkey');
     console.log(this.currentTime);
     // this.getQrDatalist();
     if (sessionStorage.getItem('stdcode') == null) {
@@ -94,7 +95,7 @@ export class QrpagelistCreateComponent implements OnInit {
       var str = this.year.substring(2, 4);
       console.log('str = ' + str);
       this.urlFecthqar = 'https://devtest.ru.ac.th/ThaiQR/eTestQR?totalAmount=' + this.total + '&username=' + this.us
-        + '&tel=' + this.telnum + '&duedate=' + this.duedate + '&yearsem=' + str + this.sem + '&refnum=' + this.refkey;
+        + '&tel=' + this.telnum + '&duedate=' + this.duedate + '&duetime=' + this.duetime + '&yearsem=' + str + this.sem + '&refnum=' + this.refkey;
       console.log(this.urlFecthqar);
     } else {
       console.log('Values is null');
@@ -113,28 +114,22 @@ export class QrpagelistCreateComponent implements OnInit {
 
   }
 
+  //get payment page from qr list
   //public tmptodoCourse: any = [];
   getQrcodefromlist(refkey) {
+    //console.log('refkey = ' + refkey);
+    var subrefkey;
+    if (refkey != '' || refkey != null) {
+        subrefkey = refkey.substring(6);
+        sessionStorage.setItem("subrefkey" ,subrefkey);
+        sessionStorage.setItem("getrefkey" ,refkey);
+     //   console.log('subrefkey = ' + subrefkey);
+        this.router.navigate(['listqrpayment']);
+    }else {
+      alert("Can't load Data please reload now!");
+      this.router.navigate(['qrpagelist']);
+    }
 
-    this.apifecthSelecPayQr.getJSON(this.us,this.sem,this.year,refkey).subscribe((res)=> {
-        this.tmptodoCourse = res.results;
-        localStorage.setItem('todoCoursess',this.tmptodoCourse);
-        if (this.tmptodoCourse == "") {
-          console.log(' this.err = ' + JSON.stringify( this.tmptodoCourse));
-        } else {
-          console.log(' this.tmptodoCourse = ' + JSON.stringify( this.tmptodoCourse));
-          alert(' this.tmptodoCourse = ' + JSON.stringify( this.tmptodoCourse));
-          localStorage.setItem('todoCoursess',this.tmptodoCourse);
-          localStorage.setItem('totals',this.tmptodoCourse.total);
-          localStorage.setItem('refkey',this.tmptodoCourse.refkey);
-          localStorage.setItem('duedate',this.tmptodoCourse.duedate);
-
-          console.log('total = ' + JSON.stringify(this.tmptodoCourse.total) );
-           console.log('refkey = ' + this.tmptodoCourse.refkey);
-          console.log('duedate = ' + this.tmptodoCourse.duedate);
-        }
-    });
-    this.router.navigate(['listqrpayment']);
   }
 
   setArrStorage(refkey) {

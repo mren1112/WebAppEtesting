@@ -36,7 +36,7 @@ export class ApiFectSelectPayQrService {
    // });
   }
   getJSON(username:string,sem:string,year:string,refkey:string){
-    return this.httppp.get('http://sevkn.ru.ac.th/etest/getPayQr.jsp?STD_CODE='+username+sem+year+refkey)
+    return this.httppp.get('http://sevkn.ru.ac.th/etest/getPayQr.jsp?STD_CODE='+username+'&sem='+sem+'&year='+year+'&refkey='+refkey)
                 .pipe(map((response: any)=> response ),
                       catchError(err => {return (err)}));
   }

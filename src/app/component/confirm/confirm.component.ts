@@ -92,6 +92,7 @@ export class ConfirmComponent implements OnInit {
   public creditMax;
   public creditMin;
   public creditMaxEnd;
+  public sta = '';
   //----------------------------
 
 
@@ -100,7 +101,7 @@ export class ConfirmComponent implements OnInit {
     private confirmservice: ApiConfirmService,
     public dialog: MatDialog,
     private modalService: BsModalService,
-    private _router: Router, private route: ActivatedRoute,
+    private router: Router, private route: ActivatedRoute,
    ) {
 
 
@@ -113,6 +114,7 @@ export class ConfirmComponent implements OnInit {
       this.backClicked();
     } else {
     this.loading();
+
     this.chkTodoSelectCourse();
     }
 
@@ -152,37 +154,40 @@ export class ConfirmComponent implements OnInit {
       sessionStorage.setItem('total', this.total);
     }
 
+    if (this.tmptodoCourse != null || this.tmptodoCourse != "") {
+        this.checkconfirmevent();
+    } else {
+      alert('Please Select courses again');
+      this.router.navigate(['payment']);
+    }
+
 
   }
 
   //isenabled = true;
   chekconfirm() {
    // alert('55555')
-
+    var cntchk;
     var chksection;
     var tmpSection: any[] = [];
+    var chkarrSection= [];
     for (let i = 0; i < this.tmptodoCourse.length; i++) {
       if (this.todoCourse[i].courseno != null) {
-        this.httpClient
-          .get(
-            'http://sevkn.ru.ac.th/etest/chkDateSection.jsp?STD_CODE=' + this.us + '&sem=' + this.semester +
-              '&year=' +
-              this.year +
-              '&dateselect=' +
-              this.tmptodoCourse[i].examdate +
-              '&period=' +
-              this.tmptodoCourse[i].section
-          )
-          .subscribe((res) => {
+        this.httpClient.get('http://sevkn.ru.ac.th/etest/chkDateSection.jsp?STD_CODE=' + this.us + '&sem=' + this.semester +
+              '&year=' + this.year + '&dateselect=' + this.tmptodoCourse[i].examdate + '&period=' +
+              this.tmptodoCourse[i].section).subscribe((res) => {
             chksection = res;
-
             tmpSection[i] = chksection.result;
+            chkarrSection.push(tmpSection[i]) ;
+            console.log('chkarrSection = ' + JSON.stringify(chkarrSection));
 
             if (tmpSection[i] == 0) {
               this.isenabled = true;
+              cntchk+1;
               this.tmptodoCourse[i].tmpSection = '!คาบสอบที่เลือกเต็ม';
             } else {
-              this.confirm();
+             // this.confirm();
+              //this.modalRef.hide();
             }
             // tmptodoCourse[i].push({tmpSection: chksection.result})
             // this.tmptodoCourse.filter((arr) => {
@@ -195,6 +200,11 @@ export class ConfirmComponent implements OnInit {
           });
       }
     }
+
+        this.confirm();
+      
+
+    this.modalRef.hide();
   }
 
   confirm() {
@@ -221,33 +231,43 @@ export class ConfirmComponent implements OnInit {
      // x.push(tempA[i].section);
     }//console.log('this.iSection confirm = ' + JSON.stringify(x));
 
-    this.confirmservice
-      .doConfirm(
-        this.us,
-        this.year,
-        this.semester,
-        this.cntCourseNo,
-        this.grad,
-        this.total,
-        this.facno,
-        this.iExamdate,
-        this.iSection,
-        this.iCourse,
-        this.iCredit
-      )
-      .then((data: any) => {});
+    console.log('this.iSection confirm = ' + JSON.stringify(this.iCourse));
 
-    this.iExamdate = [];
-    this.iSection = [];
-    this.iCourse = [];
-    this.iCredit = [];
+    this.sta = sessionStorage.getItem("sta");
+    console.log('this.iSection confirm = ' + JSON.stringify(this.iCourse));
+    if (this.sta != '1' ) {
+        this.confirmservice
+        .doConfirm(
+          this.us,
+          this.year,
+          this.semester,
+          this.cntCourseNo,
+          this.grad,
+          this.total,
+          this.facno,
+          this.iExamdate,
+          this.iSection,
+          this.iCourse,
+          this.iCredit
+        )
+          .then((data: any) => {});
 
-    //this.iFeelab= [];
+            this.iExamdate = [];
+            this.iSection = [];
+            this.iCourse = [];
+            this.iCredit = [];
 
-     this.iCourclass= [];
-    //his.aLabCost= [];
+            //this.iFeelab= [];
+
+            this.iCourclass= [];
+            //his.aLabCost= [];
+
+      }
+    this.modalRef.hide();
+    this.router.navigate(['payment']);
+
+
   }
-
 
 
   openModal(template: TemplateRef<any>) {
@@ -257,11 +277,34 @@ export class ConfirmComponent implements OnInit {
   btnconfirm(): void {
     this.message = 'Confirmed!';
     this.chekconfirm();
-    this.modalRef.hide();
+
   }
 
   btndecline(): void {
     this.message = 'Declined!';
     this.modalRef.hide();
+  }
+
+  checkconfirmevent(){
+
+    var chksection;
+    var tmpSection: any[] = [];
+    for (let i = 0; i < this.tmptodoCourse.length; i++) {
+      if (this.todoCourse[i].courseno != null) {
+        this.httpClient.get('http://sevkn.ru.ac.th/etest/chkDateSection.jsp?STD_CODE=' + this.us + '&sem=' + this.semester +
+              '&year=' + this.year + '&dateselect=' + this.tmptodoCourse[i].examdate + '&period=' +
+              this.tmptodoCourse[i].section).subscribe((res) => {
+            chksection = res;
+            tmpSection[i] = chksection.result;
+            console.log('checkbuttonconfirmevent ');
+
+            if (tmpSection[i] == 0) {
+              this.isenabled = true;
+              this.tmptodoCourse[i].tmpSection = '!คาบสอบที่เลือกเต็ม';
+            }
+          });
+      }
+    }
+
   }
 }
