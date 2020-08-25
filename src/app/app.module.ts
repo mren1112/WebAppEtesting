@@ -142,7 +142,7 @@ const appRoutes: Routes = [
     MatProgressSpinnerModule,
     //BsModalService,
     ModalModule.forRoot(),
-    //BackButtonDisableModule.forRoot({preserveScrollPosition: true}),
+   // BackButtonDisableModule.forRoot({preserveScrollPosition: true}),
     RouterModule.forRoot(appRoutes, { useHash: true })
 
   ],

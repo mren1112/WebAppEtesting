@@ -53,6 +53,7 @@ doConfirm(username:string,year:string,semester:string,cntCourseNo:string,grad:st
       sessionStorage.setItem("sta",data.sta);
       sessionStorage.setItem("Etsno",data.Etsno);
     },error => {
+      
         reject(error);
     })
   })

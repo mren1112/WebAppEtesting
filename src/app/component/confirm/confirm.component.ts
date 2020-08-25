@@ -202,7 +202,7 @@ export class ConfirmComponent implements OnInit {
     }
 
         this.confirm();
-      
+
 
     this.modalRef.hide();
   }
@@ -231,11 +231,10 @@ export class ConfirmComponent implements OnInit {
      // x.push(tempA[i].section);
     }//console.log('this.iSection confirm = ' + JSON.stringify(x));
 
-    console.log('this.iSection confirm = ' + JSON.stringify(this.iCourse));
 
     this.sta = sessionStorage.getItem("sta");
     console.log('this.iSection confirm = ' + JSON.stringify(this.iCourse));
-    if (this.sta != '1' ) {
+   // if (this.sta != "1" ) {
         this.confirmservice
         .doConfirm(
           this.us,
@@ -262,7 +261,9 @@ export class ConfirmComponent implements OnInit {
             this.iCourclass= [];
             //his.aLabCost= [];
 
-      }
+   /*   } else {
+        console.log("err save = ");
+      }*/
     this.modalRef.hide();
     this.router.navigate(['payment']);
 

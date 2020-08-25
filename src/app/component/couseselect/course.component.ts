@@ -248,8 +248,9 @@ export class CourseComponent implements OnInit {
     this.apiFetchETCourse.getJSON().subscribe((data) => {
       this.todoCourse = data.results;
       //this.todoCourse =this.coursetest;
-      console.log('------------- ' +this.todoCourse)
+      console.log('todoCourse------------- ' + JSON.stringify(this.todoCourse) );
       this.cntCourseNo = Object.keys(data).length;
+      console.log('this.cntCourseNo = ' + this.cntCourseNo);
       if (sessionStorage.getItem('enddate') != '' && sessionStorage.getItem('startdate') != '' && sessionStorage.getItem('stdcode') != null) {
         this.subStrYear = Number(this.strDate.substring(6, 10)) - 543;
         this.subStrEndYear = Number(this.endDate.substring(6, 10)) - 543;
@@ -260,13 +261,18 @@ export class CourseComponent implements OnInit {
       } else {
         this.backClicked();
       }
+
+      if (this.todoCourse == null || this.todoCourse == "") {
+
+     // alert('iffff ' + this.cntCourseNo);
+        this.chktodoCourse = true;
+      } else {
+       // alert('ELSE ' + this.cntCourseNo);
+        this.chktodoCourse = false;
+      }
     });
 
-    if (this.todoCourse == null ||
-       this.todoCourse == "") {
-     // alert('55454');
-        this.chktodoCourse = false;
-    }
+
   }
 
 
