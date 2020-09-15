@@ -1,17 +1,65 @@
 
 body {
   margin-top: 0;
-  background-image: url('../../../assets/img/bgg.png');
+  background: url('../../../assets/img/mainbg.png');
   box-shadow: 0 4px 8px 0 rgba(217, 231, 19, 0.2), 0 6px 20px 0 rgba(255, 200, 18, 0.19);
-  background-repeat: no-repeat;
-  width: 100%;
+  background-color: lightgoldenrodyellow;
+  background-repeat:  repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  height: 100%;
+}
+
+.bgOpacity{
+  margin-top: 0;
+  background-image: url('../../../assets/img/transperent80.png');
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-repeat: repeat;
+  /*width: 100%;*/
   height: 100%;
   position: relative;
+}
+
+.im-responsive {
+  width: 50%;
+  height: auto;
+
+}
+
+.row-aligment {
+
+  margin-top: 2%;
+  text-align: center;
+
+}
+.row-aligment-bt {
+
+  margin-bottom: 3%;
+
+}
+.bt-responsive {
+  width: 80%;
+  height: auto;
+  margin-top: 1%;
+
+}
+.zoomin {
+  transition: transform .2s;
+  /* Animation */
+  margin: 0 auto;
+}
+.zoomin:hover {
+  -ms-transform: scale(1.5);
+  /* IE 9 */
+  -webkit-transform: scale(1.5);
+  /* Safari 3-8 */
+  transform: scale(0.9);
 }
 
 main {
   width: 95%;
   margin: auto;
+
 }
 
 .ontopmenu {

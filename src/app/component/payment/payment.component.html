@@ -1,4 +1,7 @@
 <app-header></app-header>
+<body>
+
+
 <main>
 
   <app-profilecomponent></app-profilecomponent>
@@ -59,7 +62,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row" style="background-color: white;">
         <div class="col-md-12">
           <table class="table table-striped">
             <thead>
@@ -85,15 +88,18 @@
           <P></P>
           <section>
             <div class="example-button-row" style="text-align: center;">
-              <button mat-raised-button color="warn" (click)="cleardata(1)">
+              <button mat-raised-button color="warn"  routerLinkActive="active" (click)="cleardata(1)">
                 <span class="material-icons">
                   home
                 </span> กลับสู่หน้าหลัก</button>&nbsp;
 
 
             </div>
-          </section>
+          </section> 
 
+        </div>
+        <div class="row">
+          <div class="col-md-12">&nbsp;</div>
         </div>
       </div>
     </div>
@@ -102,3 +108,4 @@
 </main>
 
 <app-footer></app-footer>
+</body>

@@ -1,11 +1,12 @@
 import { Component, Injectable, OnInit } from "@angular/core";
-import { Event, Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError, RouterEvent, ActivatedRoute, ParamMap  } from "@angular/router";
+import { Event, Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError, RouterEvent, ActivatedRoute, ParamMap } from "@angular/router";
 import { ApiFetchProfileService, TodoProfile } from 'src/app/services/ApiFetchProfile.service';
 import { stringify } from 'querystring';
 import { ApiFetchCounterService } from 'src/app/services/ApiFetchCounter.service';
 import { throwToolbarMixedModesError } from '@angular/material/toolbar';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({
@@ -52,24 +53,24 @@ export class HomeMenuCreateComponent implements OnInit {
   ngOnInit() {
     // this.id = this.route.snapshot.params.id;
     //this.id = this.route.snapshot.paramMap.get('id');
-     //console.log("id = "+this.id);
- /* this.route.paramMap.subscribe(params => {
-    this.id = params.get('id');
-    console.log("idddd = "+this.id);
-    });
-    if (this.id === null ) {
+    //console.log("id = "+this.id);
+    /* this.route.paramMap.subscribe(params => {
+       this.id = params.get('id');
+       console.log("idddd = "+this.id);
+       });
+       if (this.id === null ) {
 
-      alert("null");
-    }else{
-      this.getProfile();
-      alert("not null");
+         alert("null");
+       }else{
+         this.getProfile();
+         alert("not null");
 
-    this.loading();
-  }*/
-  if (sessionStorage.getItem('stdcode') == null) {
-    alert('please login again');
-    this.backClicked();
-  }
+       this.loading();
+     }*/
+    if (sessionStorage.getItem('stdcode') == null) {
+      alert('please login again');
+      this.backClicked();
+    }
     //
     this.loading();
     this.getProfile();
@@ -79,6 +80,7 @@ export class HomeMenuCreateComponent implements OnInit {
   backClicked() {
     // this._location.back();
     sessionStorage.clear();
+    //window.open('https://beta-e-service.ru.ac.th/');
     window.location.href = 'https://beta-e-service.ru.ac.th/';
   }
 
@@ -86,13 +88,14 @@ export class HomeMenuCreateComponent implements OnInit {
   loading() {
 
     if (sessionStorage.getItem("stdcode") == "" || sessionStorage.getItem("stdcode") == null || sessionStorage.getItem("stdcode") == undefined) {
-        sessionStorage.clear();
-        window.location.href = 'https://beta-e-service.ru.ac.th/';
+      sessionStorage.clear();
+      window.open('https://beta-e-service.ru.ac.th/');
+      //window.location.href = 'https://beta-e-service.ru.ac.th/';
     } else {
       this.showSpinner = true;
       setTimeout(() => {
         this.showSpinner = false;
-      }, 2000);
+      }, 1000);
     }
   }
 
@@ -113,7 +116,7 @@ export class HomeMenuCreateComponent implements OnInit {
       });
       this.loading();
     }
-    console.log("id = "+this.id);
+    console.log("id = " + this.id);
 
     /*this.apiFetchProfile.getJSON().subscribe(data => {
       this.todoProfile = data;
@@ -132,19 +135,40 @@ export class HomeMenuCreateComponent implements OnInit {
     this.apiFetchProfile.getJSON(this.id)
       .subscribe((data) => {
         this.todoProfile = data;
-        console.log("todoProfile " + JSON.stringify(data));
-        console.log("stdcode " + JSON.stringify(this.todoProfile.STD_CODE));
-       // sessionStorage.setItem("stdcode", data.STD_CODE);
-        sessionStorage.setItem("namethai", this.todoProfile.NameThai);
-        sessionStorage.setItem("facno", this.todoProfile.FacNo);
-        sessionStorage.setItem("majorno", this.todoProfile.MajorNo);
-        sessionStorage.setItem("majornamthai", this.todoProfile.MajorNameThai);
-        sessionStorage.setItem("facName", this.todoProfile.FacNameThai);
-        sessionStorage.setItem("birth", this.todoProfile.Birth);
-        sessionStorage.setItem("tel", this.todoProfile.tel);
-          });
+
+        if (this.todoProfile == null || this.todoProfile == "") {
+          alert('Loading data faild please login again.');
+          this.logout();
+        } else {
+          console.log("todoProfile " + JSON.stringify(data));
+          console.log("stdcode " + JSON.stringify(this.todoProfile.STD_CODE));
+          // sessionStorage.setItem("stdcode", data.STD_CODE);
+          sessionStorage.setItem("namethai", this.todoProfile.NameThai);
+          sessionStorage.setItem("facno", this.todoProfile.FacNo);
+          sessionStorage.setItem("majorno", this.todoProfile.MajorNo);
+          sessionStorage.setItem("majornamthai", this.todoProfile.MajorNameThai);
+          sessionStorage.setItem("facName", this.todoProfile.FacNameThai);
+          sessionStorage.setItem("birth", this.todoProfile.Birth);
+
+          if (this.todoProfile.tel == "" || this.todoProfile.tel == null) {
+            alert('ท่านยังไม่ได้ระบุหมายเลขโทรศัพท์ กรุณาเพิ่มหมายเลขโทรศัท์ที่สามารถติดต่อได้ที่ระบบ e-service.');
+            this.logout();
+
+          } else {
+            sessionStorage.setItem("tel", this.todoProfile.tel);
+          }
+        }
+
+      });
 
   }
+
+  logout() {
+    sessionStorage.removeItem("stdcode");
+    sessionStorage.clear();
+    window.location.href = 'https://beta-e-service.ru.ac.th/';
+  }
+
 
   getCounter() {
     this.apiGetCounter.getJSON().subscribe(res => {

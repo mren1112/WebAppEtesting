@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import * as moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiFectSelectPayQrService } from 'src/app/services/ApiFecthSelectPayQr.service';
+import { ApiFetchPaymentService } from 'src/app/services/ApiFetchPayment.service';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class PaymentComponent implements OnInit {
   public refkey = '';
   public total;
   public duedate;
-
+  public datetime;
   public urfltest = 'https://devtest.ru.ac.th/ThaiQR/eTestQR?totalAmount=1&username=6299999991&tel=0812345678&duedate=200820&yearsem=631&refnum=000001';
   public urlFecthqar;
   public todoCourse: any = [];
@@ -30,12 +31,15 @@ export class PaymentComponent implements OnInit {
   public txtsem;
   public namethai;
   public duetime = '2359';
+
   //get Date
   curDate = new Date();
   public arrDateToStr: any[] = [];
 
   constructor(private router: Router, private route: ActivatedRoute,private httpClient: HttpClient,
-    private apifecthSelecPayQr: ApiFectSelectPayQrService) {
+    private apifecthSelecPayQr: ApiFectSelectPayQrService,
+    private apiFetchPayment : ApiFetchPaymentService
+    ) {
 
   }
 
@@ -50,19 +54,36 @@ export class PaymentComponent implements OnInit {
     }
   }
 
-  fetcthUrl() {
-
+  fetcthUrl() {//location.reload();
+    var fullrefkey = sessionStorage.getItem("fullrefkey");
     this.sem = sessionStorage.getItem("sem");
     this.year = sessionStorage.getItem("year");
     this.us = sessionStorage.getItem("stdcode");
+    this.refkey = sessionStorage.getItem("refkey");
+
+    /*this.apiFetchPayment.getJSON(this.us, this.sem, this.year, fullrefkey).subscribe((res) => {
+      this.todoCourse = res;
+     // this.total = this.tmptodoCourse.total;
+      console.log('payment = ' + JSON.stringify(this.todoCourse));
+
+      this.todoCourse.forEach(e => {
+        this.total = e.total;
+        //  console.log('this.total = ' + this.total);
+      });
+    });*/
+
+   // this.sem = sessionStorage.getItem("sem");
+    //this.year = sessionStorage.getItem("year");
+   // this.us = sessionStorage.getItem("stdcode");
     this.telnum = sessionStorage.getItem("tel");
     this.total = sessionStorage.getItem("total");
-    this.refkey = sessionStorage.getItem("Etsno");
+   // this.refkey = sessionStorage.getItem("refkey");
     // var tmp2 = tmprefkey.split(',');
     this.namethai = sessionStorage.getItem("namethai");
 
     this.arrDateToStr.push(this.curDate);
     var tmpDateCurrent = moment(new Date(this.arrDateToStr.join())).format('YYMMDD');
+    //var timmtmp  = moment(new Date(this.arrDateToStr.join())).format('Y');
 
     this.duedate = tmpDateCurrent;
     console.log('sem = ' + this.sem);
@@ -70,7 +91,7 @@ export class PaymentComponent implements OnInit {
     console.log('us = ' + this.us);
     console.log('telnum = ' + this.telnum);
     console.log('duedate = ' + this.duedate);
-    console.log('refkey = ' + this.refkey);
+    console.log('fullrefkey = ' + fullrefkey);
     console.log('total = ' + this.total);
 
     if (this.sem == '3') {
@@ -83,8 +104,8 @@ export class PaymentComponent implements OnInit {
       var str = this.year.substring(2, 4);
       console.log('str = ' + str);
       this.urlFecthqar = 'https://devtest.ru.ac.th/ThaiQR/eTestQR?totalAmount=' + this.total + '&username=' + this.us
-        + '&tel=' + this.telnum + '&duedate=' + this.duedate + this.duetime + '&duetime=' + this.duetime + '&yearsem=' + str + this.sem + '&refnum=' + this.refkey;
-      console.log(this.urlFecthqar);
+        + '&tel=' + this.telnum + '&duedate=' + this.duedate  + '&datetime=' + tmpDateCurrent + this.duetime  + '&refnum=' + this.refkey;
+      //console.log(this.urlFecthqar);
     } else {
       console.log('Values is null');
     }
@@ -117,12 +138,12 @@ export class PaymentComponent implements OnInit {
   cleardata(key): void {
     console.log(key);
      if (key == 1) {
-      /*sessionStorage.removeItem("todoCourse");
+      sessionStorage.removeItem("todoCourse");
       sessionStorage.removeItem("todoSelectCourse");
       sessionStorage.removeItem("Etsno");
       sessionStorage.removeItem("getrefkey");
       sessionStorage.removeItem("subrefkey");
-      sessionStorage.removeItem("total");*/
+      sessionStorage.removeItem("total");
       this.router.navigate(['/']);
     }
 

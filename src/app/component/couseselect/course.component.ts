@@ -379,11 +379,11 @@ export class CourseComponent implements OnInit {
         if (tmpsec == '1') {
           sectime = '9.30 - 12.00';
         } else if (tmpsec == '2') {
-          sectime = '13.00 - 15.30'; //alert("6666");
+          sectime = '12.00 - 14.30'; //alert("6666");
         } else if (tmpsec == '3') {
-          sectime = '16.00 - 18.30';
+          sectime = '15:00-17:30';
         } else if (tmpsec == '4') {
-          sectime = '19.00 - 21.30';
+          sectime = '18:00-20:30';
         }
         arr.sectime = sectime;
       }

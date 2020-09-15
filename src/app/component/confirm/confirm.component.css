@@ -5,6 +5,17 @@ main {
 
 }
 
+body {
+  margin-top: 0;
+  background: url('../../../assets/img/mainbg2.png');
+  box-shadow: 0 4px 8px 0 rgba(217, 231, 19, 0.2), 0 6px 20px 0 rgba(255, 200, 18, 0.19);
+  background-color: lightgoldenrodyellow;
+  background-repeat: repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  height: 100%;
+}
+
 .tabmaintable {
   width: 95%;
   padding-top: 10px;
@@ -21,14 +32,14 @@ main {
 
 }
 
-.container{
+.container {
   -webkit-box-shadow: 9px 10px 0px -7px rgba(128, 128, 128, 1);
   -moz-box-shadow: 9px 10px 0px -7px rgba(128, 128, 128, 1);
   box-shadow: 9px 10px 0px -7px rgba(128, 128, 128, 1);
 }
 
 
-.spinner{
+.spinner {
   border: 16px solid silver;
   border-top: 16px solid #3c6382;
   border-radius: 50%;
@@ -37,18 +48,24 @@ main {
   animation: spin 500ms linear infinite;
   top: 30%;
   left: 50%;
-position: absolute;z-index: 99 !important;
+  position: absolute;
+  z-index: 99 !important;
 }
 
-@keyframes spin{
-   0% {transform: rotate(0deg)}
-   100% {transform: rotate(-360deg)}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg)
+  }
+
+  100% {
+    transform: rotate(-360deg)
+  }
 }
 
 
-.txtspinner{
+.txtspinner {
   top: 45%;
   left: 53%;
-position: absolute;;
+  position: absolute;
+  ;
 }
-

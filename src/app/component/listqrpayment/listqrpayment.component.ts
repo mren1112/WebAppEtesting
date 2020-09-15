@@ -14,18 +14,18 @@ import { ApiFectSelectPayQrService } from 'src/app/services/ApiFecthSelectPayQr.
 })
 export class ListQrPaymentComponent implements OnInit {
 
-  public us = sessionStorage.getItem('stdcode');
-
+  public us;
   public currentTime = new Date();
   public todoQrdatalist: any = [];
   // public us;
   public sem;
   public year;
   public telnum;
-  public refkey = 'ETS631000001';
+  public refkey;
   public total;
   public duedate;
-  public duetime = "2359";
+  public datetime;
+  public fullrefkey;
 
   public urfltest = 'https://devtest.ru.ac.th/ThaiQR/eTestQR?totalAmount=1&username=6299999991&tel=0812345678&duedate=200820&yearsem=631&refnum=000001';
   public urlFecthqar;
@@ -52,6 +52,7 @@ export class ListQrPaymentComponent implements OnInit {
       alert('please login again');
       this.backClicked();
     } else {
+      this.us = sessionStorage.getItem('stdcode');
       this.getQrDatalist();
     }
   }
@@ -71,10 +72,14 @@ export class ListQrPaymentComponent implements OnInit {
 
     var getrefkey;
     // var subrefkey;
-    if (sessionStorage.getItem("refkey") != null || sessionStorage.getItem("refkey") != "") {
-      getrefkey = sessionStorage.getItem("getrefkey");
-      this.refkey = sessionStorage.getItem("subrefkey");
+    if (sessionStorage.getItem("refkey") != null || sessionStorage.getItem("refkey") != "" || sessionStorage.getItem("subduedate") != "") {
+      //getrefkey = sessionStorage.getItem("getrefkey");
+      this.refkey = sessionStorage.getItem("refkey");
+      this.duedate =sessionStorage.getItem("duedate");
 
+      this.fullrefkey = sessionStorage.getItem("fullrefkey");
+      this.datetime =sessionStorage.getItem("datetime");
+   //   console.log('refkey = ' + this.refkey);
     } else {
       alert("Can't load Data please reload now!");
       this.router.navigate(['listqrpayment']);
@@ -91,15 +96,17 @@ export class ListQrPaymentComponent implements OnInit {
     this.telnum = sessionStorage.getItem("tel");
     this.namethai = sessionStorage.getItem("namethai");
 
-    this.arrDateToStr.push(this.curDate);
-    var tmpDateCurrent = moment(new Date(this.arrDateToStr.join())).format('DDMMYY');
+    //this.arrDateToStr.push(this.curDate);
+    //var tmpDateCurrent = moment(new Date(this.arrDateToStr.join())).format('DDMMYY');
 
-    this.duedate = tmpDateCurrent;
+   // this.duedate = tmpDateCurrent;
     console.log('sem = ' + this.sem);
     console.log('year = ' + this.year);
     console.log('us = ' + this.us);
     console.log('telnum = ' + this.telnum);
     console.log('duedate = ' + this.duedate);
+    console.log('datetime = ' + this.datetime);
+    console.log('fullrefkey = ' + this.fullrefkey);
     console.log('refkey = ' + this.refkey);
     console.log('total = ' + this.total);
 
@@ -120,30 +127,33 @@ export class ListQrPaymentComponent implements OnInit {
       console.log('Values is null');
     }*/
 
-    this.apifecthSelecPayQr.getJSON(this.us, this.sem, this.year, getrefkey).subscribe((res) => {
+    this.apifecthSelecPayQr.getJSON(this.us, this.sem, this.year, this.fullrefkey).subscribe((res) => {
       this.tmptodoCourse = res.results;
       this.todoCourse = res.results;
       this.total = this.tmptodoCourse.total;
+
       console.log('listqrpay = ' + JSON.stringify(this.tmptodoCourse));
       var amount;
       this.tmptodoCourse.forEach(e => {
           amount = e.total;
+          sessionStorage.setItem("total",amount);
           this.total = amount;
       });
+      //this.total = sessionStorage.getItem("total");
 
       if (this.tmptodoCourse == "") {
         console.log(' this.err = ');
-        alert("Can't load Data please reload now!");
+        alert("Can't load Data, please reload now!");
         this.router.navigate(['qrpagelist']);
       } else {
-        if (this.telnum !== null && this.duedate !== null && this.year !== null && this.sem !== null && this.us !== null /* && this.refkey !== null*/) {
+        if (this.telnum !== null && this.duedate !== null && this.year !== null && this.sem !== null && this.us !== null  && this.refkey !== null) {
           var str = this.year.substring(2, 4);
           console.log('str = ' + str);
           this.urlFecthqar = 'https://devtest.ru.ac.th/ThaiQR/eTestQR?totalAmount=' + this.total + '&username=' + this.us
-            + '&tel=' + this.telnum + '&duedate=' + this.duedate + '&duetime=' + this.duetime  + '&yearsem=' + str + this.sem + '&refnum=' + this.refkey;
+            + '&tel=' + this.telnum + '&duedate=' + this.duedate + '&datetime=' + this.datetime + '&refnum=' + this.refkey;
           console.log(this.urlFecthqar);
         } else {
-          console.log('Values is null');
+          console.log('Load datas is null');
         }
 
 
@@ -152,12 +162,43 @@ export class ListQrPaymentComponent implements OnInit {
 
 
 
-
     /*this.apiFetchQrPaylist.getJSON().subscribe((data) => {
       this.todoQrdatalist = data.results;
 
     });*/
 
+  }
+
+  cleardata(key): void {
+    console.log(key);
+     if (key == 1) {
+      sessionStorage.removeItem("todoCourse");
+      sessionStorage.removeItem("todoSelectCourse");
+      sessionStorage.removeItem("Etsno");
+      sessionStorage.removeItem("refkey");
+      sessionStorage.removeItem("fullrefkey");
+      sessionStorage.removeItem("duedate");
+      sessionStorage.removeItem("datetime");
+      sessionStorage.removeItem("total");
+      sessionStorage.removeItem('subduedate');
+      this.router.navigate(['/']);
+    }
+  }
+
+  clearqrdata(key): void {
+    console.log(key);
+     if (key == 1) {
+      sessionStorage.removeItem("todoCourse");
+      sessionStorage.removeItem("todoSelectCourse");
+      sessionStorage.removeItem("Etsno");
+      sessionStorage.removeItem("refkey");
+      sessionStorage.removeItem("fullrefkey");
+      sessionStorage.removeItem("duedate");
+      sessionStorage.removeItem("datetime");
+      sessionStorage.removeItem("total");
+      sessionStorage.removeItem('subduedate');
+      this.router.navigate(['qrpagelist']);
+    }
   }
 
 }

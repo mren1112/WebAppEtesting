@@ -2,7 +2,18 @@ mat-card {
   margin-top: 2rem;
 }
 
- 
+
+body {
+  margin-top: 0;
+  background: url('../../../assets/img/mainbg2.png');
+  box-shadow: 0 4px 8px 0 rgba(217, 231, 19, 0.2), 0 6px 20px 0 rgba(255, 200, 18, 0.19);
+  background-color: lightgoldenrodyellow;
+  background-repeat:  repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  height: 100%;
+}
+
 
 .mat-column-select {
   overflow: initial;
@@ -15,15 +26,17 @@ table {
 mat-expansion-panel[aria-disable=true] {
   color: rgba(0, 0, 0, alpha);
 }
+
 .tabmaintable {
   width: 95%;
   padding-top: 10px;
-  background:linear-gradient(to bottom, #f7ac0a 5%, #ff961f 100%);
+  background: linear-gradient(to bottom, #f7ac0a 5%, #ff961f 100%);
   -webkit-box-shadow: 9px 10px 0px -7px rgba(128, 128, 128, 1);
   -moz-box-shadow: 9px 10px 0px -7px rgba(128, 128, 128, 1);
   box-shadow: 9px 10px 0px -7px rgba(128, 128, 128, 1);
 
 }
+
 .example-custom-date-class {
   background: orange;
   border-radius: 100%;
@@ -39,7 +52,7 @@ mat-expansion-panel[aria-disable=true] {
   background-color: #faedd2;
 }
 
-.spinner{
+.spinner {
   border: 16px solid silver;
   border-top: 16px solid #3c6382;
   border-radius: 50%;
@@ -48,19 +61,23 @@ mat-expansion-panel[aria-disable=true] {
   animation: spin 500ms linear infinite;
   top: 30%;
   left: 50%;
-position: absolute;
-z-index: 99 !important;
+  position: absolute;
+  z-index: 99 !important;
 }
 
-@keyframes spin{
-   0% {transform: rotate(0deg)}
-   100% {transform: rotate(-360deg)}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg)
+  }
+
+  100% {
+    transform: rotate(-360deg)
+  }
 }
 
-.txtspinner{
+.txtspinner {
   top: 45%;
   left: 53%;
-position: absolute;;
+  position: absolute;
+  ;
 }
-
-

@@ -23,7 +23,7 @@ integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7
         </div>
       </div>
 
-     <div class="row">
+     <div class="row" style="background-color: white;">
       <div class="col-md-12">
        <table class="table table-striped">
          <thead>
@@ -34,12 +34,11 @@ integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7
            </tr>
          </thead>
          <tbody>
-           <tr>
-             <th scope="row" style="width: 10px;">1</th>
-             <td>08/08/2563</td>
-             <td style="text-align: center;"> <a  routerLink="/slipt"> <span class="material-icons" style="color: rgb(37, 231, 95);">
-              sticky_note_2
-              </span> <br> Download </a></td>
+           <tr *ngFor="let dt of todolist; let i = index;">
+             <th scope="row" style="width: 10px; text-align: center;">{{i+1}}</th>
+             <td>{{dt.repdate}}</td>
+             <td style="text-align: center;"> <a mat-button  (click)="getSlip(dt.refkey)" target="_blank" color="primary" aria-label="button">
+               <mat-icon>sticky_note_2</mat-icon> </a><br> Download </td>
            </tr>
 
          </tbody>
@@ -49,7 +48,7 @@ integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7
        <P></P>
        <section>
          <div class="example-button-row" style="text-align: center;">
-          <button class="btn text-white text-center"  routerLink="/"  style="background:#ff0000;"
+          <button class="btn text-white text-center"  routerLink="/"  mat-raised-button color="warn" routerLinkActive="active"
           target="_blank"><i class="fa fa-home fa-fw fa-1x py-1"></i> กลับสู่หน้าหลัก </button>
          </div>
        </section>

@@ -37,7 +37,7 @@ export class ConfirmComponent implements OnInit {
   //todotest: any  = localStorage.getItem("todo");
   public cntTodoCourse;
 
-  public perCourse = 100;
+  public perCourse = 200;
 
   //-----------------------------
   public todoCourse: any = [];
@@ -94,7 +94,9 @@ export class ConfirmComponent implements OnInit {
   public creditMaxEnd;
   public sta = '';
   //----------------------------
-
+ //get Date
+ curDate = (new Date());
+ public arrDateToStr: any[] = [];
 
   constructor(
     private httpClient: HttpClient,
@@ -109,6 +111,8 @@ export class ConfirmComponent implements OnInit {
 
 
   ngOnInit() {
+
+
     if (sessionStorage.getItem('stdcode') == null) {
       alert('please login again');
       this.backClicked();
@@ -139,6 +143,12 @@ export class ConfirmComponent implements OnInit {
    }
 
   chkTodoSelectCourse() {
+
+    if (sessionStorage.getItem('todoSelectCourse') == null) {
+      alert('ทำรายการไม่สำเร็จ กรุณาทำรายการใหม่')
+      this.router.navigate(['/']);
+
+    } else {
     this.grad = sessionStorage.getItem('neargrad');
     this.us = sessionStorage.getItem('stdcode');
     this.semester = sessionStorage.getItem('sem');
@@ -160,7 +170,7 @@ export class ConfirmComponent implements OnInit {
       alert('Please Select courses again');
       this.router.navigate(['payment']);
     }
-
+   }
 
   }
 
@@ -208,8 +218,7 @@ export class ConfirmComponent implements OnInit {
   }
 
   confirm() {
-
-    //this.openModal(template);
+    // load data to save.
     var tempA = JSON.parse(sessionStorage.getItem('todoSelectCourse'));
 
     if (tempA == null) {
@@ -231,6 +240,8 @@ export class ConfirmComponent implements OnInit {
      // x.push(tempA[i].section);
     }//console.log('this.iSection confirm = ' + JSON.stringify(x));
 
+    this.arrDateToStr.push(this.curDate);
+    var tmpDateCurrent = moment(new Date(this.arrDateToStr.join())).format('DDMMYY');
 
     this.sta = sessionStorage.getItem("sta");
     console.log('this.iSection confirm = ' + JSON.stringify(this.iCourse));
@@ -247,7 +258,8 @@ export class ConfirmComponent implements OnInit {
           this.iExamdate,
           this.iSection,
           this.iCourse,
-          this.iCredit
+          this.iCredit,
+          tmpDateCurrent
         )
           .then((data: any) => {});
 

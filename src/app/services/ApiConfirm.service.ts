@@ -20,7 +20,7 @@ constructor(public http: Http) { }
 }
 }*/
 
-doConfirm(username:string,year:string,semester:string,cntCourseNo:string,grad:string,total:string,facno:string,iExamdate:any,iSection:any,iCourse:any,iCredit:any) {
+doConfirm(username:string,year:string,semester:string,cntCourseNo:string,grad:string,total:string,facno:string,iExamdate:any,iSection:any,iCourse:any,iCredit:any,iDuedate:string) {
   return new Promise((resolve,reject)=>{
     var headers = new Headers();
       headers.append('Content-Type', 'application/x-www-form-urlencoded');
@@ -37,6 +37,7 @@ doConfirm(username:string,year:string,semester:string,cntCourseNo:string,grad:st
       urlSearchParams.append('section', iSection);
       urlSearchParams.append('course', iCourse);
       urlSearchParams.append('credit', iCredit);
+      urlSearchParams.append('duedate', iDuedate);
 
     let body = urlSearchParams.toString()
    console.log("save = "+JSON.stringify(body));
@@ -51,9 +52,11 @@ doConfirm(username:string,year:string,semester:string,cntCourseNo:string,grad:st
       console.log("sta = "+ JSON.stringify(data.sta));
       console.log("examdate = "+ JSON.stringify(data.examdate));
       sessionStorage.setItem("sta",data.sta);
-      sessionStorage.setItem("Etsno",data.Etsno);
+      sessionStorage.setItem("refkey",data.refkey);
+      sessionStorage.setItem("sta",data.sta);
+      sessionStorage.setItem("fullrefkey",data.fullrefkey);
     },error => {
-      
+
         reject(error);
     })
   })

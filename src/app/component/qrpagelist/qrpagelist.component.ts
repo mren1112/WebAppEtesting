@@ -80,8 +80,8 @@ export class QrpagelistCreateComponent implements OnInit {
     console.log('year = ' + this.year);
     console.log('us = ' + this.us);
     console.log('telnum = ' + this.telnum);
-    console.log('duedate = ' + this.duedate);
-    console.log('refkey = ' + this.refkey);
+    //console.log('duedate = ' + this.duedate);
+   // console.log('refkey = ' + this.refkey);
     console.log('total = ' + this.total);
 
     if (this.sem == '3') {
@@ -90,16 +90,6 @@ export class QrpagelistCreateComponent implements OnInit {
       this.txtsem = this.sem;
     }
 
-
-    if (this.telnum !== null && this.duedate !== null && this.year !== null && this.sem !== null && this.us !== null /* && this.refkey !== null*/) {
-      var str = this.year.substring(2, 4);
-      console.log('str = ' + str);
-      this.urlFecthqar = 'https://devtest.ru.ac.th/ThaiQR/eTestQR?totalAmount=' + this.total + '&username=' + this.us
-        + '&tel=' + this.telnum + '&duedate=' + this.duedate + '&duetime=' + this.duetime + '&yearsem=' + str + this.sem + '&refnum=' + this.refkey;
-      console.log(this.urlFecthqar);
-    } else {
-      console.log('Values is null');
-    }
 
 
     this.apiFetchQrPaylist.getJSON().subscribe((data) => {
@@ -116,13 +106,18 @@ export class QrpagelistCreateComponent implements OnInit {
 
   //get payment page from qr list
   //public tmptodoCourse: any = [];
-  getQrcodefromlist(refkey) {
+  getQrcodefromlist(refkey,duedate,datetime,fullrefkey) {
     //console.log('refkey = ' + refkey);
     var subrefkey;
+    var subduedate;
     if (refkey != '' || refkey != null) {
-        subrefkey = refkey.substring(6);
+        //subrefkey = refkey.substring(15);
+      //  subduedate = refkey.substring(5,15);
         sessionStorage.setItem("subrefkey" ,subrefkey);
-        sessionStorage.setItem("getrefkey" ,refkey);
+        sessionStorage.setItem("refkey" ,refkey);
+        sessionStorage.setItem("duedate" ,duedate);
+        sessionStorage.setItem("datetime" ,datetime);
+        sessionStorage.setItem("fullrefkey" ,fullrefkey);
      //   console.log('subrefkey = ' + subrefkey);
         this.router.navigate(['listqrpayment']);
     }else {
@@ -135,4 +130,11 @@ export class QrpagelistCreateComponent implements OnInit {
   setArrStorage(refkey) {
     this.router.navigate(['payment']);
   }
+  backbtn() {
+    sessionStorage.removeItem('refkey');
+    sessionStorage.removeItem('duedate');
+    sessionStorage.removeItem('duedate');
+    this.router.navigate(['/']);
+  }
+
 }

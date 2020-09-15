@@ -1,8 +1,8 @@
-<app-header></app-header>
+<body>
+  <app-header></app-header>
 <main>
-
-  <app-profilecomponent></app-profilecomponent>
-  <div class="row">
+          <app-profilecomponent></app-profilecomponent>
+   <div class="row">
     <div class="col-md-4 col-align">
       <div class="row">
         <div class="col-md-12 col-align">
@@ -15,18 +15,21 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-6">
-                <p class="card-text">ลงทะเบี่ยนสอบ E-Testing</p>
-              </div>
-              <div class="col-6">
-                <p class=""><b>{{total}}.00 บาท (TH/B).</b> </p>
+              <div class="col-12" style="text-align: left; padding-left: 10%; padding-top: 1%; font-weight: bold;">
+                <b>จำนวนเงิน : {{total}}.00 บาท (TH/B).</b>
               </div>
             </div>
             <div class="row">
-              <div class="col-6">
-                <p class="">ปีการศึกษา {{txtsem}}/{{year}}</p>
+              <div class="col-12" style="text-align: left; padding-left: 10%; padding-top: 1%;"> ลงทะเบี่ยนสอบ E-Testing &nbsp; ภาค {{txtsem}}/{{year}} </div>
+            </div>
+            <div class="row">
+              <div class="col-12" style="text-align: left; padding-left: 10%; padding-top: 1%; "><b>ชื่อผู้ชำระเงิน :</b>  {{namethai}}</div>
+            </div>
+
+            <div class="row">
+              <div class="col-12">
+                <p class="card-text"></p>
               </div>
-              <div class="col-6">ชื่อผู้ชำระเงิน {{namethai}}</div>
             </div>
             <div class="row">
               <div class="col-6">
@@ -58,7 +61,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row" style="background-color: white;">
         <div class="col-md-12">
           <table class="table table-striped">
             <thead>
@@ -84,12 +87,12 @@
           <P></P>
           <section>
             <div class="example-button-row" style="text-align: center;">
-              <button mat-raised-button color="warn" routerLink="/" routerLinkActive="active">
+              <button mat-raised-button color="warn" routerLinkActive="active" (click)="cleardata(1)">
                 <span class="material-icons">
                   home
                 </span> กลับสู่หน้าหลัก</button>
                 &nbsp;
-                <button  routerLink="/qrpagelist" routerLinkActive="active" mat-raised-button color="primary">
+                <button  routerLinkActive="active" mat-raised-button color="primary" (click)="clearqrdata(1)">
                  <span class="material-icons">
                    fast_rewind
                    </span> กลับไปก่อนหน้า</button>
@@ -98,8 +101,8 @@
           </section>
           <p>
             <hr>
-            {{urlFecthqar}}
-        </div>
+
+        </div> 
       </div>
     </div>
   </div>
@@ -107,3 +110,7 @@
 </main>
 
 <app-footer></app-footer>
+
+
+</body>
+

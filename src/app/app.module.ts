@@ -70,6 +70,7 @@ import { ListQrPaymentComponent } from './component/listqrpayment/listqrpayment.
 
 import { BnNgIdleService } from 'bn-ng-idle'; // import bn-ng-idle service
 import { ApiFectSelectPayQrService } from './services/ApiFecthSelectPayQr.service';
+import { ApiFetchPaymentService } from './services/ApiFetchPayment.service';
 
 const appRoutes: Routes = [
   //home/6290508511
@@ -163,7 +164,8 @@ const appRoutes: Routes = [
     ApiFetchRecieptService,
     ApiCheckSelectDateService,
     BnNgIdleService,
-    ApiFectSelectPayQrService
+    ApiFectSelectPayQrService,
+    ApiFetchPaymentService,
     //{provide: LOCALE_ID, useValue: 'en' },
     //{ provide: LOCALE_ID, useValue: "th-TH" }
   ],
