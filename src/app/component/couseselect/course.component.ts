@@ -74,7 +74,7 @@ export class CourseComponent implements OnInit {
   chkCourseData = [];
   cntCourseNo = 0;
   selectedSection = [];
-
+  public chkDupDateAndSec: boolean =false;
   public strDate;
   public endDate;
   subStrYear;
@@ -242,6 +242,30 @@ export class CourseComponent implements OnInit {
         // alert('else');
       }
     }
+
+    var tmpA = this.todoSelectCourse;
+    var chkExamdate : any[];
+    var chkSec : any[];
+    var cntSame =0;
+    for (let i = 0; i < tmpA.length; i++) {
+      chkExamdate = tmpA[i].examdate;
+      chkSec = tmpA[i].section;
+      cntSame++;
+    //  console.log('cntSame = ' + cntSame);
+      console.log('chkExamdate = ' + chkExamdate);
+      console.log('chkExamdate = ' + chkExamdate);
+      for (let j = 0; j < i; j++) {
+        console.log('chkExamdate = ' + chkExamdate);
+        if (chkExamdate == tmpA[j].examdate && chkSec == tmpA[j].section) {
+          this.chkDupDateAndSec = true;
+          this.isEnable = true;
+            alert('ท่านเลือกวันที่มีคาบสอบตรงกัน กรุณาทำการเลือกใหม่!!');
+        }else {
+          this.chkDupDateAndSec = false;
+          this.isEnable = false;
+        }
+      }
+    }
   }
 
   getEtCourse() {
@@ -361,12 +385,13 @@ export class CourseComponent implements OnInit {
 
   //event handler for the select element's change event
   changeDropdown(obj: any, index: any) {
+    var tmpSectionSelect: any[];
     var tmpsec = '';
     var sectime = '';
     var tmpsec2 = 'xx/xx/xxxx';
-
     console.log('course= ' + obj);
     console.log('selectedSection= ' + this.selectedSection);
+
 
     for (let i = 0; i < this.selectedSection.length; i++) {
       tmpsec = this.selectedSection[i];
@@ -496,7 +521,7 @@ if (courseno != null) {
         if (seemCourseno) {
           this.json_tmp[inxJson_tmp].examdate = this.todoSection[0].examdate;
           this.json_tmp[inxJson_tmp].section = this.todoSection[0].section;
-          console.log('tmps seemCourseno = ' + this.todoSection[0].cntdate);
+         // console.log('tmps seemCourseno = ' + this.todoSection[0].cntdate);
 
         } else {
           this.json_tmp.push(this.todoSection[0]);

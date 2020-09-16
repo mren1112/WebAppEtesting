@@ -27,9 +27,11 @@ export class PaymentComponent implements OnInit {
   public urlFecthqar;
   public todoCourse: any = [];
   public tmptodoCourse: any = [];
+  public dataregister: any = [];
   public cntTodoCourse;
   public txtsem;
   public namethai;
+  public expText;
   public duetime = '2359';
 
   //get Date
@@ -61,16 +63,16 @@ export class PaymentComponent implements OnInit {
     this.us = sessionStorage.getItem("stdcode");
     this.refkey = sessionStorage.getItem("refkey");
 
-    /*this.apiFetchPayment.getJSON(this.us, this.sem, this.year, fullrefkey).subscribe((res) => {
-      this.todoCourse = res;
+   // var temA;
+     this.apiFetchPayment.getJSON(this.us, this.sem, this.year, fullrefkey).subscribe((res) => {
+      this.dataregister = res;
      // this.total = this.tmptodoCourse.total;
-      console.log('payment = ' + JSON.stringify(this.todoCourse));
+      console.log('temA = ' + JSON.stringify( this.dataregister));
 
-      this.todoCourse.forEach(e => {
-        this.total = e.total;
-        //  console.log('this.total = ' + this.total);
+      this.dataregister.forEach(e => {
+          this.expText = e.expDate;
       });
-    });*/
+    });
 
    // this.sem = sessionStorage.getItem("sem");
     //this.year = sessionStorage.getItem("year");

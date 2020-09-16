@@ -38,6 +38,8 @@ export class ConfirmComponent implements OnInit {
   public cntTodoCourse;
 
   public perCourse = 200;
+  public chkDupDateAndSec: boolean =false;
+  public chkDupButton: boolean =true;
 
   //-----------------------------
   public todoCourse: any = [];
@@ -158,6 +160,33 @@ export class ConfirmComponent implements OnInit {
     this.todoCourse = JSON.parse(sessionStorage.getItem('todoSelectCourse'));
     this.cntTodoCourse = Object.keys(this.todoCourse).length;
     this.tmptodoCourse = JSON.parse(sessionStorage.getItem('todoSelectCourse'));
+
+    var tmpA = this.tmptodoCourse;
+    var chkExamdate : any[];
+    var chkSec : any[];
+    var cntSame =0;
+    for (let i = 0; i < tmpA.length; i++) {
+      chkExamdate = tmpA[i].examdate;
+      chkSec = tmpA[i].section;
+      cntSame++;
+    //  console.log('cntSame = ' + cntSame);
+      console.log('chkExamdate = ' + chkExamdate);
+      console.log('chkExamdate = ' + chkExamdate);
+      for (let j = 0; j < i; j++) {
+        console.log('chkExamdate = ' + chkExamdate);
+        if (chkExamdate == tmpA[j].examdate && chkSec == tmpA[j].section) {
+            this.chkDupDateAndSec = true;
+            this.chkDupButton = false;
+            this.isenabled = true;
+            alert('ท่านเลือกวันที่มีคาบสอบตรงกัน กรุณาทำการเลือกใหม่');
+        }else {
+          this.chkDupDateAndSec = false;
+          this.chkDupButton = true;
+          this.isenabled = false;
+        }
+      }
+    }
+
     console.log('tmptodoCourse = ' + JSON.stringify(this.tmptodoCourse));
     this.total = Number(this.cntTodoCourse) * this.perCourse;
     if (this.total != 0) {

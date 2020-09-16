@@ -67,7 +67,7 @@
                         <mat-datepicker #picker ngDefaultControl></mat-datepicker>
                       </mat-form-field> &nbsp;&nbsp;
 
-                      <label *ngIf="dt.secstatus" for="{{dt.courseno}}">select section</label>&nbsp;
+                      <label *ngIf="dt.secstatus" for="{{dt.courseno}}">Section</label>&nbsp;
                       <select *ngIf="dt.secstatus" [(ngModel)]="selectedSection[i]" [id]="dt.courseno"
                         (change)="changeDropdown(dt.courseno,i)" [ngModelOptions]="{standalone: true}">
                         <ng-container *ngFor="let item of todoSection">
@@ -98,6 +98,12 @@
               </tr>
             </tbody>
           </table>
+
+          <ng-container *ngIf="chkDupDateAndSec">
+            <div class="row">
+              <div class="col-12" style="text-align: center;"> <p></p><h1 style="color: red;">ท่านเลือกวันที่มีคาบสอบตรงกัน กรุณาทำการเลือกใหม่</h1></div>
+            </div>
+          </ng-container>
           <mat-divider></mat-divider>
           <section style="margin-top: 10px;">
             <div class="example-label"></div>
