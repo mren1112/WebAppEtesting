@@ -135,8 +135,8 @@ export class HomeMenuCreateComponent implements OnInit {
     this.apiFetchProfile.getJSON(this.id)
       .subscribe((data) => {
         this.todoProfile = data;
-
-        if (this.todoProfile == null || this.todoProfile == "") {
+        console.log(data.NameThai)
+        if (this.todoProfile == null || this.todoProfile == "" || this.todoProfile.NameThai == "") {
           alert('Loading data faild please login again.');
           this.logout();
         } else {
