@@ -24,6 +24,7 @@ import { ApiFetchDateSectionService } from 'src/app/services/ApiFecthDateSection
 import { Location } from '@angular/common';
 import { ApiCheckSelectDateService } from 'src/app/services/ApiCheckSelectDate.service';
 import { ApiFetchDateService } from 'src/app/services/ApiFetchDate.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 export interface PeriodicElement {
   courseno: string;
@@ -58,6 +59,7 @@ export class CourseComponent implements OnInit {
   public todoCourse: any = [];
   public todoSelectCourse: any = [];
   public todoSection: any = [];
+  public todoHis: any = [];
   json_tmp: any = [];
 
   selectCourseCmplt: boolean = false;
@@ -74,7 +76,7 @@ export class CourseComponent implements OnInit {
   chkCourseData = [];
   cntCourseNo = 0;
   selectedSection = [];
-  public chkDupDateAndSec: boolean =false;
+  public chkDupDateAndSec: boolean = false;
   public strDate;
   public endDate;
   subStrYear;
@@ -91,9 +93,10 @@ export class CourseComponent implements OnInit {
   isEnable: boolean = true;
   registerForm: FormGroup;
   submitted = false;
-  public dateCurrent= new Date();
+  public dateCurrent = new Date();
   public arrDateToStr: any = [];
   public todoCalendar: any = [];
+  public tempTodoHis: any = [];
   msgSectionsta = false;
   statusSectSelect = false;
   cntDate;
@@ -104,7 +107,8 @@ export class CourseComponent implements OnInit {
     private apiCheckSelectDate: ApiCheckSelectDateService,
     private apiFetchDate: ApiFetchDateService,
     private httpClient: HttpClient,
-    private _location: Location
+    private _location: Location,
+    private router: Router, private route: ActivatedRoute,
   ) {
     //this.addCheckboxes();
   }
@@ -147,7 +151,7 @@ export class CourseComponent implements OnInit {
     var tmpDateCurrent = moment(new Date(this.arrDateToStr.join())).format('DDMMYYYY');
     //alert(tmpDateCurrent.substring(4))
     //alert(tmpDateCurrent.substring(0,2));
-    this.startDate = new Date(Number(tmpDateCurrent.substring(4)) + 543, (Number(tmpDateCurrent.substring(2,4)) -1), Number(tmpDateCurrent.substring(0,2)));
+    this.startDate = new Date(Number(tmpDateCurrent.substring(4)) + 543, (Number(tmpDateCurrent.substring(2, 4)) - 1), Number(tmpDateCurrent.substring(0, 2)));
     this.endtDate = new Date(2020 + 543, 7, 31);
 
   }
@@ -168,7 +172,7 @@ export class CourseComponent implements OnInit {
 
   getCalendar() {
 
-    this.apiFetchDate.getJSON().subscribe(res=> {
+    this.apiFetchDate.getJSON().subscribe(res => {
       this.todoCalendar = res.results;
       console.log(JSON.stringify(this.todoCalendar));
     });
@@ -186,7 +190,7 @@ export class CourseComponent implements OnInit {
   };
 
 
-  holidayList: any[] =[];
+  holidayList: any[] = [];
   //disable select holidayList
   myFilter = (d: Date | null): boolean => {
 
@@ -198,12 +202,12 @@ export class CourseComponent implements OnInit {
 
     for (let i = 0; i < this.todoCalendar.length; i++) {
       //this.holidayList=[new Date(Number(this.todoCalendar[i].tmpYear), Number(this.todoCalendar[i].tmpMonth), Number(this.todoCalendar[i].tmpDate)).getTime()];
-      this.holidayList.push(new Date(Number(this.todoCalendar[i].tmpYear), Number(this.todoCalendar[i].tmpMonth)-1, Number(this.todoCalendar[i].tmpDate)).getTime());
+      this.holidayList.push(new Date(Number(this.todoCalendar[i].tmpYear), Number(this.todoCalendar[i].tmpMonth) - 1, Number(this.todoCalendar[i].tmpDate)).getTime());
     }
 
-    const time= d.getTime();
+    const time = d.getTime();
     //console.log("Gettime : " + time);
-    return  this.holidayList.find(x=>x==time)
+    return this.holidayList.find(x => x == time)
   };
 
   showSpinner: boolean = false;
@@ -230,11 +234,11 @@ export class CourseComponent implements OnInit {
     var tempA = this.todoSelectCourse;
     console.log('checkConfirm = ' + tempA.length);
     for (let i = 0; i < tempA.length; i++) {
-      if (tempA[i].section == '' ) {
+      if (tempA[i].section == '') {
         this.isEnable = true;
         console.log('ifffffff');
         // alert('if');
-         break;
+        break;
       } else {
         console.log('elseeeee');
         this.isEnable = false;
@@ -243,36 +247,65 @@ export class CourseComponent implements OnInit {
       }
     }
 
+    this.tempTodoHis = JSON.parse(sessionStorage.getItem('todoHis'));
     var tmpA = this.todoSelectCourse;
-    var chkExamdate : any[];
-    var chkSec : any[];
-    var cntSame =0;
+    var chkExamdate: any[];
+    var chkSec: any[];
+    var cntSame = 0;
+    var iExamDateHis: [];
+    var iSectionHis: [];
     for (let i = 0; i < tmpA.length; i++) {
       chkExamdate = tmpA[i].examdate;
       chkSec = tmpA[i].section;
       cntSame++;
-    //  console.log('cntSame = ' + cntSame);
+      //  console.log('cntSame = ' + cntSame);
       console.log('chkExamdate = ' + chkExamdate);
-      console.log('chkExamdate = ' + chkExamdate);
+      console.log('chkSec = ' + chkSec);
       for (let j = 0; j < i; j++) {
         console.log('chkExamdate = ' + chkExamdate);
         if (chkExamdate == tmpA[j].examdate && chkSec == tmpA[j].section) {
           this.chkDupDateAndSec = true;
           this.isEnable = true;
-            alert('ท่านเลือกวันที่มีคาบสอบตรงกัน กรุณาทำการเลือกใหม่!!');
-        }else {
+          //alert('ท่านเลือกวันที่มีคาบสอบตรงกัน กรุณาทำการเลือกใหม่!!');
+        } else {
           this.chkDupDateAndSec = false;
-          this.isEnable = false;
+          // this.isEnable = false;
         }
       }
+      //check his data
+      for (let k = 0; k < this.tempTodoHis.length; k++) {
+        if (chkExamdate == this.tempTodoHis[k].examdate && this.tempTodoHis[k].sec == chkSec) {
+          alert('ท่านเลือกวันที่มีคาบสอบตรงกัน กรุณาทำการเลือกใหม่!!');
+        //  this.chkDupDateAndSec = true;
+          this.isEnable = true;
+        } else {
+          //this.chkDupDateAndSec = false;
+          // this.isEnable = false;
+        }
+
+      }
+
     }
+
+    /* for (let k = 0; k < this.tempTodoHis.length; k++) {
+         if (chkExamdate == this.tempTodoHis[k].examdate && this.tempTodoHis[k].sec == chkSec) {
+             alert('xxxx');
+             this.chkDupDateAndSec =true;
+             this.isEnable = true;
+         }
+
+     }*/
+    //  this.chkOldRegisCourse(tempA);
   }
+
+
+
 
   getEtCourse() {
     this.apiFetchETCourse.getJSON().subscribe((data) => {
       this.todoCourse = data.results;
       //this.todoCourse =this.coursetest;
-      console.log('todoCourse------------- ' + JSON.stringify(this.todoCourse) );
+      console.log('todoCourse------------- ' + JSON.stringify(this.todoCourse));
       this.cntCourseNo = Object.keys(data).length;
       console.log('this.cntCourseNo = ' + this.cntCourseNo);
       if (sessionStorage.getItem('enddate') != '' && sessionStorage.getItem('startdate') != '' && sessionStorage.getItem('stdcode') != null) {
@@ -282,21 +315,34 @@ export class CourseComponent implements OnInit {
         this.subStrEndMonth = this.endDate.substring(0, 2);
         this.subStrDate = this.strDate.substring(3, 5);
         this.subStrEndDate = this.endDate.substring(3, 5);
+
+        //  this.getEtHisregister();
       } else {
         this.backClicked();
       }
 
       if (this.todoCourse == null || this.todoCourse == "") {
-
-     // alert('iffff ' + this.cntCourseNo);
+        // alert('iffff ' + this.cntCourseNo);
         this.chktodoCourse = true;
       } else {
-       // alert('ELSE ' + this.cntCourseNo);
+        // alert('ELSE ' + this.cntCourseNo);
         this.chktodoCourse = false;
       }
     });
+  }
 
+  getEtHisregister() {
+    this.apiFetchETCourse.getHisregister().subscribe((data) => {
+      this.todoHis = data.results;
+      //this.todoCourse =this.coursetest;
+      // console.log('todoHis------------- ' + JSON.stringify(this.todoHis));
+      if (this.todoHis != '' || this.todoHis != null && sessionStorage.getItem('stdcode') != null) {
 
+      } else {
+        alert('no his');
+      }
+
+    });
   }
 
 
@@ -317,28 +363,28 @@ export class CourseComponent implements OnInit {
   checked: boolean[] = [];
   selectedCourse;
 
-  toggleVisibility(courseno,inx) {
+  toggleVisibility(courseno, inx) {
     this.todoCourse.filter((arr) => {
       if (arr.courseno == courseno) {
         arr.status = !arr.status;
         if (arr.status === false) {
-         // alert(this.pushtest.indexOf(courseno));
+          // alert(this.pushtest.indexOf(courseno));
           this.selectedDay[inx] = '';
           this.selectedSection[inx] = '';
           arr.secstatus = false;
 
-          for (var i =0; i < this.todoSelectCourse.length; i++)
-          if (this.todoSelectCourse[i].courseno === courseno) {
-            this.todoSelectCourse.splice(i, 1);this.pushtest.splice(i,1);
-             break;
-          }
+          for (var i = 0; i < this.todoSelectCourse.length; i++)
+            if (this.todoSelectCourse[i].courseno === courseno) {
+              this.todoSelectCourse.splice(i, 1); this.pushtest.splice(i, 1);
+              break;
+            }
 
-         //  this.pushtest.splice(this.pushtest.indexOf(courseno), 1);
-           //this.todoSelectCourse.splice(this.todoSelectCourse.indexOf(courseno), 1);
+          //  this.pushtest.splice(this.pushtest.indexOf(courseno), 1);
+          //this.todoSelectCourse.splice(this.todoSelectCourse.indexOf(courseno), 1);
           console.log('pushtest =' + this.pushtest);
-          sessionStorage.setItem('todoSelectCourse',JSON.stringify(this.todoSelectCourse));
+          sessionStorage.setItem('todoSelectCourse', JSON.stringify(this.todoSelectCourse));
 
-          console.log('splice todoCourse ->>>>>>>>>>> ' + JSON.stringify(this.todoSelectCourse) );
+          console.log('splice todoCourse ->>>>>>>>>>> ' + JSON.stringify(this.todoSelectCourse));
         } else {
           this.pushtest.push(arr.courseno);
           this.todoSelectCourse.push({
@@ -349,9 +395,9 @@ export class CourseComponent implements OnInit {
             sectime: '',
             tmpSection: '',
           });
-          sessionStorage.setItem('todoSelectCourse',JSON.stringify(this.todoSelectCourse)
+          sessionStorage.setItem('todoSelectCourse', JSON.stringify(this.todoSelectCourse)
           );
-         // this.checkConfirm();
+          // this.checkConfirm();
           console.log('total todoCourse ->>>>>>>>>>> ' + JSON.stringify(this.todoSelectCourse)
           );
           console.log('pushtest =' + this.pushtest);
@@ -416,12 +462,49 @@ export class CourseComponent implements OnInit {
     console.log('sectime = ' + sectime);
 
     sessionStorage.setItem('todoSelectCourse', JSON.stringify(tempA));
+
+
+
+    // this.chkOldRegisCourse(tempA);
     this.checkConfirm();
 
     //this.todoSection = null;
     //this.todoSelectCourse.splice(0, 1);
     // console.log('tempA dd After = ' + JSON.stringify(tempA));
   }
+
+  chkOldRegisCourse(tempA) {
+    // console.log('tempA check = ' + JSON.stringify(tempA));
+    this.tempTodoHis = JSON.parse(sessionStorage.getItem('todoHis'));
+
+    if (this.tempTodoHis == null) {
+      sessionStorage.removeItem("todoHis");
+      alert('Loade data faild please try again.');
+      this.router.navigate(['/']);
+    }
+    console.log('tempTodoHis = ' + this.tempTodoHis);
+    var iExamdate: [];
+    var iExamDateHis: [];
+    var iSectionHis: [];
+
+    for (let i = 0; i < tempA.length; i++) {
+      iExamdate = tempA[i].examdate;
+      iSectionHis = tempA[i].section;
+      for (let j = 0; j < this.tempTodoHis.length; j++) {
+        // iExamDateHis = tempTodoHis[j].examdate;
+        if (iExamdate == this.tempTodoHis[j].examdate && iSectionHis == this.tempTodoHis[j].sec) {
+          this.chkDupDateAndSec = true;
+          this.isEnable = true;
+          alert('ท่านเลือกวันที่มีคาบสอบตรงกัน กรุณาทำการเลือกใหม่!!');
+        } else {
+          //this.chkDupDateAndSec = false;
+          // this.isEnable = true;
+        }
+      }
+
+    }
+  }
+
 
   addData(obj: any, index: any): void {
     //  this.todoSelectCourse.splice(index,1)
@@ -437,7 +520,7 @@ export class CourseComponent implements OnInit {
     this.todoCourse.filter((arr) => {
       if (arr.courseno == obj.courseno) {
         arr.secstatus = false;
-       // console.log('arr.secstatus = ' + arr.secstatus);
+        // console.log('arr.secstatus = ' + arr.secstatus);
       }
     });
   }
@@ -483,7 +566,7 @@ export class CourseComponent implements OnInit {
 
     if (tmpdatetoStr != null) {
 
-      this.getSection(tmpdatetoStr, courseno, tmpdatetoStr2, tmpDate,index);
+      this.getSection(tmpdatetoStr, courseno, tmpdatetoStr2, tmpDate, index);
 
     }
 
@@ -494,57 +577,57 @@ export class CourseComponent implements OnInit {
   }
 
 
-  getSection(tmpdatetoStr, courseno, tmpdatetoStr2, tmpDate,index) {
+  getSection(tmpdatetoStr, courseno, tmpdatetoStr2, tmpDate, index) {
     console.log('cntDate = ' + this.cntDate);
 
-   /* this.httpClient.get('http://sevkn.ru.ac.th/ADManage/apinessy/etest/getDateSection.jsp?STD_CODE=' +
-       this.us + '&sem=' + this.sem + '&year=' + this.year + '&dateselect=' + tmpdatetoStr + '&courseno=' + courseno + '&tmpdateselect=' + tmpdatetoStr2)
-       .subscribe((res) => {*/
+    /* this.httpClient.get('http://sevkn.ru.ac.th/ADManage/apinessy/etest/getDateSection.jsp?STD_CODE=' +
+        this.us + '&sem=' + this.sem + '&year=' + this.year + '&dateselect=' + tmpdatetoStr + '&courseno=' + courseno + '&tmpdateselect=' + tmpdatetoStr2)
+        .subscribe((res) => {*/
 
-if (courseno != null) {
-  /*this.httpClient.get('http://sevkn.ru.ac.th/ADManage/apinessy/etest/getDateSection.jsp?STD_CODE=' +
-  this.us + '&sem=' + this.sem + '&year=' + this.year + '&dateselect=' + tmpdatetoStr + '&courseno=' + courseno + '&tmpdateselect=' + tmpdatetoStr2).subscribe((res) => {*/
-    this.apiCheckSelectDate.getJSON(this.us, this.sem, this.year, tmpdatetoStr, courseno, tmpdatetoStr2)
-      .subscribe((res) => {
-        this.todoSection = res;
-        var seemCourseno = false;
-        var inxJson_tmp = 0;
+    if (courseno != null) {
+      /*this.httpClient.get('http://sevkn.ru.ac.th/ADManage/apinessy/etest/getDateSection.jsp?STD_CODE=' +
+      this.us + '&sem=' + this.sem + '&year=' + this.year + '&dateselect=' + tmpdatetoStr + '&courseno=' + courseno + '&tmpdateselect=' + tmpdatetoStr2).subscribe((res) => {*/
+      this.apiCheckSelectDate.getJSON(this.us, this.sem, this.year, tmpdatetoStr, courseno, tmpdatetoStr2)
+        .subscribe((res) => {
+          this.todoSection = res;
+          var seemCourseno = false;
+          var inxJson_tmp = 0;
 
 
-        for (let i = 0; i < this.json_tmp.length; i++) {
-          if (this.json_tmp[i].courseno == this.todoSection[0].courseno) {
-            seemCourseno = true;
-            inxJson_tmp = i;
-          }
-        }
-
-        if (seemCourseno) {
-          this.json_tmp[inxJson_tmp].examdate = this.todoSection[0].examdate;
-          this.json_tmp[inxJson_tmp].section = this.todoSection[0].section;
-         // console.log('tmps seemCourseno = ' + this.todoSection[0].cntdate);
-
-        } else {
-          this.json_tmp.push(this.todoSection[0]);
-        }
-
-        if (this.json_tmp.length == 0) {
-          console.log('null');
-          this.json_tmp.push(this.todoSection[0]);
-        }
-
-        console.log('json_tmp =' + JSON.stringify(this.json_tmp));
-        this.todoSection = this.json_tmp;
-
-        if (this.todoSection.examdate == null) {
-           this.todoCourse.filter((arr) => {
-        //    console.log('todoCourse =' + JSON.stringify(this.todoCourse));
-            if (arr.courseno == courseno ) {
-              arr.secstatus = true;
-
+          for (let i = 0; i < this.json_tmp.length; i++) {
+            if (this.json_tmp[i].courseno == this.todoSection[0].courseno) {
+              seemCourseno = true;
+              inxJson_tmp = i;
             }
-          });
-        }
-      });
+          }
+
+          if (seemCourseno) {
+            this.json_tmp[inxJson_tmp].examdate = this.todoSection[0].examdate;
+            this.json_tmp[inxJson_tmp].section = this.todoSection[0].section;
+            // console.log('tmps seemCourseno = ' + this.todoSection[0].cntdate);
+
+          } else {
+            this.json_tmp.push(this.todoSection[0]);
+          }
+
+          if (this.json_tmp.length == 0) {
+            console.log('null');
+            this.json_tmp.push(this.todoSection[0]);
+          }
+
+          console.log('json_tmp =' + JSON.stringify(this.json_tmp));
+          this.todoSection = this.json_tmp;
+
+          if (this.todoSection.examdate == null) {
+            this.todoCourse.filter((arr) => {
+              //    console.log('todoCourse =' + JSON.stringify(this.todoCourse));
+              if (arr.courseno == courseno) {
+                arr.secstatus = true;
+
+              }
+            });
+          }
+        });
     }
 
   }
@@ -562,7 +645,7 @@ if (courseno != null) {
     let currentDate = new Date();
     dateSent = new Date(dateSent);
     var ttt = Math.floor(Date.UTC(dateSent.getFullYear(), dateSent.getMonth(), dateSent.getDate())
-      - Date.UTC((currentDate.getFullYear()+543), currentDate.getMonth(), currentDate.getDate())) / (1000 * 60 * 60 * 24);
+      - Date.UTC((currentDate.getFullYear() + 543), currentDate.getMonth(), currentDate.getDate())) / (1000 * 60 * 60 * 24);
     this.cntDate = ttt;
     //console.log('dateSent = ' + dateSent);
     //console.log('ttt = ' + ttt);

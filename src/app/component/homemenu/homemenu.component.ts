@@ -7,6 +7,7 @@ import { throwToolbarMixedModesError } from '@angular/material/toolbar';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { ApiFetchETCourseService } from 'src/app/services/ApiFetchETCourse.service';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class HomeMenuCreateComponent implements OnInit {
   public us;
   //todos:TodoProfile[] = [];
 
+  public todoHis: any = [];
   //-----------spinner----------------------
 
   showLoading = true;
@@ -33,7 +35,9 @@ export class HomeMenuCreateComponent implements OnInit {
     private apiFetchProfile: ApiFetchProfileService,
     private apiGetCounter: ApiFetchCounterService,
     private httpClient: HttpClient,
-    private _router: Router, private route: ActivatedRoute
+    private apiFetchETCourse: ApiFetchETCourseService,
+    private _router: Router,
+    private route: ActivatedRoute,
   ) {
     /*9 this._router.events.subscribe((routerEvent: Event) => {
        if (routerEvent instanceof NavigationStart) {
@@ -104,6 +108,7 @@ export class HomeMenuCreateComponent implements OnInit {
 
     if (sessionStorage.getItem("stdcode") != "") {
       this.id = sessionStorage.getItem("stdcode");
+      this. getEtHisregister();
     } else {
       this._router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
@@ -182,6 +187,22 @@ export class HomeMenuCreateComponent implements OnInit {
 
     )
 
+  }
+
+
+  getEtHisregister() {
+    this.apiFetchETCourse.getHisregister().subscribe((data) => {
+      this.todoHis = data.results;
+      //this.todoCourse =this.coursetest;
+      console.log('todoHis------------- ' + JSON.stringify(this.todoHis));
+      sessionStorage.setItem('todoHis', JSON.stringify(this.todoHis));
+      if (this.todoHis != '' || this.todoHis != null && sessionStorage.getItem('stdcode') != null) {
+
+      } else {
+        alert('no his');
+      }
+
+    });
   }
 
 

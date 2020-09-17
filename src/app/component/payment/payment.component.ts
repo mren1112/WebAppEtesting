@@ -146,6 +146,9 @@ export class PaymentComponent implements OnInit {
       sessionStorage.removeItem("getrefkey");
       sessionStorage.removeItem("subrefkey");
       sessionStorage.removeItem("total");
+      sessionStorage.removeItem("todoHis");
+      sessionStorage.removeItem("fullrefkey");
+      sessionStorage.removeItem("tmpdatetoStr");
       this.router.navigate(['/']);
     }
 

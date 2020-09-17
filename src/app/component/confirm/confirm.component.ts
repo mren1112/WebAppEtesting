@@ -349,4 +349,28 @@ export class ConfirmComponent implements OnInit {
     }
 
   }
+
+  chkOldRegisCourse(tempA: any) {
+    console.log('tempA check = ' + JSON.stringify(tempA));
+    var tempTodoHis = JSON.parse(sessionStorage.getItem('todoHis'));
+    var iExamdate: [];
+    var iExamDateHis: [];
+
+
+    for (let i = 0; i < tempA.length; i++) {
+      iExamdate = tempA[i].examdate;
+      for (let j = 0; j < tempTodoHis.length; j++) {
+        iExamDateHis = tempTodoHis[j].examdate;
+        if (iExamdate == iExamDateHis) {
+          this.chkDupDateAndSec = true;
+         // this.isEnable = true;
+          alert('ท่านเลือกวันที่มีคาบสอบตรงกัน กรุณาทำการเลือกใหม่!!');
+        } else {
+         // this.chkDupDateAndSec = false;
+          //this.isEnable = false;
+        }
+      }
+
+    }
+  }
 }

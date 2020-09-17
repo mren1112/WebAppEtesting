@@ -28,6 +28,7 @@ export class ApiFetchETCourseService {
   public year = sessionStorage.getItem("year");
 
   urlFetchETCourse = "http://sevkn.ru.ac.th/etest/getEtCourse.jsp?STD_CODE="+this.us+"&sem="+this.sem+"&year="+this.year;
+  urlFetchHisETCourse = "http://sevkn.ru.ac.th/etest/gethisregiscourse.jsp?STD_CODE="+this.us+"&sem="+this.sem+"&year="+this.year;
 
   constructor(private http: HttpClient) {
     this.getJSON().subscribe(response => {
@@ -40,8 +41,16 @@ export class ApiFetchETCourseService {
       console.log(response);
     });
   }
+
+
   getJSON(): Observable<any> {
     return this.http.get(this.urlFetchETCourse)
+                .pipe(map((response: any)=> response ),
+                      catchError(err => {return (err)}));
+  }
+
+  getHisregister(): Observable<any> {
+    return this.http.get(this.urlFetchHisETCourse)
                 .pipe(map((response: any)=> response ),
                       catchError(err => {return (err)}));
   }
