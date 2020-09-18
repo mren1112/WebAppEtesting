@@ -66,7 +66,7 @@ import { ApiFetchRecieptService } from './services/ApiFetchReciept.service';
 import { ApiCheckSelectDateService } from './services/ApiCheckSelectDate.service';
 import { SliptComponent } from './component/slipts/slipt.component';
 import { ListQrPaymentComponent } from './component/listqrpayment/listqrpayment.component';
-//import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
+import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 
 import { BnNgIdleService } from 'bn-ng-idle'; // import bn-ng-idle service
 import { ApiFectSelectPayQrService } from './services/ApiFecthSelectPayQr.service';
@@ -147,7 +147,7 @@ const appRoutes: Routes = [
     MatProgressSpinnerModule,
     //BsModalService,
     ModalModule.forRoot(),
-   // BackButtonDisableModule.forRoot({preserveScrollPosition: true}),
+    BackButtonDisableModule.forRoot({preserveScrollPosition: true}),
     RouterModule.forRoot(appRoutes, { useHash: true })
 
   ],
