@@ -71,6 +71,8 @@ import { ListQrPaymentComponent } from './component/listqrpayment/listqrpayment.
 import { BnNgIdleService } from 'bn-ng-idle'; // import bn-ng-idle service
 import { ApiFectSelectPayQrService } from './services/ApiFecthSelectPayQr.service';
 import { ApiFetchPaymentService } from './services/ApiFetchPayment.service';
+import { ApiCheckSystemService } from './services/ApiCheckSystem.Service';
+import { SystemPageComponent } from './component/systempage/system.component';
 
 const appRoutes: Routes = [
   //home/6290508511
@@ -89,6 +91,7 @@ const appRoutes: Routes = [
   { path: "testing", component: TestComponent },
   { path: "slipt", component: SliptComponent },
   { path: "listqrpayment", component: ListQrPaymentComponent },
+  { path: "systemcomponent", component: SystemPageComponent },
 ]
 
 @NgModule({
@@ -111,6 +114,7 @@ const appRoutes: Routes = [
     LandingPageComponent,
     SliptComponent,
     ListQrPaymentComponent,
+    SystemPageComponent,
     //CustomMaterialModule
 
 
@@ -166,6 +170,7 @@ const appRoutes: Routes = [
     BnNgIdleService,
     ApiFectSelectPayQrService,
     ApiFetchPaymentService,
+    ApiCheckSystemService,
     //{provide: LOCALE_ID, useValue: 'en' },
     //{ provide: LOCALE_ID, useValue: "th-TH" }
   ],

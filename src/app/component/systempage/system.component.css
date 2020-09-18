@@ -1,0 +1,20 @@
+main {
+  width: 90%;
+  margin: auto;
+  background-image: url('../../../assets/img/bg.png');
+  background-repeat: no-repeat;
+  background-size: 88%;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+body {
+  margin-top: 0;
+  background: url('../../../assets/img/mainbg2.png');
+  box-shadow: 0 4px 8px 0 rgba(217, 231, 19, 0.2), 0 6px 20px 0 rgba(255, 200, 18, 0.19);
+  background-color: lightgoldenrodyellow;
+  background-repeat:  repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  height: 100%;
+}

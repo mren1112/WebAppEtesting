@@ -133,7 +133,7 @@ export class CourseComponent implements OnInit {
 
   ngOnInit() {
 
-    this.loading();
+    // this.loading();
     this.getCalendar();
     this.onLoadPage();
     this.setCalendar();
@@ -191,15 +191,8 @@ export class CourseComponent implements OnInit {
 
 
   holidayList: any[] = [];
-  //disable select holidayList
+  //disable select dayList
   myFilter = (d: Date | null): boolean => {
-
-    /*this.holidayList=[new Date(2563, 8, 21).getTime(),
-      new Date(2563, 8, 20).getTime()
-    ];*/
-
-    //this.holidayList.push(new Date(2563, 8, 21).getTime());
-
     for (let i = 0; i < this.todoCalendar.length; i++) {
       //this.holidayList=[new Date(Number(this.todoCalendar[i].tmpYear), Number(this.todoCalendar[i].tmpMonth), Number(this.todoCalendar[i].tmpDate)).getTime()];
       this.holidayList.push(new Date(Number(this.todoCalendar[i].tmpYear), Number(this.todoCalendar[i].tmpMonth) - 1, Number(this.todoCalendar[i].tmpDate)).getTime());
@@ -211,16 +204,23 @@ export class CourseComponent implements OnInit {
   };
 
   showSpinner: boolean = false;
-  loading() {
+  loading(todoCourse) {
     if (
-      this.todoCourse == '' ||
-      this.todoCourse == null ||
-      this.todoCourse == undefined
+      Object.keys(todoCourse).length == 0  ||
+      todoCourse == "" ||
+      todoCourse == '' ||
+      todoCourse == null ||
+      todoCourse == undefined  ||
+      Object.keys(this.todoCalendar).length == 0 ||
+      this.todoCalendar == null 
     ) {
+     // alert('xx');
+     window.location.reload();
       this.showSpinner = true;
       setTimeout(() => {
         this.showSpinner = false;
-      }, 5000);
+      }, 3000);
+
     }
   }
 
@@ -276,7 +276,7 @@ export class CourseComponent implements OnInit {
       for (let k = 0; k < this.tempTodoHis.length; k++) {
         if (chkExamdate == this.tempTodoHis[k].examdate && this.tempTodoHis[k].sec == chkSec) {
           alert('ท่านเลือกวันที่มีคาบสอบตรงกัน กรุณาทำการเลือกใหม่!!');
-        //  this.chkDupDateAndSec = true;
+          //  this.chkDupDateAndSec = true;
           this.isEnable = true;
         } else {
           //this.chkDupDateAndSec = false;
@@ -304,6 +304,8 @@ export class CourseComponent implements OnInit {
   getEtCourse() {
     this.apiFetchETCourse.getJSON().subscribe((data) => {
       this.todoCourse = data.results;
+      this.loading(this.todoCourse);
+
       //this.todoCourse =this.coursetest;
       console.log('todoCourse------------- ' + JSON.stringify(this.todoCourse));
       this.cntCourseNo = Object.keys(data).length;
@@ -516,6 +518,7 @@ export class CourseComponent implements OnInit {
   }
 
   changeEvent(obj: any, index: any) {
+    this.selectedSection[index] = '';
     var tempA = this.todoCourse;
     this.todoCourse.filter((arr) => {
       if (arr.courseno == obj.courseno) {
@@ -527,6 +530,7 @@ export class CourseComponent implements OnInit {
 
   isSelectdate = false;
   addEvent(event: MatDatepickerInputEvent<Date>, index: any, courseno) {
+    this.selectedSection[index] = '';
     console.clear();
     // this.todoSelectCourse.splice(index,1)
     //sessionStorage.setItem("todoSelectCourse", JSON.stringify(this.todoSelectCourse));

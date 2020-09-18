@@ -56,6 +56,19 @@ export class PaymentComponent implements OnInit {
     }
   }
 
+  showSpinner = false;
+  loading() {
+     // alert('xx');
+     window.location.reload();
+      this.showSpinner = true;
+      setTimeout(() => {
+        this.showSpinner = false;
+      }, 3000);
+
+  }
+
+
+
   fetcthUrl() {//location.reload();
     var fullrefkey = sessionStorage.getItem("fullrefkey");
     this.sem = sessionStorage.getItem("sem");
@@ -67,6 +80,11 @@ export class PaymentComponent implements OnInit {
      this.apiFetchPayment.getJSON(this.us, this.sem, this.year, fullrefkey).subscribe((res) => {
       this.dataregister = res;
      // this.total = this.tmptodoCourse.total;
+
+     if (this.dataregister == null || Object.keys(this.dataregister).length == 0) {
+        this.loading();
+     }
+
       console.log('temA = ' + JSON.stringify( this.dataregister));
 
       this.dataregister.forEach(e => {
