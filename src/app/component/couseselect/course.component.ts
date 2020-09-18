@@ -509,6 +509,7 @@ export class CourseComponent implements OnInit {
 
 
   addData(obj: any, index: any): void {
+    this.selectedSection[index] = '';
     //  this.todoSelectCourse.splice(index,1)
     //sessionStorage.setItem("todoSelectCourse", JSON.stringify(this.todoSelectCourse));
     console.log('index = ' + index);
@@ -563,6 +564,7 @@ export class CourseComponent implements OnInit {
       if (arr.courseno == courseno) {
         arr.examdate = tmpdatetoStr;
         arr.section = '';
+
         this.checkConfirm();
         //arr.secstatus = !arr.secstatus;
       }
