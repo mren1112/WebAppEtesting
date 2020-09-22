@@ -130,8 +130,8 @@ export class ConfirmComponent implements OnInit {
 
   showSpinner = false;
   loading() {
-    if (this.todoCourse == "" || this.todoCourse == null  || this.todoCourse == undefined || Object.keys(this.todoCourse).length == 0) {
-      window.location.reload();
+    if (this.todoCourse == "" || this.todoCourse == null  || this.todoCourse == undefined) {
+     // window.location.reload();
       this.showSpinner =true;
           setTimeout(() => {
               this.showSpinner = false;

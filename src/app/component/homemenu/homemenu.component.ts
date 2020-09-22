@@ -108,7 +108,7 @@ export class HomeMenuCreateComponent implements OnInit {
 
     if (sessionStorage.getItem("stdcode") != "") {
       this.id = sessionStorage.getItem("stdcode");
-      this. getEtHisregister();
+      this.getEtHisregister();
     } else {
       this._router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
@@ -189,6 +189,34 @@ export class HomeMenuCreateComponent implements OnInit {
 
   }
 
+
+
+  checkSystemStatus() {
+    var tempA: any = [];
+    //this.httpClient.get('http://sevkn.ru.ac.th/etest/chksystem.jsp').subscribe((data) => {
+
+    tempA = JSON.parse(sessionStorage.getItem("todosys"));
+    // console.log('tempA = ' + JSON.stringify(tempA));
+
+    if (Object.keys(tempA).length === 0 || tempA == null) {
+      window.location.reload();
+      setTimeout(() => {
+        this.showSpinner = false;
+      }, 5000);
+    }
+
+    var tmp;
+    setTimeout(function () { tmp = JSON.stringify(tempA.close) }, 100);
+
+   // console.log('tempA.close = ' + JSON.stringify(tempA.close));
+    if (tempA.close === 'Y') {
+      alert('ไม่อยู่ในช่วงการลงทะเบียน!');
+      // this.router.navigate(['systemcomponent']);
+    } else {
+      this._router.navigate(['course']);
+    }
+
+  }
 
   getEtHisregister() {
     this.apiFetchETCourse.getHisregister().subscribe((data) => {

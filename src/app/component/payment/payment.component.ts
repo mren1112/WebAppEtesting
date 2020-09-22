@@ -59,7 +59,7 @@ export class PaymentComponent implements OnInit {
   showSpinner = false;
   loading() {
      // alert('xx');
-     window.location.reload();
+    // window.location.reload();
       this.showSpinner = true;
       setTimeout(() => {
         this.showSpinner = false;

@@ -49,7 +49,7 @@ export class LandingPageComponent implements OnInit {
         this.showSpinner = false;
       }, 3000);
     }
-    this.checkSystemStatus();
+   // this.checkSystemStatus();
   }
 
   checkSystemStatus() {

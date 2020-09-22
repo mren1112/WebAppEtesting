@@ -133,6 +133,7 @@ export class CourseComponent implements OnInit {
 
   ngOnInit() {
 
+
     // this.loading();
     this.getCalendar();
     this.onLoadPage();
@@ -212,7 +213,7 @@ export class CourseComponent implements OnInit {
       todoCourse == null ||
       todoCourse == undefined  ||
       Object.keys(this.todoCalendar).length == 0 ||
-      this.todoCalendar == null 
+      this.todoCalendar == null
     ) {
      // alert('xx');
      window.location.reload();
@@ -637,6 +638,32 @@ export class CourseComponent implements OnInit {
     }
 
   }
+
+  checkSystemStatus() {
+    var tempA: any = [];
+    //this.httpClient.get('http://sevkn.ru.ac.th/etest/chksystem.jsp').subscribe((data) => {
+
+      tempA = JSON.parse(sessionStorage.getItem("todosys"));
+     // console.log('tempA = ' + JSON.stringify(tempA));
+
+      if (Object.keys(tempA).length === 0 || tempA == null) {
+        window.location.reload();
+        setTimeout(() => {
+          this.showSpinner = false;
+        }, 2000);
+      }
+
+      var tmp;
+      setTimeout(function () { tmp = JSON.stringify(tempA.close) }, 100);
+
+      console.log('tempA.close = ' + JSON.stringify(tempA.close));
+      if (tempA.close === 'N') {
+        alert('System Close!');
+       // this.router.navigate(['systemcomponent']);
+      }
+
+  }
+
 
   /*json_mock=[
     {"courseno":"THA1003",
