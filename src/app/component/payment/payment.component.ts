@@ -4,7 +4,8 @@ import * as moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiFectSelectPayQrService } from 'src/app/services/ApiFecthSelectPayQr.service';
 import { ApiFetchPaymentService } from 'src/app/services/ApiFetchPayment.service';
-
+import { Http } from '@angular/http';
+import { map,catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-payment',
@@ -33,14 +34,15 @@ export class PaymentComponent implements OnInit {
   public namethai;
   public expText;
   public duetime = '2359';
-
+  public fullrefkey;
   //get Date
   curDate = new Date();
   public arrDateToStr: any[] = [];
 
   constructor(private router: Router, private route: ActivatedRoute,private httpClient: HttpClient,
     private apifecthSelecPayQr: ApiFectSelectPayQrService,
-    private apiFetchPayment : ApiFetchPaymentService
+    private apiFetchPayment : ApiFetchPaymentService,
+    private http:Http
     ) {
 
   }
@@ -70,18 +72,26 @@ export class PaymentComponent implements OnInit {
 
 
   fetcthUrl() {//location.reload();
-    var fullrefkey = sessionStorage.getItem("fullrefkey");
+
+    this.fullrefkey = sessionStorage.getItem("fullrefkey");
+    console.log('this.fullrefkey = ' + JSON.stringify(this.fullrefkey));
+    if (this.fullrefkey = null) {
+      location.reload();
+    }
+
     this.sem = sessionStorage.getItem("sem");
     this.year = sessionStorage.getItem("year");
     this.us = sessionStorage.getItem("stdcode");
     this.refkey = sessionStorage.getItem("refkey");
 
    // var temA;
-     this.apiFetchPayment.getJSON(this.us, this.sem, this.year, fullrefkey).subscribe((res) => {
+//   this.http.get('http://sevkn.ru.ac.th/etest/getPayment.jsp?STD_CODE='+this.us+'&sem='+this.sem+'&year='+this.year+'&refkey='+fullrefkey).subscribe((res) => {
+
+     this.apiFetchPayment.getJSON(this.us, this.sem, this.year, this.fullrefkey).subscribe((res) => {
       this.dataregister = res;
      // this.total = this.tmptodoCourse.total;
 
-     if (this.dataregister == null || Object.keys(this.dataregister).length == 0) {
+    if (this.dataregister == null || Object.keys(this.dataregister).length == 0) {
         this.loading();
      }
 
@@ -111,7 +121,7 @@ export class PaymentComponent implements OnInit {
     console.log('us = ' + this.us);
     console.log('telnum = ' + this.telnum);
     console.log('duedate = ' + this.duedate);
-    console.log('fullrefkey = ' + fullrefkey);
+   // console.log('fullrefkey = ' + this.fullrefkey);
     console.log('total = ' + this.total);
 
     if (this.sem == '3') {

@@ -135,7 +135,7 @@ export class ConfirmComponent implements OnInit {
       this.showSpinner =true;
           setTimeout(() => {
               this.showSpinner = false;
-          }, 2000);
+          }, 4000);
     }
   }
 
@@ -163,15 +163,33 @@ export class ConfirmComponent implements OnInit {
     this.tmptodoCourse = JSON.parse(sessionStorage.getItem('todoSelectCourse'));
 
     var tmpA = this.tmptodoCourse;
+
+    var sectime = "";
+    var tmpsec = "";
+    tmpA.filter((arr) => {
+        if (arr.section == '1') {
+          arr.sectime = '9.30 - 12.00';
+        } else if (arr.section == '2') {
+          arr.sectime = '12.00 - 14.30'; //alert("6666");
+        } else if (arr.section == '3') {
+          arr.sectime = '15:00-17:30';
+        } else if (arr.section == '4') {
+          arr.sectime = '18:00-20:30';
+        }
+        console.log('sectime = ' + arr.sectime);
+               // arr.sectime = sectime;
+  });
+   sessionStorage.setItem('todoSelectCourse', JSON.stringify(tmpA));
+
     var chkExamdate : any[];
     var chkSec : any[];
     var cntSame =0;
+
     for (let i = 0; i < tmpA.length; i++) {
       chkExamdate = tmpA[i].examdate;
       chkSec = tmpA[i].section;
       cntSame++;
     //  console.log('cntSame = ' + cntSame);
-      console.log('chkExamdate = ' + chkExamdate);
       console.log('chkExamdate = ' + chkExamdate);
       for (let j = 0; j < i; j++) {
         console.log('chkExamdate = ' + chkExamdate);
@@ -307,6 +325,10 @@ export class ConfirmComponent implements OnInit {
         console.log("err save = ");
       }*/
     this.modalRef.hide();
+    this.showSpinner =true;
+          setTimeout(() => {
+              this.showSpinner = false;
+          }, 3000);
     this.router.navigate(['payment']);
 
 

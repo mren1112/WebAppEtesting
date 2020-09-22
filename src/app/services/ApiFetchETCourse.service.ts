@@ -36,7 +36,9 @@ export class ApiFetchETCourseService {
         sessionStorage.setItem('grad', response.grad);
       } else {
         sessionStorage.setItem('grad', "");
+
       }
+      sessionStorage.setItem('nocourse', JSON.stringify(response.results));
       sessionStorage.setItem('todoCourse', JSON.stringify(response));
       console.log(response);
     });
