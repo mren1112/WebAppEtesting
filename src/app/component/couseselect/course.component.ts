@@ -304,11 +304,16 @@ export class CourseComponent implements OnInit {
   getEtCourse() {
     this.apiFetchETCourse.getJSON().subscribe((data) => {
       this.todoCourse = data.results;
-      var tmp = JSON.stringify(this.todoCourse.status);
-      
-      var xx = "[{"+"status"+":"+"N"+"}]";
+      var tmp;
+      this.todoCourse.forEach(e => {
+          tmp = e.status;
+      });
+
+
+
       console.log('tmp------------- ' + tmp);
-      if ( tmp === xx) {
+
+      if ( tmp === "N") {
         alert('ท่านไม่มีวิชาที่สามารถลงทะเบียนได้');
         this.router.navigate(['/']);
       }
