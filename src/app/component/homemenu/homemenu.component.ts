@@ -208,7 +208,7 @@ export class HomeMenuCreateComponent implements OnInit {
     var tmp;
     setTimeout(function () { tmp = JSON.stringify(tempA.close) }, 100);
 
-   // console.log('tempA.close = ' + JSON.stringify(tempA.close));
+    // console.log('tempA.close = ' + JSON.stringify(tempA.close));
     if (tempA.close === 'Y') {
       alert('ไม่อยู่ในช่วงการลงทะเบียน!');
       // this.router.navigate(['systemcomponent']);
@@ -221,15 +221,33 @@ export class HomeMenuCreateComponent implements OnInit {
   getEtHisregister() {
     this.apiFetchETCourse.getHisregister().subscribe((data) => {
       this.todoHis = data.results;
+      var temp = JSON.stringify(this.todoHis);
+      var checkResults;
       //this.todoCourse =this.coursetest;
-      console.log('todoHis------------- ' + JSON.stringify(this.todoHis));
-      sessionStorage.setItem('todoHis', JSON.stringify(this.todoHis));
-      if (this.todoHis != '' || this.todoHis != null && sessionStorage.getItem('stdcode') != null) {
 
+      this.todoHis.forEach(e => {
+        checkResults = e.courseno;
+      });
+
+      if (checkResults == "N") {
+        //alert('no his');
+
+        if (window.location.href.indexOf('reload') == -1) {
+            window.location.reload();
+        }
+        sessionStorage.setItem('todoHis', JSON.stringify(this.todoHis));
       } else {
-        alert('no his');
-      }
 
+        console.log('checkResults ------------- ' + checkResults);
+
+        console.log('todoHis------------- ' + JSON.stringify(this.todoHis));
+        sessionStorage.setItem('todoHis', JSON.stringify(this.todoHis));
+        if (this.todoHis != '' || this.todoHis != null && sessionStorage.getItem('stdcode') != null) {
+
+        } else {
+          alert('no his');
+        }
+      }
     });
   }
 

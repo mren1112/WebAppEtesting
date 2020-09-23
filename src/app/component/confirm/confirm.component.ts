@@ -162,10 +162,7 @@ export class ConfirmComponent implements OnInit {
     this.cntTodoCourse = Object.keys(this.todoCourse).length;
     this.tmptodoCourse = JSON.parse(sessionStorage.getItem('todoSelectCourse'));
 
-    var tmpA = this.tmptodoCourse;
-
-    var sectime = "";
-    var tmpsec = "";
+    var tmpA = this.tmptodoCourse; 
     tmpA.filter((arr) => {
         if (arr.section == '1') {
           arr.sectime = '9.30 - 12.00';
