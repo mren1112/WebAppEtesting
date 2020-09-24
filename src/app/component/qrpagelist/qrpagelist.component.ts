@@ -35,12 +35,12 @@ export class QrpagelistCreateComponent implements OnInit {
   //get Date
   curDate = new Date();
   public arrDateToStr: any[] = [];
-  public chkTodoCourse =false;
+  public chkTodoCourse = false;
   constructor(private apiFetchQrPaylist: ApiFetchQrPaymentService,
-    private router:Router,
-    private activerouter:ActivatedRoute,
+    private router: Router,
+    private activerouter: ActivatedRoute,
     private apifecthSelecPayQr: ApiFectSelectPayQrService
-    ) {
+  ) {
 
   }
   ngOnInit() {
@@ -51,6 +51,7 @@ export class QrpagelistCreateComponent implements OnInit {
       alert('please login again');
       this.backClicked();
     } else {
+
       this.getQrDatalist();
     }
 
@@ -81,7 +82,7 @@ export class QrpagelistCreateComponent implements OnInit {
     console.log('us = ' + this.us);
     console.log('telnum = ' + this.telnum);
     //console.log('duedate = ' + this.duedate);
-   // console.log('refkey = ' + this.refkey);
+    // console.log('refkey = ' + this.refkey);
     console.log('total = ' + this.total);
 
     if (this.sem == '3') {
@@ -94,43 +95,51 @@ export class QrpagelistCreateComponent implements OnInit {
 
     this.apiFetchQrPaylist.getJSON().subscribe((data) => {
       this.todoQrdatalist = data.results;
-      console.log('data = ' + JSON.stringify( this.todoQrdatalist));
+      console.log('data = ' + JSON.stringify(this.todoQrdatalist));
       if (this.todoQrdatalist == "") {
 
         this.chkTodoCourse = true;
       }
 
     });
-
+    if (sessionStorage.getItem('reloadqrlist') == null) {
+      window.location.reload();
+      sessionStorage.setItem('reloadqrlist', 'Y')
+    }
   }
 
   //get payment page from qr list
   //public tmptodoCourse: any = [];
-  getQrcodefromlist(refkey,duedate,datetime,fullrefkey) {
+  getQrcodefromlist(refkey, duedate, datetime, fullrefkey) {
     //console.log('refkey = ' + refkey);
     var subrefkey;
     var subduedate;
     if (refkey != '' || refkey != null) {
-        //subrefkey = refkey.substring(15);
+      //subrefkey = refkey.substring(15);
       //  subduedate = refkey.substring(5,15);
-        sessionStorage.setItem("subrefkey" ,subrefkey);
-        sessionStorage.setItem("refkey" ,refkey);
-        sessionStorage.setItem("duedate" ,duedate);
-        sessionStorage.setItem("datetime" ,datetime);
-        sessionStorage.setItem("fullrefkey" ,fullrefkey);
-     //   console.log('subrefkey = ' + subrefkey);
-        this.router.navigate(['listqrpayment']);
-    }else {
+      sessionStorage.setItem("subrefkey", subrefkey);
+      sessionStorage.setItem("refkey", refkey);
+      sessionStorage.setItem("duedate", duedate);
+      sessionStorage.setItem("datetime", datetime);
+      sessionStorage.setItem("fullrefkey", fullrefkey);
+      //   console.log('subrefkey = ' + subrefkey);
+      this.router.navigate(['listqrpayment']);
+    } else {
       alert("Can't load Data please reload now!");
       this.router.navigate(['qrpagelist']);
     }
 
   }
-
+  backhome() {
+    // this._location.back();
+    sessionStorage.removeItem("reloadqrlist");
+    this.router.navigate(['/']);
+  }
   setArrStorage(refkey) {
     this.router.navigate(['payment']);
   }
   backbtn() {
+    sessionStorage.removeItem("reloadqrlist");
     sessionStorage.removeItem('refkey');
     sessionStorage.removeItem('duedate');
     sessionStorage.removeItem('duedate');

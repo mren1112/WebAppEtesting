@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiFetchAllCourseRegisService } from '../../services/ApiFetchAllCourseRegis.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -19,7 +20,9 @@ export class RegisAllCourseCreateComponent implements OnInit {
   public facname;
 
   constructor(
-    private apiFetchAllCourseRegis: ApiFetchAllCourseRegisService
+    private apiFetchAllCourseRegis: ApiFetchAllCourseRegisService,
+    private router: Router,
+    private activerouter: ActivatedRoute,
 
   ) {
 
@@ -28,6 +31,10 @@ export class RegisAllCourseCreateComponent implements OnInit {
   ngOnInit() {
     this.fecthStorage();
     this.getAllCourseRegis();
+    if (sessionStorage.getItem('reloadqrlist') == null) {
+      window.location.reload();
+      sessionStorage.setItem('reloadqrlist', 'Y')
+    }
 }
 
   fecthStorage() {
@@ -47,6 +54,12 @@ export class RegisAllCourseCreateComponent implements OnInit {
       this.allCourse = res.rec;
     //  console.log("regisAll" + JSON.stringify(this.allCourse))
     })
+  }
+
+  backhome() {
+    // this._location.back();
+    sessionStorage.removeItem("reloadqrlist");
+    this.router.navigate(['/']);
   }
 
 }

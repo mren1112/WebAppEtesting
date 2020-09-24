@@ -16,7 +16,7 @@ export class ApiFetchPaymentService {
   //public tmpdatetoStr = sessionStorage.getItem("tmpdatetoStr");
 
 
-  urlFetch = "http://sevkn.ru.ac.th/etest/getQrpaylist.jsp?STD_CODE=";
+  urlFetch = "http://sevkn.ru.ac.th/etest/getPayment.jsp?STD_CODE=";
 
 
 
@@ -32,7 +32,7 @@ export class ApiFetchPaymentService {
 
 
   getJSON(username:string,sem:string,year:string,refkey:string){
-    return this.httppp.get('http://sevkn.ru.ac.th/etest/getPayment.jsp?STD_CODE='+username+'&sem='+sem+'&year='+year+'&refkey='+refkey)
+    return this.httppp.get(this.urlFetch+username+'&sem='+sem+'&year='+year+'&refkey='+refkey)
                 .pipe(map((response: any)=> response ),
                       catchError(err => {return (err)}));
   }

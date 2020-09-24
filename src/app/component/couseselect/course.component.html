@@ -108,8 +108,7 @@
           <section style="margin-top: 10px;">
             <div class="example-label"></div>
             <div class="example-button-row" style="text-align: center;">
-              <button mat-raised-button color="primary" [disabled]="isEnable" routerLink="/confirm"
-                routerLinkActive="active">
+              <button mat-raised-button color="primary" [disabled]="isEnable"  (click)="confirm()">
                 <span class="material-icons">
                   check_circle_outline
                 </span> ยืนยัน</button>&nbsp;

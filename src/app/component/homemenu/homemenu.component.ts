@@ -79,6 +79,7 @@ export class HomeMenuCreateComponent implements OnInit {
     this.loading();
     this.getProfile();
     this.getCounter();
+    sessionStorage.removeItem("subrefkey");
   }
 
   backClicked() {
@@ -90,7 +91,7 @@ export class HomeMenuCreateComponent implements OnInit {
 
   showSpinner = false;
   loading() {
-
+    sessionStorage.removeItem("reloadcourse");
     if (sessionStorage.getItem("stdcode") == "" || sessionStorage.getItem("stdcode") == null || sessionStorage.getItem("stdcode") == undefined) {
       sessionStorage.clear();
       window.open('https://beta-e-service.ru.ac.th/');
@@ -140,8 +141,9 @@ export class HomeMenuCreateComponent implements OnInit {
     this.apiFetchProfile.getJSON(this.id)
       .subscribe((data) => {
         this.todoProfile = data;
-        console.log(data.NameThai)
-        if (this.todoProfile == null || this.todoProfile == "" || this.todoProfile.NameThai == "") {
+        console.log('this.todoProfile' + Object.keys(this.todoProfile).length)
+        if ( Object.keys(this.todoProfile).length === 0) {
+          window.location.reload();
           alert('Loading data faild please login again.');
           this.logout();
         } else {
@@ -157,7 +159,7 @@ export class HomeMenuCreateComponent implements OnInit {
 
           if (this.todoProfile.tel == "" || this.todoProfile.tel == null) {
             alert('ท่านยังไม่ได้ระบุหมายเลขโทรศัพท์ กรุณาเพิ่มหมายเลขโทรศัท์ที่สามารถติดต่อได้ที่ระบบ e-service.');
-            this.logout();
+          //  this.logout();
 
           } else {
             sessionStorage.setItem("tel", this.todoProfile.tel);
@@ -232,13 +234,11 @@ export class HomeMenuCreateComponent implements OnInit {
       if (checkResults == "N") {
         //alert('no his');
 
-        if (window.location.href.indexOf('reload') == -1) {
-            window.location.reload();
-        }
+
         sessionStorage.setItem('todoHis', JSON.stringify(this.todoHis));
       } else {
 
-        console.log('checkResults ------------- ' + checkResults);
+      //  console.log('checkResults ------------- ' + checkResults);
 
         console.log('todoHis------------- ' + JSON.stringify(this.todoHis));
         sessionStorage.setItem('todoHis', JSON.stringify(this.todoHis));

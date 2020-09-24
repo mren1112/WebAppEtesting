@@ -133,6 +133,11 @@ export class CourseComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    if (sessionStorage.getItem('reloadcourse') == null) {
+      window.location.reload();
+      sessionStorage.setItem('reloadcourse','Y');
+    }
     // this.loading();
     this.getCalendar();
     this.onLoadPage();
@@ -177,6 +182,13 @@ export class CourseComponent implements OnInit {
       this.todoCalendar = res.results;
       console.log(JSON.stringify(this.todoCalendar));
     });
+  }
+
+
+  confirm() {
+
+    sessionStorage.removeItem("reloadcourse");
+    this.router.navigate(['/confirm']);
   }
 
   //paint alert day

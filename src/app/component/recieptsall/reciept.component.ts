@@ -50,6 +50,10 @@ export class RecieptAllCreateComponent implements OnInit {
       this.backClicked();
     } else {
       this.us = sessionStorage.getItem('stdcode');
+      if (sessionStorage.getItem('reloadslip') == null) {
+        window.location.reload();
+        sessionStorage.setItem('reloadslip','Y')
+      }
       this.getProfileData();
     }
   }
@@ -97,7 +101,14 @@ export class RecieptAllCreateComponent implements OnInit {
   backClicked() {
     // this._location.back();
     sessionStorage.removeItem("stdcode");
+
     sessionStorage.clear();
     window.location.href = 'https://beta-e-service.ru.ac.th/';
+  }
+
+  backhome() {
+    // this._location.back();
+    sessionStorage.removeItem("reloadslip");
+    this.router.navigate(['/']);
   }
 }

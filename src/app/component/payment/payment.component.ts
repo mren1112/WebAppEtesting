@@ -61,7 +61,7 @@ export class PaymentComponent implements OnInit {
   showSpinner = false;
   loading() {
      // alert('xx');
-    // window.location.reload();
+     window.location.reload();
       this.showSpinner = true;
       setTimeout(() => {
         this.showSpinner = false;
@@ -73,11 +73,14 @@ export class PaymentComponent implements OnInit {
 
   fetcthUrl() {//location.reload();
 
-    this.fullrefkey = sessionStorage.getItem("fullrefkey");
-    console.log('this.fullrefkey = ' + JSON.stringify(this.fullrefkey));
-    if (this.fullrefkey = null) {
+   // sessionStorage.getItem('reload');
+    if (sessionStorage.getItem('reloadpayment') == null) {
       location.reload();
+      sessionStorage.setItem('reloadpayment','Y');
     }
+
+    this.fullrefkey = sessionStorage.getItem("fullrefkey");
+    console.log('this.fullrefkey = ' + Object.keys(this.fullrefkey).length);
 
     this.sem = sessionStorage.getItem("sem");
     this.year = sessionStorage.getItem("year");
@@ -157,7 +160,10 @@ export class PaymentComponent implements OnInit {
 
   chkTodoSelectCourse() {
 
-    this.todoCourse = JSON.parse(sessionStorage.getItem('todoSelectCourse'));
+    if (sessionStorage.getItem('todoSelectCourse') != null) {
+     // window.location.reload()
+    }
+      this.todoCourse = JSON.parse(sessionStorage.getItem('todoSelectCourse'));
     this.cntTodoCourse = Object.keys(this.todoCourse).length;
     this.tmptodoCourse = JSON.parse(sessionStorage.getItem('todoSelectCourse'));
     console.log('tmptodoCourse = ' + JSON.stringify(this.tmptodoCourse));
@@ -168,6 +174,7 @@ export class PaymentComponent implements OnInit {
   cleardata(key): void {
     console.log(key);
      if (key == 1) {
+      sessionStorage.removeItem("reloadpayment");
       sessionStorage.removeItem("todoCourse");
       sessionStorage.removeItem("todoSelectCourse");
       sessionStorage.removeItem("Etsno");
