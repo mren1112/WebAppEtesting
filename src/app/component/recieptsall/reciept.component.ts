@@ -73,7 +73,7 @@ export class RecieptAllCreateComponent implements OnInit {
     this.ApiFetchReciept.getJSON().subscribe((data) =>{
       this.todolist = data.results;
       var cnt = Object.keys(this.todolist).length;
-      alert(cnt);
+      //alert(cnt);
       if (cnt === 0) {
           this.chkTodoCourse = true;
       }else{
