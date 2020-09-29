@@ -85,8 +85,8 @@ export class HomeMenuCreateComponent implements OnInit {
   backClicked() {
     // this._location.back();
     sessionStorage.clear();
-    //window.open('https://beta-e-service.ru.ac.th/');
-    window.location.href = 'https://beta-e-service.ru.ac.th/';
+    //window.open('https://www.ru.ac.th/th/');
+    window.location.href = 'https://www.ru.ac.th/th/';
   }
 
   showSpinner = false;
@@ -94,8 +94,8 @@ export class HomeMenuCreateComponent implements OnInit {
     sessionStorage.removeItem("reloadcourse");
     if (sessionStorage.getItem("stdcode") == "" || sessionStorage.getItem("stdcode") == null || sessionStorage.getItem("stdcode") == undefined) {
       sessionStorage.clear();
-      window.open('https://beta-e-service.ru.ac.th/');
-      //window.location.href = 'https://beta-e-service.ru.ac.th/';
+      window.open('https://www.ru.ac.th/th/');
+      //window.location.href = 'https://www.ru.ac.th/th/';
     } else {
       this.showSpinner = true;
       setTimeout(() => {
@@ -173,7 +173,7 @@ export class HomeMenuCreateComponent implements OnInit {
   logout() {
     sessionStorage.removeItem("stdcode");
     sessionStorage.clear();
-    window.location.href = 'https://beta-e-service.ru.ac.th/';
+    window.location.href = 'https://www.ru.ac.th/th/';
   }
 
 

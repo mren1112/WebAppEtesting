@@ -23,17 +23,17 @@ export class GenerateSlipComponent implements OnInit {
       this.backClicked();
     }
   }
- 
+
 
  public logout() {
     sessionStorage.removeItem("stdcode");
     sessionStorage.clear();
-    window.location.href = 'https://beta-e-service.ru.ac.th/';
+    window.location.href = 'https://www.ru.ac.th/th/';
   }
 
  public backClicked() {
     // this._location.back();
     sessionStorage.clear();
-    window.location.href = 'https://beta-e-service.ru.ac.th/';
+    window.location.href = 'https://www.ru.ac.th/th/';
   }
 }

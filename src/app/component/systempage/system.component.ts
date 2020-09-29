@@ -25,14 +25,14 @@ export class SystemPageComponent implements OnInit {
 
   loading() {
     if (sessionStorage.getItem("stdcode") == "" || sessionStorage.getItem("stdcode") == null || sessionStorage.getItem("stdcode") == undefined) {
-      setTimeout(window.location.href = 'https://beta-e-service.ru.ac.th/', 5000);
+      setTimeout(window.location.href = 'https://www.ru.ac.th/th/', 5000);
 
     }
   }
   closeApp() {
     sessionStorage.clear();
-   // window.open('https://beta-e-service.ru.ac.th/');
-     window.location.href = 'https://beta-e-service.ru.ac.th/';
+   // window.open('https://www.ru.ac.th/th/');
+     window.location.href = 'https://www.ru.ac.th/th/';
 }
 
 }

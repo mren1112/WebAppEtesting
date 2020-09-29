@@ -31,7 +31,7 @@ export class RecieptAllCreateComponent implements OnInit {
   public cntTodoCourse;
   public txtsem;
   public namethai;
-
+  public chkTodoCourse = false;
   //get Date
   curDate = new Date();
   public arrDateToStr: any[] = [];
@@ -72,6 +72,13 @@ export class RecieptAllCreateComponent implements OnInit {
   getRepList() {
     this.ApiFetchReciept.getJSON().subscribe((data) =>{
       this.todolist = data.results;
+      var cnt = Object.keys(this.todolist).length;
+      alert(cnt);
+      if (cnt === 0) {
+          this.chkTodoCourse = true;
+      }else{
+        this.chkTodoCourse = false;
+    }
     });
 
   }
@@ -103,7 +110,7 @@ export class RecieptAllCreateComponent implements OnInit {
     sessionStorage.removeItem("stdcode");
 
     sessionStorage.clear();
-    window.location.href = 'https://beta-e-service.ru.ac.th/';
+    window.location.href = 'https://www.ru.ac.th/th/';
   }
 
   backhome() {

@@ -28,6 +28,6 @@ export class InfoCreateComponent implements OnInit{
   backClicked() {
     // this._location.back();
     sessionStorage.clear();
-    window.location.href = 'https://beta-e-service.ru.ac.th/';
+    window.location.href = 'https://www.ru.ac.th/th/';
   }
 }

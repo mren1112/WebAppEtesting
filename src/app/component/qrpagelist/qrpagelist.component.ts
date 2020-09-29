@@ -61,7 +61,7 @@ export class QrpagelistCreateComponent implements OnInit {
   backClicked() {
     // this._location.back();
     sessionStorage.clear();
-    window.location.href = 'https://beta-e-service.ru.ac.th/';
+    window.location.href = 'https://www.ru.ac.th/th/';
   }
 
   getQrDatalist() {
@@ -114,7 +114,7 @@ export class QrpagelistCreateComponent implements OnInit {
     //console.log('refkey = ' + refkey);
     var subrefkey;
     var subduedate;
-    if (refkey != '' || refkey != null) {
+    if (fullrefkey != '' || fullrefkey != null) {
       //subrefkey = refkey.substring(15);
       //  subduedate = refkey.substring(5,15);
       sessionStorage.setItem("subrefkey", subrefkey);
@@ -125,7 +125,7 @@ export class QrpagelistCreateComponent implements OnInit {
       //   console.log('subrefkey = ' + subrefkey);
       this.router.navigate(['listqrpayment']);
     } else {
-      alert("Can't load Data please reload now!");
+      alert("Can't load Data please reload now!x");
       this.router.navigate(['qrpagelist']);
     }
 

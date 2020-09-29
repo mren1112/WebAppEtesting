@@ -21,19 +21,21 @@ export class ApiFetchPaymentService {
 
 
   constructor(private httppp: HttpClient,private http:Http) {
-    /*this.getJSON().subscribe(data => {
+     /*9this.getJSON().subscribe(data => {
       //sessionStorage.setItem("stdcode", data.STD_CODE);
       sessionStorage.setItem("namethai", data.NameThai);
 
       //console.log(response);
      // sessionStorage.setItem("stdcode", response.STD_CODE);
-   // });*/
+    });*/
   }
 
 
   getJSON(username:string,sem:string,year:string,refkey:string){
     return this.httppp.get(this.urlFetch+username+'&sem='+sem+'&year='+year+'&refkey='+refkey)
                 .pipe(map((response: any)=> response ),
-                      catchError(err => {return (err)}));
+                      catchError(err => {
+                      //  sessionStorage.setItem("dataregister", response);
+                        return (err)}));
   }
 }

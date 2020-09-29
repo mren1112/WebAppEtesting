@@ -235,13 +235,14 @@ export class CourseComponent implements OnInit {
       setTimeout(() => {
         this.showSpinner = false;
       }, 3000);
+      this.router.navigate(['/']);
     }
   }
 
   backClicked() {
     // this._location.back();
     sessionStorage.clear();
-    window.location.href = 'https://beta-e-service.ru.ac.th/';
+    window.location.href = 'https://www.ru.ac.th/th/';
   }
 
   checkConfirm() {

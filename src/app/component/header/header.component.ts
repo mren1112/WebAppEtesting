@@ -33,15 +33,15 @@ export class HeaderComponent implements OnInit {
   logout() {
     sessionStorage.removeItem("stdcode");
     sessionStorage.clear();
-   // window.open('https://beta-e-service.ru.ac.th/');
-    window.location.href = 'https://beta-e-service.ru.ac.th/';
+   // window.open('https://www.ru.ac.th/th/');
+    window.location.href = 'https://www.ru.ac.th/th/';
   }
 
   backClicked() {
     // this._location.back();
     sessionStorage.clear();
-   // window.open('https://beta-e-service.ru.ac.th/');
-     window.location.href = 'https://beta-e-service.ru.ac.th/';
+   // window.open('https://www.ru.ac.th/th/');
+     window.location.href = 'https://www.ru.ac.th/th/';
   }
 }
 export class ToolbarMultirowExample {

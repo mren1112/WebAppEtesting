@@ -45,13 +45,34 @@ integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7
        </table>
 
        <mat-divider></mat-divider>
+
+       <ng-container *ngIf="chkTodoCourse" style="margin-top: 15px;">
+        <div class="row">
+          <div class="col-12" style="text-align: center;">
+            <p></p>
+            <h1 style="color: red;">ท่านไม่มีรายการชำระเงิน</h1>
+            <p>
+            </p>
+            <section>
+              <div class="example-button-row" style="text-align: center;">
+               <button class="btn text-white text-center" (click)="backhome()" mat-raised-button color="warn" routerLinkActive="active"
+               target="_blank"><i class="fa fa-home fa-fw fa-1x py-1"></i> กลับสู่หน้าหลัก </button>
+              </div>
+            </section>
+          </div>
+
+        </div>
+      </ng-container>
+
        <P></P>
+       <ng-container *ngIf="!chkTodoCourse" >
        <section>
          <div class="example-button-row" style="text-align: center;">
           <button class="btn text-white text-center" (click)="backhome()" mat-raised-button color="warn" routerLinkActive="active"
           target="_blank"><i class="fa fa-home fa-fw fa-1x py-1"></i> กลับสู่หน้าหลัก </button>
          </div>
        </section>
+      </ng-container>
        <p>
          <hr>
       </div>

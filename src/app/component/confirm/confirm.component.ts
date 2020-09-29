@@ -142,7 +142,7 @@ export class ConfirmComponent implements OnInit {
   backClicked() {
     // this._location.back();
     sessionStorage.clear();
-    window.location.href = 'https://beta-e-service.ru.ac.th/';
+    window.location.href = 'https://www.ru.ac.th/th/';
    }
 
   chkTodoSelectCourse() {
@@ -162,12 +162,12 @@ export class ConfirmComponent implements OnInit {
     this.cntTodoCourse = Object.keys(this.todoCourse).length;
     this.tmptodoCourse = JSON.parse(sessionStorage.getItem('todoSelectCourse'));
 
-    var tmpA = this.tmptodoCourse; 
+    var tmpA = this.tmptodoCourse;
     tmpA.filter((arr) => {
         if (arr.section == '1') {
-          arr.sectime = '9.30 - 12.00';
+          arr.sectime = '9:00 - 11:30';
         } else if (arr.section == '2') {
-          arr.sectime = '12.00 - 14.30'; //alert("6666");
+          arr.sectime = '12:00 - 14:30'; //alert("6666");
         } else if (arr.section == '3') {
           arr.sectime = '15:00-17:30';
         } else if (arr.section == '4') {

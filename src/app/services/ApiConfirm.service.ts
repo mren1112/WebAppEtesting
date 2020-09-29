@@ -48,15 +48,15 @@ doConfirm(username:string,year:string,semester:string,cntCourseNo:string,grad:st
     .subscribe(data =>{
       resolve(data);
       console.log("data  "+ JSON.stringify(data) );
-      console.log("Etsno = "+ JSON.stringify("ETS"+data.Etsno) );
+      console.log("refkey = "+ JSON.stringify(data.refkey) );
       console.log("sta = "+ JSON.stringify(data.sta));
       console.log("examdate = "+ JSON.stringify(data.examdate));
-      sessionStorage.setItem("sta",data.sta);
       sessionStorage.setItem("refkey",data.refkey);
       sessionStorage.setItem("sta",data.sta);
       sessionStorage.setItem("fullrefkey",data.fullrefkey);
+      sessionStorage.setItem("save",'Y');
     },error => {
-
+      sessionStorage.setItem("save",'N');
         reject(error);
     })
   })
