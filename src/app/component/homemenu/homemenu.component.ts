@@ -86,7 +86,7 @@ export class HomeMenuCreateComponent implements OnInit {
     // this._location.back();
     sessionStorage.clear();
     //window.open('https://www.ru.ac.th/th/');
-    window.location.href = 'https://www.ru.ac.th/th/';
+    window.location.href = 'https://www.ru.ac.th';
   }
 
   showSpinner = false;
@@ -94,7 +94,7 @@ export class HomeMenuCreateComponent implements OnInit {
     sessionStorage.removeItem("reloadcourse");
     if (sessionStorage.getItem("stdcode") == "" || sessionStorage.getItem("stdcode") == null || sessionStorage.getItem("stdcode") == undefined) {
       sessionStorage.clear();
-      window.open('https://www.ru.ac.th/th/');
+      window.open('https://www.ru.ac.th');
       //window.location.href = 'https://www.ru.ac.th/th/';
     } else {
       this.showSpinner = true;
@@ -173,7 +173,7 @@ export class HomeMenuCreateComponent implements OnInit {
   logout() {
     sessionStorage.removeItem("stdcode");
     sessionStorage.clear();
-    window.location.href = 'https://www.ru.ac.th/th/';
+    window.location.href = 'https://www.ru.ac.th';
   }
 
 
@@ -233,19 +233,14 @@ export class HomeMenuCreateComponent implements OnInit {
 
       if (checkResults == "N") {
         //alert('no his');
-
-
         sessionStorage.setItem('todoHis', JSON.stringify(this.todoHis));
       } else {
-
-      //  console.log('checkResults ------------- ' + checkResults);
-
         console.log('todoHis------------- ' + JSON.stringify(this.todoHis));
         sessionStorage.setItem('todoHis', JSON.stringify(this.todoHis));
         if (this.todoHis != '' || this.todoHis != null && sessionStorage.getItem('stdcode') != null) {
-
         } else {
           alert('no his');
+          location.reload();
         }
       }
     });

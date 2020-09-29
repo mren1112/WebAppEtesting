@@ -187,6 +187,7 @@ export class PaymentComponent implements OnInit {
   cleardata(key): void {
     console.log(key);
     if (key == 1) {
+      sessionStorage.removeItem("todoHis");
       sessionStorage.removeItem("refkey");
       sessionStorage.removeItem("dataregister");
       sessionStorage.removeItem("reloadpayment");

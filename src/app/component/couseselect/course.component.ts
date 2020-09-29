@@ -289,16 +289,10 @@ export class CourseComponent implements OnInit {
       }
       //check his data
       for (let k = 0; k < this.tempTodoHis.length; k++) {
-        if (
-          chkExamdate == this.tempTodoHis[k].examdate &&
-          this.tempTodoHis[k].sec == chkSec
-        ) {
+        if (chkExamdate == this.tempTodoHis[k].examdate && this.tempTodoHis[k].sec == chkSec) {
           alert('ท่านเลือกวันที่มีคาบสอบตรงกัน กรุณาทำการเลือกใหม่!!');
-          //  this.chkDupDateAndSec = true;
+           // this.chkDupDateAndSec = true;
           this.isEnable = true;
-        } else {
-          //this.chkDupDateAndSec = false;
-          // this.isEnable = false;
         }
       }
     }
@@ -326,7 +320,7 @@ export class CourseComponent implements OnInit {
 
       console.log('tmp------------- ' + tmp);
 
-      if ( tmp === "N") {
+       if ( tmp === "N") {
         alert('ท่านไม่มีวิชาที่สามารถลงทะเบียนได้');
         this.router.navigate(['/']);
       }
