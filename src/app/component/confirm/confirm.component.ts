@@ -95,6 +95,7 @@ export class ConfirmComponent implements OnInit {
   public creditMin;
   public creditMaxEnd;
   public sta = '';
+  public expText;
   //----------------------------
  //get Date
  curDate = (new Date());
@@ -326,7 +327,7 @@ export class ConfirmComponent implements OnInit {
           setTimeout(() => {
               this.showSpinner = false;
           }, 3000);
-    this.router.navigate(['payment']);
+    this.router.navigate(['qrpagelist']);
 
 
   }

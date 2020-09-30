@@ -97,10 +97,21 @@ export class HomeMenuCreateComponent implements OnInit {
       window.open('https://www.ru.ac.th');
       //window.location.href = 'https://www.ru.ac.th/th/';
     } else {
-      this.showSpinner = true;
-      setTimeout(() => {
-        this.showSpinner = false;
-      }, 1000);
+      // var tmpname =
+      if (sessionStorage.getItem("namethai") == "" || sessionStorage.getItem("namethai") == null) {
+       // location.reload();
+        this.showSpinner = true;
+        setTimeout(() => {
+          this.showSpinner = false;
+        }, 3000);
+      } else {
+
+        this.showSpinner = true;
+        setTimeout(() => {
+          this.showSpinner = false;
+        }, 2000);
+      }
+
     }
   }
 
@@ -142,8 +153,8 @@ export class HomeMenuCreateComponent implements OnInit {
       .subscribe((data) => {
         this.todoProfile = data;
         console.log('this.todoProfile' + Object.keys(this.todoProfile).length)
-        if ( Object.keys(this.todoProfile).length === 0) {
-          window.location.reload();
+        if (Object.keys(this.todoProfile).length === 0) {
+          location.reload();
           alert('Loading data faild please login again.');
           this.logout();
         } else {
@@ -158,8 +169,8 @@ export class HomeMenuCreateComponent implements OnInit {
           sessionStorage.setItem("birth", this.todoProfile.Birth);
 
           if (this.todoProfile.tel == "" || this.todoProfile.tel == null) {
-            alert('ท่านยังไม่ได้ระบุหมายเลขโทรศัพท์ กรุณาเพิ่มหมายเลขโทรศัท์ที่สามารถติดต่อได้ที่ระบบ e-service.');
-          //  this.logout();
+            alert('ท่านยังไม่ได้ระบุหมายเลขโทรศัพท์ กรุณาเพิ่มหมายเลขโทรศัพท์ที่สามารถติดต่อได้ที่ระบบ e-service. ก่อนทำการลงทะเบียน');
+            //  this.logout();
 
           } else {
             sessionStorage.setItem("tel", this.todoProfile.tel);

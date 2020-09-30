@@ -110,7 +110,7 @@ export class QrpagelistCreateComponent implements OnInit {
 
   //get payment page from qr list
   //public tmptodoCourse: any = [];
-  getQrcodefromlist(refkey, duedate, datetime, fullrefkey) {
+  getQrcodefromlist(refkey, duedate, datetime, fullrefkey,repdate) {
     //console.log('refkey = ' + refkey);
     var subrefkey;
     var subduedate;
@@ -118,6 +118,7 @@ export class QrpagelistCreateComponent implements OnInit {
       //subrefkey = refkey.substring(15);
       //  subduedate = refkey.substring(5,15);
       sessionStorage.setItem("subrefkey", subrefkey);
+      sessionStorage.setItem("repdate", repdate);
       sessionStorage.setItem("refkey", refkey);
       sessionStorage.setItem("duedate", duedate);
       sessionStorage.setItem("datetime", datetime);
@@ -140,6 +141,8 @@ export class QrpagelistCreateComponent implements OnInit {
   }
   backbtn() {
     sessionStorage.removeItem("reloadqrlist");
+
+    sessionStorage.removeItem("dataregister");
     sessionStorage.removeItem('refkey');
     sessionStorage.removeItem('duedate');
     sessionStorage.removeItem('duedate');

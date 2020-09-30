@@ -35,6 +35,7 @@ export class ListQrPaymentComponent implements OnInit {
   public txtsem;
   public namethai;
 
+  public expText;
   //get Date
   curDate = new Date();
   public arrDateToStr: any[] = [];
@@ -173,7 +174,10 @@ export class ListQrPaymentComponent implements OnInit {
     console.log(key);
      if (key == 1) {
       sessionStorage.removeItem("todoCourse");
+      sessionStorage.removeItem("repdate");
       sessionStorage.removeItem("todoSelectCourse");
+
+      sessionStorage.removeItem("dataregister");
       sessionStorage.removeItem("Etsno");
       sessionStorage.removeItem("refkey");
       sessionStorage.removeItem("fullrefkey");
@@ -189,6 +193,9 @@ export class ListQrPaymentComponent implements OnInit {
     console.log(key);
      if (key == 1) {
       sessionStorage.removeItem("todoCourse");
+      sessionStorage.removeItem("repdate");
+
+      sessionStorage.removeItem("dataregister");
       sessionStorage.removeItem("todoSelectCourse");
       sessionStorage.removeItem("Etsno");
       sessionStorage.removeItem("refkey");
