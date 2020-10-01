@@ -157,11 +157,11 @@ export class CourseComponent implements OnInit {
     //alert(tmpDateCurrent.substring(4))
     //alert(tmpDateCurrent.substring(0,2));
     this.startDate = new Date(
-      Number(tmpDateCurrent.substring(4)) + 543,
+      Number(tmpDateCurrent.substring(4)),
       Number(tmpDateCurrent.substring(2, 4)) - 1,
       Number(tmpDateCurrent.substring(0, 2))
     );
-    this.endtDate = new Date(2020 + 543, 7, 31);
+    this.endtDate = new Date(2020, 7, 31);
   }
 
   onLoadPage() {
