@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { ApiFetchETCourseService } from 'src/app/services/ApiFetchETCourse.service';
+import { ApiFetchDateService } from 'src/app/services/ApiFetchDate.service';
 
 
 @Component({
@@ -22,14 +23,14 @@ export class HomeMenuCreateComponent implements OnInit {
   todoCounter: any[];
   public us;
   //todos:TodoProfile[] = [];
-
+  public chkcoursefull: boolean = false;
   public todoHis: any = [];
   //-----------spinner----------------------
 
   showLoading = true;
   //----------------------------------------
   public id;
-
+  public todoCalendar: any = [];
 
   constructor(
     private apiFetchProfile: ApiFetchProfileService,
@@ -37,7 +38,7 @@ export class HomeMenuCreateComponent implements OnInit {
     private httpClient: HttpClient,
     private apiFetchETCourse: ApiFetchETCourseService,
     private _router: Router,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute, private apiFetchDate: ApiFetchDateService,
   ) {
     /*9 this._router.events.subscribe((routerEvent: Event) => {
        if (routerEvent instanceof NavigationStart) {
@@ -99,7 +100,7 @@ export class HomeMenuCreateComponent implements OnInit {
     } else {
       // var tmpname =
       if (sessionStorage.getItem("namethai") == "" || sessionStorage.getItem("namethai") == null) {
-       // location.reload();
+        // location.reload();
         this.showSpinner = true;
         setTimeout(() => {
           this.showSpinner = false;
@@ -114,6 +115,8 @@ export class HomeMenuCreateComponent implements OnInit {
 
     }
   }
+
+
 
   mySubscription: any;
   getProfile() {
@@ -222,11 +225,13 @@ export class HomeMenuCreateComponent implements OnInit {
     setTimeout(function () { tmp = JSON.stringify(tempA.close) }, 100);
 
     // console.log('tempA.close = ' + JSON.stringify(tempA.close));
+    this.getCalendar();
     if (tempA.close === 'Y') {
       alert('ไม่อยู่ในช่วงการลงทะเบียน!');
       // this.router.navigate(['systemcomponent']);
     } else {
       this._router.navigate(['course']);
+     // this.getCalendar();
     }
 
   }
@@ -257,5 +262,24 @@ export class HomeMenuCreateComponent implements OnInit {
     });
   }
 
+  getCalendar() {
+    this.apiFetchDate.getJSON().subscribe((res) => {
+      this.todoCalendar = res.results;
+      console.log(JSON.stringify(this.todoCalendar));
+      var checkDate;
+      this.todoCalendar.forEach(e => {
+        checkDate = e.tmpYear;
 
+      });
+      //alert(Object.keys(checkDate).length);
+      if (Object.keys(checkDate).length < 0) {
+        this.chkcoursefull = false;
+        alert('จำนวนการลงทะเบียนสอบเต็มแล้ว');
+      }else {
+        this._router.navigate(['course']);
+      }
+
+
+    });
+  }
 }

@@ -58,6 +58,7 @@ doConfirm(username:string,year:string,semester:string,cntCourseNo:string,grad:st
     },error => {
       sessionStorage.setItem("save",'N');
         reject(error);
+        alert('Register Not seccess!');
     })
   })
 }

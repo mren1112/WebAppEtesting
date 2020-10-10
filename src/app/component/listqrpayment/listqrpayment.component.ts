@@ -139,6 +139,7 @@ export class ListQrPaymentComponent implements OnInit {
           amount = e.total;
           sessionStorage.setItem("total",amount);
           this.total = amount;
+          this.expText = e.txtpaydate;
       });
       //this.total = sessionStorage.getItem("total");
 

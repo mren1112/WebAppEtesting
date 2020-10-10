@@ -181,6 +181,15 @@ export class CourseComponent implements OnInit {
     this.apiFetchDate.getJSON().subscribe((res) => {
       this.todoCalendar = res.results;
       console.log(JSON.stringify(this.todoCalendar));
+      var checkDate;
+      this.todoCalendar.forEach(e => {
+        if (e == null) {
+          alert('จำนวนการลงทะเบียนเต็มแล้ว');
+          sessionStorage.removeItem("reloadcourse");
+          this.router.navigate(['/']);
+        }
+      });
+
     });
   }
 
@@ -220,7 +229,7 @@ export class CourseComponent implements OnInit {
 
   showSpinner: boolean = false;
   loading(todoCourse) {
-    if (
+   /* if (
       Object.keys(todoCourse).length == 0 ||
       todoCourse == '' ||
       todoCourse == '' ||
@@ -230,19 +239,19 @@ export class CourseComponent implements OnInit {
       this.todoCalendar == null
     ) {
       // alert('xx');
-      window.location.reload();
+      window.location.reload();*/
       this.showSpinner = true;
       setTimeout(() => {
         this.showSpinner = false;
-      }, 3000);
-      this.router.navigate(['/']);
-    }
+      }, 5000);
+      //this.router.navigate(['/']);
+    //}
   }
 
   backClicked() {
     // this._location.back();
     sessionStorage.clear();
-    window.location.href = 'https://www.ru.ac.th/th/';
+    window.location.href = 'https://www.ru.ac.th/';
   }
 
   checkConfirm() {
