@@ -96,7 +96,11 @@ export class RecieptAllCreateComponent implements OnInit {
 
 
    if (refkey != '') {
-    window.open('http://sevkn.ru.ac.th:8888/etestgbackend/GetSlipt?stdcode='+this.us+'&refkey='+refkey+'&sem='+this.sem+'&year='+this.year, "_blank");
+     //btoa(this.us)
+   //  console.log('BTOA = '+btoa(this.us));
+    //window.open('http://localhost:8113/etestgbackend/GetSlipt?stdcode='+btoa(this.us)+'&refkey='+btoa(refkey)+'&sem='+btoa(this.sem)+'&year='+btoa(this.year), "_blank");
+    window.open('http://sevkn.ru.ac.th:8888/etestgbackend/GetSlipt?stdcode='+btoa(this.us)+'&refkey='+btoa(refkey)+'&sem='+btoa(this.sem)+'&year='+btoa(this.year), "_blank");
+
   } else {
     alert("Can't load Data please reload now!");
     this.router.navigate(['qrpagelist']);

@@ -55,9 +55,10 @@ export class LandingPageComponent implements OnInit {
   checkSystemStatus() {
     var tempA: any = [];
     //this.httpClient.get('http://sevkn.ru.ac.th/etest/chksystem.jsp').subscribe((data) => {
-       this.apiCheckSystem.getJSON().subscribe((data) => {
+      this.apiCheckSystem.getJSON().subscribe((data) => {
       this.todosys = data;
       tempA = JSON.parse(sessionStorage.getItem("todosys"));
+
       console.log('todosys = ' + JSON.stringify(this.todosys));
 
       if (Object.keys(this.todosys).length === 0 || this.todosys == null) {

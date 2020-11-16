@@ -24,6 +24,7 @@ export class HomeMenuCreateComponent implements OnInit {
   public us;
   //todos:TodoProfile[] = [];
   public chkcoursefull: boolean = false;
+  public chkStatus: boolean = false;
   public todoHis: any = [];
   //-----------spinner----------------------
 
@@ -77,7 +78,10 @@ export class HomeMenuCreateComponent implements OnInit {
       this.backClicked();
     }
     //
+
+
     this.loading();
+
     this.getProfile();
     this.getCounter();
     sessionStorage.removeItem("subrefkey");
@@ -111,7 +115,18 @@ export class HomeMenuCreateComponent implements OnInit {
         setTimeout(() => {
           this.showSpinner = false;
         }, 2000);
+
+       var tempA = JSON.parse(sessionStorage.getItem("todosys"));
+        if (tempA.close === 'Y') {
+          this.chkStatus = false;
+           // this.router.navigate(['systemcomponent']);
+         } else {
+          this.chkStatus = true;
+         }
+
       }
+
+
 
     }
   }
@@ -213,6 +228,11 @@ export class HomeMenuCreateComponent implements OnInit {
 
     tempA = JSON.parse(sessionStorage.getItem("todosys"));
     // console.log('tempA = ' + JSON.stringify(tempA));
+    var temp = btoa(tempA);
+    //console.log('btoa = ' +  temp);
+    //console.log('atob = ' + JSON.stringify(atob( temp)) );
+   // console.log('W29iamVjdCBPYmplY3Rd = ' +  atob( 'W29iamVjdCBPYmplY3Rd'));
+
 
     if (Object.keys(tempA).length === 0 || tempA == null) {
       window.location.reload();
