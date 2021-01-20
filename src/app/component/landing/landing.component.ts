@@ -61,7 +61,7 @@ export class LandingPageComponent implements OnInit {
 
       console.log('todosys = ' + JSON.stringify(this.todosys));
 
-      if (Object.keys(this.todosys).length === 0 || this.todosys == null) {
+      if (Object.keys(this.todosys).length === 0 || this.todosys == null || tempA ==  "") {
         window.location.reload();
         setTimeout(() => {
           this.showSpinner = false;

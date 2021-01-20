@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiFetchRecieptService } from 'src/app/services/ApiFetchReciept.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { ApiRecieptMsgService } from 'src/app/services/ApiRecieptMsg.service';
 
 
 
@@ -27,18 +28,21 @@ export class RecieptAllCreateComponent implements OnInit {
   public duetime = "2359";
   public urlFecthqar;
   public todolist: any = [];
+  public todomsg: any = [];
   public tmptodoCourse: any = [];
   public cntTodoCourse;
   public txtsem;
   public namethai;
+  public msg;
   public chkTodoCourse = false;
   //get Date
   curDate = new Date();
   public arrDateToStr: any[] = [];
 
   constructor(private ApiFetchReciept: ApiFetchRecieptService,
-    private router:Router,
-    private activerouter:ActivatedRoute,
+    private ApiRecieptMsg: ApiRecieptMsgService,
+    private router: Router,
+    private activerouter: ActivatedRoute,
     private http: HttpClient
 
   ) {
@@ -52,7 +56,7 @@ export class RecieptAllCreateComponent implements OnInit {
       this.us = sessionStorage.getItem('stdcode');
       if (sessionStorage.getItem('reloadslip') == null) {
         window.location.reload();
-        sessionStorage.setItem('reloadslip','Y')
+        sessionStorage.setItem('reloadslip', 'Y')
       }
       this.getProfileData();
     }
@@ -65,46 +69,53 @@ export class RecieptAllCreateComponent implements OnInit {
     this.us = sessionStorage.getItem("stdcode");
     this.telnum = sessionStorage.getItem("tel");
     this.namethai = sessionStorage.getItem("namethai");
-    this. getRepList();
+    this.getRepList();
 
   }
 
   getRepList() {
-    this.ApiFetchReciept.getJSON().subscribe((data) =>{
+    this.ApiFetchReciept.getJSON().subscribe((data) => {
       this.todolist = data.results;
       var cnt = Object.keys(this.todolist).length;
       //alert(cnt);
       if (cnt === 0) {
-          this.chkTodoCourse = true;
-      }else{
+        this.chkTodoCourse = true;
+      } else {
         this.chkTodoCourse = false;
-    }
+      }
+    });
+
+    //get msg
+    this.ApiRecieptMsg.getJSON().subscribe(res => {
+      this.msg = res.msg;
+      // console.log("x sec = " + JSON.stringify(res));
     });
 
   }
 
+
   getSlip(refkey) {
-   // this.router.navigate(['generateslipt']);
-  // window.open('https://devtest.ru.ac.th/ThaiQR/eTestQR?totalAmount?xx='+this.us, "_blank");
+    // this.router.navigate(['generateslipt']);
+    // window.open('https://devtest.ru.ac.th/ThaiQR/eTestQR?totalAmount?xx='+this.us, "_blank");
 
 
-  /*this.http.post<any>('http://sevkn.ru.ac.th:8888/etestgbackend/GetSlipt/'
-  , { stdcode:this.us,refkey:refkey,sem:this.sem,year:this.year}).subscribe({
-    //next: data => this.postId = data.id,
-    error: error => console.error('There was an error!', error)
-})*/
+    /*this.http.post<any>('http://sevkn.ru.ac.th:8888/etestgbackend/GetSlipt/'
+    , { stdcode:this.us,refkey:refkey,sem:this.sem,year:this.year}).subscribe({
+      //next: data => this.postId = data.id,
+      error: error => console.error('There was an error!', error)
+  })*/
 
 
-   if (refkey != '') {
-     //btoa(this.us)
-   //  console.log('BTOA = '+btoa(this.us));
-    //window.open('http://localhost:8113/etestgbackend/GetSlipt?stdcode='+btoa(this.us)+'&refkey='+btoa(refkey)+'&sem='+btoa(this.sem)+'&year='+btoa(this.year), "_blank");
-    window.open('http://sevkn.ru.ac.th:8888/etestgbackend/GetSlipt?stdcode='+btoa(this.us)+'&refkey='+btoa(refkey)+'&sem='+btoa(this.sem)+'&year='+btoa(this.year), "_blank");
+    if (refkey != '') {
+      //btoa(this.us)
+      //  console.log('BTOA = '+btoa(this.us));
+      //window.open('http://localhost:8113/etestgbackend/GetSlipt?stdcode='+btoa(this.us)+'&refkey='+btoa(refkey)+'&sem='+btoa(this.sem)+'&year='+btoa(this.year), "_blank");
+      window.open('http://sevkn.ru.ac.th:8888/etestgbackend/GetSlipt?stdcode=' + btoa(this.us) + '&refkey=' + btoa(refkey) + '&sem=' + btoa(this.sem) + '&year=' + btoa(this.year), "_blank");
 
-  } else {
-    alert("Can't load Data please reload now!");
-    this.router.navigate(['qrpagelist']);
-  }
+    } else {
+      alert("Can't load Data please reload now!");
+      this.router.navigate(['qrpagelist']);
+    }
 
 
   }

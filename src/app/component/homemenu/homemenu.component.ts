@@ -9,6 +9,9 @@ import { map } from 'rxjs/operators';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { ApiFetchETCourseService } from 'src/app/services/ApiFetchETCourse.service';
 import { ApiFetchDateService } from 'src/app/services/ApiFetchDate.service';
+import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Inject } from '@angular/core';
+
 
 
 @Component({
@@ -79,6 +82,10 @@ export class HomeMenuCreateComponent implements OnInit {
     }
     //
 
+    if (localStorage.getItem('checkhome') == null) {
+      localStorage.setItem('checkhome', 'Y')
+      location.reload();
+    }
 
     this.loading();
 
@@ -116,13 +123,13 @@ export class HomeMenuCreateComponent implements OnInit {
           this.showSpinner = false;
         }, 2000);
 
-       var tempA = JSON.parse(sessionStorage.getItem("todosys"));
-        if (tempA.close === 'Y') {
+        var tempA = JSON.parse(sessionStorage.getItem("todosys"));
+        if (tempA.close === 'N') {
           this.chkStatus = false;
-           // this.router.navigate(['systemcomponent']);
-         } else {
+          // this.router.navigate(['systemcomponent']);
+        } else {
           this.chkStatus = true;
-         }
+        }
 
       }
 
@@ -231,7 +238,7 @@ export class HomeMenuCreateComponent implements OnInit {
     var temp = btoa(tempA);
     //console.log('btoa = ' +  temp);
     //console.log('atob = ' + JSON.stringify(atob( temp)) );
-   // console.log('W29iamVjdCBPYmplY3Rd = ' +  atob( 'W29iamVjdCBPYmplY3Rd'));
+    // console.log('W29iamVjdCBPYmplY3Rd = ' +  atob( 'W29iamVjdCBPYmplY3Rd'));
 
 
     if (Object.keys(tempA).length === 0 || tempA == null) {
@@ -246,12 +253,12 @@ export class HomeMenuCreateComponent implements OnInit {
 
     // console.log('tempA.close = ' + JSON.stringify(tempA.close));
     this.getCalendar();
-    if (tempA.close === 'Y') {
+    if (tempA.close === 'N') {
       alert('ไม่อยู่ในช่วงการลงทะเบียน!');
       // this.router.navigate(['systemcomponent']);
     } else {
       this._router.navigate(['course']);
-     // this.getCalendar();
+      // this.getCalendar();
     }
 
   }
@@ -295,11 +302,13 @@ export class HomeMenuCreateComponent implements OnInit {
       if (Object.keys(checkDate).length < 0) {
         this.chkcoursefull = false;
         alert('จำนวนการลงทะเบียนสอบเต็มแล้ว');
-      }else {
+      } else {
         this._router.navigate(['course']);
       }
 
 
     });
   }
+
+
 }

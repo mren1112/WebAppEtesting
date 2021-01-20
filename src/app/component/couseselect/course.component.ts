@@ -1,11 +1,11 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, Inject } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError, retry } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { element } from 'protractor';
-
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {
   MatCalendarCellCssClasses,
   MatDatepickerInputEvent,
@@ -38,12 +38,17 @@ export class newArray {
   couse: string;
 }
 
+export interface DialogData {
+  animal: 'ท่านไม่มีวิชาที่สามารถลงทะเบียนได้';
+}
+
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.css'],
   encapsulation: ViewEncapsulation.None,
 })
+
 export class CourseComponent implements OnInit {
   coursetest = [
     { courseno: 'COS2101', credit: 3, status: false },
@@ -109,10 +114,23 @@ export class CourseComponent implements OnInit {
     private httpClient: HttpClient,
     private _location: Location,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute, public dialog: MatDialog
   ) {
     //this.addCheckboxes();
+
   }
+
+
+  // -------------- dialog component ----------------
+  openDialog() {
+    this.dialog.open(DialogDataExampleDialog, {
+      data: {
+        msg: 'ท่านไม่มีวิชาที่สามารถลงทะเบียนได้'
+      }
+    });
+  }
+
+  // ------------------------------------------------
 
   subtmp: any[];
   private addCheckboxes() {
@@ -229,22 +247,22 @@ export class CourseComponent implements OnInit {
 
   showSpinner: boolean = false;
   loading(todoCourse) {
-   /* if (
-      Object.keys(todoCourse).length == 0 ||
-      todoCourse == '' ||
-      todoCourse == '' ||
-      todoCourse == null ||
-      todoCourse == undefined ||
-      Object.keys(this.todoCalendar).length == 0 ||
-      this.todoCalendar == null
-    ) {
-      // alert('xx');
-      window.location.reload();*/
-      this.showSpinner = true;
-      setTimeout(() => {
-        this.showSpinner = false;
-      }, 5000);
-      //this.router.navigate(['/']);
+    /* if (
+       Object.keys(todoCourse).length == 0 ||
+       todoCourse == '' ||
+       todoCourse == '' ||
+       todoCourse == null ||
+       todoCourse == undefined ||
+       Object.keys(this.todoCalendar).length == 0 ||
+       this.todoCalendar == null
+     ) {
+       // alert('xx');
+       window.location.reload();*/
+    this.showSpinner = true;
+    setTimeout(() => {
+      this.showSpinner = false;
+    }, 5000);
+    //this.router.navigate(['/']);
     //}
   }
 
@@ -293,9 +311,9 @@ export class CourseComponent implements OnInit {
           cntSame++;
           this.chkDupDateAndSec = true;
           this.isEnable = true;
-         // alert('ท่านเลือกวันที่มีคาบสอบตรงกัน กรุณาทำการเลือกใหม่!!');break;
+          // alert('ท่านเลือกวันที่มีคาบสอบตรงกัน กรุณาทำการเลือกใหม่!!');break;
         } else {
-           //this.chkDupDateAndSec = false;
+          //this.chkDupDateAndSec = false;
           // this.isEnable = false;
         }
       }
@@ -309,14 +327,14 @@ export class CourseComponent implements OnInit {
       if (tmpcourseno != 'N') {
         for (let k = 0; k < this.tempTodoHis.length; k++) {
           if (chkExamdate == this.tempTodoHis[k].examdate && this.tempTodoHis[k].sec == chkSec) {
-           //   alert('ท่านเลือกวันที่มีคาบสอบตรงกัน กรุณาทำการเลือกใหม่!!');
-           cntSame2++;
+            //   alert('ท่านเลือกวันที่มีคาบสอบตรงกัน กรุณาทำการเลือกใหม่!!');
+            cntSame2++;
             this.chkDupDateAndSec = true;
             this.isEnable = true;
-          }else {
-             this.chkDupDateAndSec = false;
-             // this.isEnable = false;
-           }
+          } else {
+            this.chkDupDateAndSec = false;
+            // this.isEnable = false;
+          }
         }
       }
 
@@ -324,7 +342,7 @@ export class CourseComponent implements OnInit {
     if (cntSame > 0 || cntSame2 > 0) {
       this.chkDupDateAndSec = true;
       this.isEnable = true;
-    }else {
+    } else {
       this.chkDupDateAndSec = false;
       // this.isEnable = false;
     }
@@ -355,7 +373,8 @@ export class CourseComponent implements OnInit {
       console.log('tmp------------- ' + tmp);
 
       if (tmp === "N") {
-        alert('ท่านไม่มีวิชาที่สามารถลงทะเบียนได้');
+      //  alert('ท่านไม่มีวิชาที่สามารถลงทะเบียนได้');
+      this.openDialog();
         this.router.navigate(['/']);
       }
       // console.log('tmp------------- ' + JSON.parse(tmp));
@@ -764,3 +783,15 @@ export class CourseComponent implements OnInit {
      // return Math.floor((Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()) - Date.UTC(dateSent.getFullYear(), dateSent.getMonth(), dateSent.getDate())) / (1000 * 60 * 60 * 24));
    }*/
 }
+
+@Component({
+  selector: 'dialog-data-example-dialog',
+  templateUrl: 'msgdialog.html',
+})
+export class DialogDataExampleDialog {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData, public dialog: MatDialog) { }
+  close(){
+    this.dialog.closeAll();
+  }
+}
+

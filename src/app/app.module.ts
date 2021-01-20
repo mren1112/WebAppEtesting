@@ -59,7 +59,7 @@ import { ApiFetchDateSectionService } from './services/ApiFecthDateSection.servi
 import { ApiConfirmService } from './services/ApiConfirm.service';
 import { HttpModule } from '@angular/http';
 import { LandingPageComponent } from './component/landing/landing.component';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { BsModalService, ModalModule } from 'ngx-bootstrap/modal';
 import { ApiFetchQrPaymentService } from './services/ApiFetchQrpayment.service';
 import { ApiFetchRecieptService } from './services/ApiFetchReciept.service';
@@ -73,6 +73,7 @@ import { ApiFectSelectPayQrService } from './services/ApiFecthSelectPayQr.servic
 import { ApiFetchPaymentService } from './services/ApiFetchPayment.service';
 import { ApiCheckSystemService } from './services/ApiCheckSystem.Service';
 import { SystemPageComponent } from './component/systempage/system.component';
+import { ApiRecieptMsgService } from './services/ApiRecieptMsg.service';
 
 const appRoutes: Routes = [
   //home/6290508511
@@ -171,6 +172,7 @@ const appRoutes: Routes = [
     ApiFectSelectPayQrService,
     ApiFetchPaymentService,
     ApiCheckSystemService,
+    ApiRecieptMsgService
     //{provide: LOCALE_ID, useValue: 'en' },
     //{ provide: LOCALE_ID, useValue: "th-TH" }
   ],
