@@ -35,6 +35,9 @@ export class LandingPageComponent implements OnInit {
     } else {
       // alert("not null");
       this.id = sessionStorage.setItem("stdcode", this.id);
+
+     
+
       this.loading();
     }
 
@@ -59,7 +62,7 @@ export class LandingPageComponent implements OnInit {
       this.todosys = data;
       tempA = JSON.parse(sessionStorage.getItem("todosys"));
 
-      console.log('todosys = ' + JSON.stringify(this.todosys));
+    //  console.log('todosys = ' + JSON.stringify(this.todosys));
 
       if (Object.keys(this.todosys).length === 0 || this.todosys == null || tempA ==  "") {
         window.location.reload();

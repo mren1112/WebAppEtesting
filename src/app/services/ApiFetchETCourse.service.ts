@@ -40,7 +40,7 @@ export class ApiFetchETCourseService {
       }
      // sessionStorage.setItem('nocourse', JSON.stringify(response.results));
       sessionStorage.setItem('todoCourse', JSON.stringify(response));
-      console.log(response);
+     // console.log(response);
     });
   }
 

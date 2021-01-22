@@ -20,10 +20,11 @@ export class ApiCheckSystemService {
 
 
   constructor(private http: HttpClient) {
-    console.log(this.urlFetchAllCourse);
+    //console.log(this.urlFetchAllCourse);
     this.getJSON().subscribe(response => {
-      console.log("response sys = " +JSON.stringify(response));
+    //  console.log("response sys = " +JSON.stringify(response));
       sessionStorage.setItem("todosys", JSON.stringify(response));
+      sessionStorage.setItem("chkop",response.close)
     });
   }
   getJSON(): Observable<any> {

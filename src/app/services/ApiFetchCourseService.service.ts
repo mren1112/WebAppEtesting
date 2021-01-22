@@ -10,7 +10,7 @@ export class ApiFetchCourseService {
 
   constructor(private http: HttpClient) {
     this.getJSON().subscribe(data => {
-      console.log(data);
+      //console.log(data);
     });
   }
   getJSON(): Observable<any> {

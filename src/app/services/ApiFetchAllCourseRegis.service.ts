@@ -21,8 +21,8 @@ export class ApiFetchAllCourseRegisService {
   constructor(private http: HttpClient) {
     console.log(this.urlFetchAllCourse);
     this.getJSON().subscribe(response => {
-      console.log(response);
-      console.log("response std = " + this.us);
+      //console.log(response);
+      //console.log("response std = " + this.us);
     });
   }
   getJSON(): Observable<any> {

@@ -20,9 +20,9 @@ export class ApiFetchDateSectionService {
 
 
   constructor(private http: HttpClient) {
-    console.log(this.urlFetchAllCourse);
+  //  console.log(this.urlFetchAllCourse);
     this.getJSON().subscribe(response => {
-      console.log("response sec = " +response);
+     // console.log("response sec = " +response);
     });
   }
   getJSON(): Observable<any> {

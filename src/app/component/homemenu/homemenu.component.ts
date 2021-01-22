@@ -82,10 +82,20 @@ export class HomeMenuCreateComponent implements OnInit {
     }
     //
 
-    if (localStorage.getItem('checkhome') == null) {
-      localStorage.setItem('checkhome', 'Y')
+    if (localStorage.getItem('checkhome') == null || localStorage.getItem('checkhome') == 'N'
+    || sessionStorage.getItem('checkhome') == 'N' || sessionStorage.getItem('checkhome') == null) {
+      localStorage.setItem('checkhome', 'Y');
+      sessionStorage.setItem('checkhome', 'Y');
       location.reload();
     }
+
+    if (sessionStorage.getItem('chkop') == 'Y') {
+      this.chkStatus = true;
+    }
+    else {
+      //  console.log("chkop = " + sessionStorage.getItem("chkop"));
+        this.chkStatus = true;
+      }
 
     this.loading();
 
@@ -97,6 +107,7 @@ export class HomeMenuCreateComponent implements OnInit {
   backClicked() {
     // this._location.back();
     sessionStorage.clear();
+    localStorage.clear();
     //window.open('https://www.ru.ac.th/th/');
     window.location.href = 'https://www.ru.ac.th';
   }
@@ -123,11 +134,13 @@ export class HomeMenuCreateComponent implements OnInit {
           this.showSpinner = false;
         }, 2000);
 
-        var tempA = JSON.parse(sessionStorage.getItem("todosys"));
-        if (tempA.close === 'N') {
+        //var tempA = JSON.parse(sessionStorage.getItem("todosys"));
+        if (sessionStorage.getItem("chkop") === '') {
+          //alert("chkop = " + sessionStorage.getItem("chkop"));
           this.chkStatus = false;
           // this.router.navigate(['systemcomponent']);
         } else {
+        //  console.log("chkop = " + sessionStorage.getItem("chkop"));
           this.chkStatus = true;
         }
 
@@ -158,7 +171,7 @@ export class HomeMenuCreateComponent implements OnInit {
       });
       this.loading();
     }
-    console.log("id = " + this.id);
+    ///console.log("id = " + this.id);
 
     /*this.apiFetchProfile.getJSON().subscribe(data => {
       this.todoProfile = data;
@@ -177,14 +190,14 @@ export class HomeMenuCreateComponent implements OnInit {
     this.apiFetchProfile.getJSON(this.id)
       .subscribe((data) => {
         this.todoProfile = data;
-        console.log('this.todoProfile' + Object.keys(this.todoProfile).length)
+       // console.log('this.todoProfile' + Object.keys(this.todoProfile).length)
         if (Object.keys(this.todoProfile).length === 0) {
           location.reload();
           alert('Loading data faild please login again.');
           this.logout();
         } else {
-          console.log("todoProfile " + JSON.stringify(data));
-          console.log("stdcode " + JSON.stringify(this.todoProfile.STD_CODE));
+         // console.log("todoProfile " + JSON.stringify(data));
+         // console.log("stdcode " + JSON.stringify(this.todoProfile.STD_CODE));
           // sessionStorage.setItem("stdcode", data.STD_CODE);
           sessionStorage.setItem("namethai", this.todoProfile.NameThai);
           sessionStorage.setItem("facno", this.todoProfile.FacNo);
@@ -220,7 +233,7 @@ export class HomeMenuCreateComponent implements OnInit {
       sessionStorage.setItem("year", res.year);
       sessionStorage.setItem("enddate", res.enddate);
       sessionStorage.setItem("startdate", res.startdate);
-      console.log("todoCounter" + JSON.stringify(res))
+     // console.log("todoCounter" + JSON.stringify(res))
     }
 
     )
@@ -229,18 +242,13 @@ export class HomeMenuCreateComponent implements OnInit {
 
 
 
-  checkSystemStatus() {
+  async checkSystemStatus() {
     var tempA: any = [];
     //this.httpClient.get('http://sevkn.ru.ac.th/etest/chksystem.jsp').subscribe((data) => {
 
     tempA = JSON.parse(sessionStorage.getItem("todosys"));
     // console.log('tempA = ' + JSON.stringify(tempA));
-    var temp = btoa(tempA);
-    //console.log('btoa = ' +  temp);
-    //console.log('atob = ' + JSON.stringify(atob( temp)) );
-    // console.log('W29iamVjdCBPYmplY3Rd = ' +  atob( 'W29iamVjdCBPYmplY3Rd'));
-
-
+   // var temp = btoa(tempA);
     if (Object.keys(tempA).length === 0 || tempA == null) {
       window.location.reload();
       setTimeout(() => {
@@ -257,7 +265,7 @@ export class HomeMenuCreateComponent implements OnInit {
       alert('ไม่อยู่ในช่วงการลงทะเบียน!');
       // this.router.navigate(['systemcomponent']);
     } else {
-      this._router.navigate(['course']);
+        this._router.navigate(['course']);
       // this.getCalendar();
     }
 
@@ -278,7 +286,7 @@ export class HomeMenuCreateComponent implements OnInit {
         //alert('no his');
         sessionStorage.setItem('todoHis', JSON.stringify(this.todoHis));
       } else {
-        console.log('todoHis------------- ' + JSON.stringify(this.todoHis));
+       // console.log('todoHis------------- ' + JSON.stringify(this.todoHis));
         sessionStorage.setItem('todoHis', JSON.stringify(this.todoHis));
         if (this.todoHis != '' || this.todoHis != null && sessionStorage.getItem('stdcode') != null) {
         } else {
@@ -292,7 +300,7 @@ export class HomeMenuCreateComponent implements OnInit {
   getCalendar() {
     this.apiFetchDate.getJSON().subscribe((res) => {
       this.todoCalendar = res.results;
-      console.log(JSON.stringify(this.todoCalendar));
+     // console.log(JSON.stringify(this.todoCalendar));
       var checkDate;
       this.todoCalendar.forEach(e => {
         checkDate = e.tmpYear;
