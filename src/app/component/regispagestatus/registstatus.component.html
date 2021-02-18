@@ -1,0 +1,121 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+  integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<app-header></app-header><body>
+<main>
+  <div class="container" *ngIf="flagcheck">
+    <div class="row" style="margin-bottom: 15px;">
+      <div class="col-md-12 tabmaintable">
+        <div class="texrheader">
+          <h2>
+            <span class="material-icons">
+              backup_table
+            </span> ผลการลงทะเบียนสอบ E-testing
+          </h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="background-color: white;">
+      <div class="col-md-12">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col" style="width: 10px;">#No</th>
+              <th scope="col">วิชา</th>
+              <th scope="col">วันที่สอบ</th>
+              <th scope="col">คาบสอบ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of todoresults , let i = index">
+              <th scope="row" style="width: 10px;">{{i+1}}</th>
+              <td>{{item.course_no}}</td>
+              <td> {{item.examdate}}</td>
+              <td>{{item.sectime}} น. ({{item.section}}) <h6 style="color: red;">&nbsp;{{item.msg}}</h6>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+
+
+        <mat-divider></mat-divider>
+        <P></P>
+
+           <div class="row">
+            <div class="col-12"style="text-align: center;">
+        <section>
+          <ng-container>
+            <div class="row">
+              <div class="col-12" style="text-align: center;"> <p></p><h1 style="color: red;">ทำรายการไม่สำเร็จ กรุณาทำการเลือกใหม่</h1><p>
+                <button (click)="backSelectCourse()" mat-raised-button color="warn">
+                  <span class="material-icons">
+                    fast_rewind
+                  </span> กลับไปเลือกใหม่</button> &nbsp;
+                  <button (click)="backhome()" mat-raised-button color="primary">
+                    <span class="material-icons">
+                      fast_rewind
+                    </span> กลับไปหน้าหลัก</button>
+              </p></div>
+            </div>
+          </ng-container>
+        </section>
+      </div>
+    </div>
+        <p>
+          <hr>
+      </div>
+    </div>
+  </div>
+
+
+  <!--   end    -->>
+
+  <div class="container" *ngIf="!flagcheck">
+    <div class="row" style="margin-bottom: 15px;">
+      <div class="col-md-12 tabmaintablesuccess">
+        <div class="texrheader">
+          <h2>
+            <span class="material-icons">
+              backup_table
+            </span> ผลการลงทะเบียนสอบ E-testing
+          </h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="background-color: white;">
+      <div class="col-md-12">
+        <mat-divider></mat-divider>
+        <P></P>
+
+           <div class="row">
+            <div class="col-12"style="text-align: center;">
+        <section>
+          <ng-container>
+            <div class="row">
+              <div class="col-12" style="text-align: center;"> <p></p><p>
+                <h1 style="color: red;">ทำรายการสำเร็จ<p></p> รอสักครู่ระบบจะนำท่านไปหน้าชำระเงิน</h1>
+              </div>
+            </div>
+          </ng-container>
+        </section>
+      </div>
+    </div>
+        <p>
+          <hr>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div *ngIf="showSpinner" class="spinner"></div>
+  <div *ngIf="showSpinner" class="txtspinner">loading...</div>
+
+</main>
+
+<app-footer></app-footer>
+</body>

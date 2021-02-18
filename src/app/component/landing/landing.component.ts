@@ -4,6 +4,9 @@ import { ApiCheckSystemService } from 'src/app/services/ApiCheckSystem.Service';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError, retry } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { ApiFetchETCourseService } from "src/app/services/ApiFetchETCourse.service";
+import { ApiFetchCounterService } from "src/app/services/ApiFetchCounter.service";
+import { throwMatDialogContentAlreadyAttachedError } from "@angular/material/dialog";
 
 @Component({
   selector: 'app-landing',
@@ -17,8 +20,12 @@ export class LandingPageComponent implements OnInit {
 
   public id;
   public todosys: any = [];
+  public todoHis: any = [];
+  todoCounter: any[];
   constructor(private apiCheckSystem: ApiCheckSystemService,
     private router: Router, private route: ActivatedRoute,
+    private apiFetchETCourse: ApiFetchETCourseService,
+    private apiGetCounter: ApiFetchCounterService,
     private httpClient: HttpClient) {
 
 
@@ -27,7 +34,7 @@ export class LandingPageComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id');
-      console.log("idddd = " + this.id);
+     // console.log("idddd = " + this.id);
     });
 
     if (this.id === null) {
@@ -35,10 +42,8 @@ export class LandingPageComponent implements OnInit {
     } else {
       // alert("not null");
       this.id = sessionStorage.setItem("stdcode", this.id);
-
-     
-
       this.loading();
+    //  this.getCounter();
     }
 
 
@@ -53,6 +58,13 @@ export class LandingPageComponent implements OnInit {
       }, 3000);
     }
    // this.checkSystemStatus();
+  }
+
+  getCounter() {
+    this.apiGetCounter.getJSON().subscribe(res => {
+      this.todoCounter = res;
+      // console.log("todoCounter" + JSON.stringify(res))
+    })
   }
 
   checkSystemStatus() {

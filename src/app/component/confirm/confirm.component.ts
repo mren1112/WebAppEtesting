@@ -327,8 +327,9 @@ export class ConfirmComponent implements OnInit {
           setTimeout(() => {
               this.showSpinner = false;
           }, 3000);
-    this.router.navigate(['qrpagelist']);
+   // this.router.navigate(['qrpagelist']);
 
+    this.router.navigate(['registstatus']);
 
   }
 

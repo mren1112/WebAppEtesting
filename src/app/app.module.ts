@@ -74,6 +74,7 @@ import { ApiFetchPaymentService } from './services/ApiFetchPayment.service';
 import { ApiCheckSystemService } from './services/ApiCheckSystem.Service';
 import { SystemPageComponent } from './component/systempage/system.component';
 import { ApiRecieptMsgService } from './services/ApiRecieptMsg.service';
+import { RegisStatusPageCreateComponent } from './component/regispagestatus/registstatus.component';
 
 const appRoutes: Routes = [
   //home/6290508511
@@ -93,6 +94,7 @@ const appRoutes: Routes = [
   { path: "slipt", component: SliptComponent },
   { path: "listqrpayment", component: ListQrPaymentComponent },
   { path: "systemcomponent", component: SystemPageComponent },
+  { path: "registstatus", component: RegisStatusPageCreateComponent },
 ]
 
 @NgModule({
@@ -116,6 +118,7 @@ const appRoutes: Routes = [
     SliptComponent,
     ListQrPaymentComponent,
     SystemPageComponent,
+    RegisStatusPageCreateComponent
     //CustomMaterialModule
 
 

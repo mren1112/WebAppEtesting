@@ -43,11 +43,12 @@ doConfirm(username:string,year:string,semester:string,cntCourseNo:string,grad:st
    console.log("save = "+JSON.stringify(body));
 
    //this.http.post('http://sevkn.ru.ac.th/ADManage/apinessy/etest/saveEtest.jsp',body,options)
-  this.http.post('http://sevkn.ru.ac.th/etest/saveEtest.jsp',body,options)
+  this.http.post('http://sevkn.ru.ac.th/etest/saveEtest2.jsp',body,options)
     .pipe(map(res=>res.json()))
     .subscribe(data =>{
       resolve(data);
-      console.log("data  "+ JSON.stringify(data) );
+      sessionStorage.setItem("todoresults", JSON.stringify(data.results));
+      console.log("data  "+ JSON.stringify(data.results) );
       console.log("refkey = "+ JSON.stringify(data.refkey) );
       console.log("sta = "+ JSON.stringify(data.sta));
       console.log("examdate = "+ JSON.stringify(data.examdate));

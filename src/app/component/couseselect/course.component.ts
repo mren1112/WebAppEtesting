@@ -272,9 +272,9 @@ export class CourseComponent implements OnInit {
     window.location.href = 'https://www.ru.ac.th/';
   }
 
-  checkConfirm() {
+  checkConfirm() {//alert('ท่านเลือกวันที่มีคาบสอบตรงกัน กรุณาทำการเลือกใหม่!!');
     var tempA = this.todoSelectCourse;
-  //  console.log('checkConfirm = ' + tempA.length);
+    //console.log('tempA = ' +  JSON.stringify(tempA));
     for (let i = 0; i < tempA.length; i++) {
       if (tempA[i].section == '') {
         this.isEnable = true;
@@ -290,8 +290,9 @@ export class CourseComponent implements OnInit {
     }
 
     this.tempTodoHis = JSON.parse(sessionStorage.getItem('todoHis'));
+    //console.log('this.tempTodoHis = ' + JSON.stringify(this.tempTodoHis));
     var tmpA = this.todoSelectCourse;
-
+    //console.log('this.todoSelectCourse = ' + JSON.stringify(this.todoSelectCourse));
     var chkExamdate: any[];
     var chkSec: any[];
     var cntSame = 0;
@@ -299,12 +300,9 @@ export class CourseComponent implements OnInit {
     var iExamDateHis: [];
     var iSectionHis: [];
     for (let i = 0; i < tmpA.length; i++) {
-      chkExamdate = tmpA[i].examdate;
+      chkExamdate = this.todoSelectCourse[i].examdate;
       chkSec = tmpA[i].section;
-
-      //  console.log('cntSame = ' + cntSame);
-     // console.log('chkExamdate = ' + chkExamdate);
-      // console.log('chkSec = ' + chkSec);
+      //console.log('chkExamdate = ' + JSON.stringify(chkExamdate)+' sec = '+ chkSec);
       for (let j = 0; j < i; j++) {
       //  console.log('chkExamdate = ' + chkExamdate);
         if (chkExamdate == tmpA[j].examdate && chkSec == tmpA[j].section) {
@@ -313,6 +311,7 @@ export class CourseComponent implements OnInit {
           this.isEnable = true;
           // alert('ท่านเลือกวันที่มีคาบสอบตรงกัน กรุณาทำการเลือกใหม่!!');break;
         } else {
+          //alert('ท่านเลือกวันที่มีคาบสอบตรงกัน กรุณาทำการเลือกใหม่!!');break;
           //this.chkDupDateAndSec = false;
           // this.isEnable = false;
         }
@@ -320,14 +319,19 @@ export class CourseComponent implements OnInit {
       var tmpcourseno;
       this.tempTodoHis.forEach(e => {
         tmpcourseno = e.courseno;
+
       });
       //console.log('this.tempTodoHis.courseno = ' + tmpcourseno);
-
+      var x =0;
       //check his data
       if (tmpcourseno != 'N') {
+        //console.log('chkExamdate = ' + JSON.stringify(chkExamdate)+' sec = '+ chkSec);
+        //alert(chkExamdate);
         for (let k = 0; k < this.tempTodoHis.length; k++) {
+        //  console.log('tempTodoHis = ' + this.tempTodoHis[k].examdate + ' ' + this.tempTodoHis[k].sec);
+         // console.log('chkExamdate = ' + chkExamdate + ' ' + chkSec);
           if (chkExamdate == this.tempTodoHis[k].examdate && this.tempTodoHis[k].sec == chkSec) {
-            //   alert('ท่านเลือกวันที่มีคาบสอบตรงกัน กรุณาทำการเลือกใหม่!!');
+              // alert('ท่านเลือกวันที่มีคาบสอบตรงกัน กรุณาทำการเลือกใหม่!!');
             cntSame2++;
             this.chkDupDateAndSec = true;
             this.isEnable = true;
@@ -335,8 +339,9 @@ export class CourseComponent implements OnInit {
             this.chkDupDateAndSec = false;
             // this.isEnable = false;
           }
+          x++;
         }
-      }
+      }//console.log('cntSame2 = ' + cntSame2);
 
     }
     if (cntSame > 0 || cntSame2 > 0) {
@@ -357,13 +362,13 @@ export class CourseComponent implements OnInit {
          }
 
      }*/
-    //  this.chkOldRegisCourse(tempA);
+     // this.chkOldRegisCourse(tempA);
   }
 
   getEtCourse() {
     this.apiFetchETCourse.getJSON().subscribe((data) => {
       this.todoCourse = data.results;
-      var tmp;
+      let tmp;
       this.todoCourse.forEach(e => {
         tmp = e.status;
       });
@@ -372,11 +377,11 @@ export class CourseComponent implements OnInit {
 
      // console.log('tmp------------- ' + tmp);
 
-      if (tmp === "N") {
+      /*if (tmp === "N") {
       //  alert('ท่านไม่มีวิชาที่สามารถลงทะเบียนได้');
       this.openDialog();
         this.router.navigate(['/']);
-      }
+      }*/
       // console.log('tmp------------- ' + JSON.parse(tmp));
       this.loading(this.todoCourse);
 
@@ -401,7 +406,7 @@ export class CourseComponent implements OnInit {
         this.backClicked();
       }
 
-      if (this.todoCourse == null || this.todoCourse == '') {
+      if (this.todoCourse == null || this.todoCourse == ''|| tmp == 'N') {
         // alert('iffff ' + this.cntCourseNo);
         this.chktodoCourse = true;
       } else {
@@ -464,8 +469,6 @@ export class CourseComponent implements OnInit {
           //this.todoSelectCourse.splice(this.todoSelectCourse.indexOf(courseno), 1);
         //  console.log('pushtest =' + this.pushtest);
           sessionStorage.setItem('todoSelectCourse', JSON.stringify(this.todoSelectCourse));
-
-        //  console.log('splice todoCourse ->>>>>>>>>>> ' + JSON.stringify(this.todoSelectCourse));
         } else {
           this.pushtest.push(arr.courseno);
           this.todoSelectCourse.push({
@@ -569,14 +572,11 @@ export class CourseComponent implements OnInit {
       iSectionHis = tempA[i].section;
       for (let j = 0; j < this.tempTodoHis.length; j++) {
         // iExamDateHis = tempTodoHis[j].examdate;
-        if (
-          iExamdate == this.tempTodoHis[j].examdate &&
-          iSectionHis == this.tempTodoHis[j].sec
-        ) {
+        if (iExamdate == this.tempTodoHis[j].examdate && iSectionHis == this.tempTodoHis[j].sec) {
           this.chkDupDateAndSec = true;
           this.isEnable = true;
           alert('ท่านเลือกวันที่มีคาบสอบตรงกัน กรุณาทำการเลือกใหม่!!');
-        } else {
+        } else {//alert('xท่านเลือกวันที่มีคาบสอบตรงกัน กรุณาทำการเลือกใหม่!!');
           //this.chkDupDateAndSec = false;
           // this.isEnable = true;
         }
