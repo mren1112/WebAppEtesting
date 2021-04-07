@@ -20,8 +20,8 @@ export class ApiFetchProfileService {
   public us = sessionStorage.getItem("stdcode");
 
 
-  //urlFetchETCourse = "http://sevkn.ru.ac.th/ADManage/apinessy/etest/getProfile.jsp?STD_CODE=6290508511";
- //urlFetchETCourse = "http://sevkn.ru.ac.th/ADManage/apinessy/etest/getProfile.jsp?STD_CODE="+this.us;
+  //urlFetchETCourse = "http://sevkn.ru.ac.th//etest/ADManage/apinessy/etest/getProfile.jsp?STD_CODE=6290508511";
+ //urlFetchETCourse = "http://sevkn.ru.ac.th//etest/ADManage/apinessy/etest/getProfile.jsp?STD_CODE="+this.us;
   constructor(private httppp: HttpClient,private http:Http) {
     /*this.getJSON().subscribe(data => {
       //sessionStorage.setItem("stdcode", data.STD_CODE);
@@ -36,7 +36,7 @@ export class ApiFetchProfileService {
    // });
   }
   getJSON(username:string){
-    return this.httppp.get('http://sevkn.ru.ac.th/etest/getProfile.jsp?STD_CODE='+username)
+    return this.httppp.get('http://sevkn.ru.ac.th//etest/getProfile.jsp?STD_CODE='+username)
                 .pipe(map((response: any)=> response ),
                       catchError(err => {return (err)}));
   }

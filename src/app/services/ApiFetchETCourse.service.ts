@@ -17,7 +17,7 @@ export interface ETCourse {
   updateDate: string;
   updateUser: string;
   status: boolean;
- // imageUrl: string;
+  // imageUrl: string;
 }
 
 @Injectable()
@@ -27,47 +27,48 @@ export class ApiFetchETCourseService {
   public sem = sessionStorage.getItem("sem");
   public year = sessionStorage.getItem("year");
 
-  urlFetchETCourse = "http://sevkn.ru.ac.th/etest/getEtCourse.jsp?STD_CODE="+this.us+"&sem="+this.sem+"&year="+this.year;
-  urlFetchHisETCourse = "http://sevkn.ru.ac.th/etest/gethisregiscourse.jsp?STD_CODE="+this.us+"&sem="+this.sem+"&year="+this.year;
-  urlFetchHisCourse = "http://sevkn.ru.ac.th/etest/gethisregiscourse.jsp?STD_CODE=";
+  urlFetchETCourse = "http://sevkn.ru.ac.th//etest/getEtCourse.jsp?STD_CODE=" + this.us + "&sem=" + this.sem + "&year=" + this.year;
+  urlFetchHisETCourse = "http://sevkn.ru.ac.th//etest/gethisregiscourse.jsp?STD_CODE=" + this.us + "&sem=" + this.sem + "&year=" + this.year;
+  urlFetchHisCourse = "http://sevkn.ru.ac.th//etest/gethisregiscourse.jsp?STD_CODE=";
 
   constructor(private http: HttpClient) {
-    this.getJSON().subscribe(response => {
+   /* this.getJSON().subscribe(response => {
       if (response.grad === "") {
-        sessionStorage.setItem('grad', response.grad);
+        sessionStorage.setItem('grad', '');
       } else {
-        sessionStorage.setItem('grad', "");
-
+        sessionStorage.setItem('grad', JSON.stringify(response.grad));
+       // console.log('api = ' +response);
       }
-     // sessionStorage.setItem('nocourse', JSON.stringify(response.results));
+      // sessionStorage.setItem('nocourse', JSON.stringify(response.results));
       sessionStorage.setItem('todoCourse', JSON.stringify(response));
-     // console.log(response);
-    });
+      // console.log(response);
+    });*/
 
     this.getHisregister().subscribe(res => {
       sessionStorage.setItem('todoHis', JSON.stringify(res.results));
-     // console.log(response);
+      // console.log(response);
     });
   }
 
 
   getJSON(): Observable<any> {
     return this.http.get(this.urlFetchETCourse)
-                .pipe(map((response: any)=> response ),
-                      catchError(err => {return (err)}));
+      .pipe(map((response: any) => response),
+        catchError(err => { return (err) }));
   }
 
   getHisregister(): Observable<any> {
     return this.http.get(this.urlFetchHisETCourse)
-                .pipe(map((response: any)=> response ),
-                      catchError(err => {return (err)}));
+      .pipe(map((response: any) => response),
+        catchError(err => { return (err) }));
   }
 
-  getHisParsregister(sem:string,year:string){
-    return this.http.get(this.urlFetchHisCourse+this.us+'&sem='+sem+'&year='+year)
-                .pipe(map((response: any)=> response ),
-                      catchError(err => {
-                      //  sessionStorage.setItem("dataregister", response);
-                        return (err)}));
+  getHisParsregister(sem: string, year: string) {
+    return this.http.get(this.urlFetchHisCourse + this.us + '&sem=' + sem + '&year=' + year)
+      .pipe(map((response: any) => response),
+        catchError(err => {
+          //  sessionStorage.setItem("dataregister", response);
+          return (err)
+        }));
   }
 }

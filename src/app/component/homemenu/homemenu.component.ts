@@ -1,17 +1,12 @@
 import { Component, Injectable, OnInit } from "@angular/core";
 import { Event, Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError, RouterEvent, ActivatedRoute, ParamMap } from "@angular/router";
-import { ApiFetchProfileService, TodoProfile } from 'src/app/services/ApiFetchProfile.service';
+import { ApiFetchProfileService } from 'src/app/services/ApiFetchProfile.service';
 import { stringify } from 'querystring';
-import { ApiFetchCounterService } from 'src/app/services/ApiFetchCounter.service';
-import { throwToolbarMixedModesError } from '@angular/material/toolbar';
-import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { ApiFetchETCourseService } from 'src/app/services/ApiFetchETCourse.service';
 import { ApiFetchDateService } from 'src/app/services/ApiFetchDate.service';
-
-import { ApiCheckSystemService } from 'src/app/services/ApiCheckSystem.Service';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { clear } from "console";
 
 
 @Component({
@@ -35,67 +30,34 @@ export class HomeMenuCreateComponent implements OnInit {
   //----------------------------------------
   public id;
   public todoCalendar: any = [];
-
+  showSpinner = false;
   //-----------------------------------------
   public sem = sessionStorage.getItem("sem");
   public year = sessionStorage.getItem("year");
+  mySubscription: any;
 
   constructor(
     private apiFetchProfile: ApiFetchProfileService,
-    private apiGetCounter: ApiFetchCounterService,
-    private httpClient: HttpClient,
-    private apiFetchETCourse: ApiFetchETCourseService,
+    //private apiFetchETCourse: ApiFetchETCourseService,
     private _router: Router,
     private route: ActivatedRoute,
     private apiFetchDate: ApiFetchDateService,
-    private apiCheckSystem: ApiCheckSystemService,
-  ) {
-    /*9 this._router.events.subscribe((routerEvent: Event) => {
-       if (routerEvent instanceof NavigationStart) {
-         this.showLoading = true;
-       }
-
-       if (routerEvent instanceof NavigationStart) {
-         this.showLoading = false;
-       }
-
-     });*/
-
-
-  }
+  ) { }
 
 
   ngOnInit() {
-    // this.id = this.route.snapshot.params.id;
-    //this.id = this.route.snapshot.paramMap.get('id');
-    //console.log("id = "+this.id);
-    /* this.route.paramMap.subscribe(params => {
-       this.id = params.get('id');
-       console.log("idddd = "+this.id);
-       });
-       if (this.id === null ) {
+    this.chekLoadInit();
+  }
 
-         alert("null");
-       }else{
-         this.getProfile();
-         alert("not null");
-
-       this.loading();
-     }*/
-    if (sessionStorage.getItem('stdcode') == null) {
+  async chekLoadInit() {
+    let getStd = await sessionStorage.getItem('stdcode');
+    let seat = await JSON.parse(sessionStorage.getItem('todosys'));
+    if ( getStd.length < 10 ) {
       alert('please login again');
       this.backClicked();
     }
-    //
 
-    if (localStorage.getItem('checkhome') == null || localStorage.getItem('checkhome') == 'N'
-      || sessionStorage.getItem('checkhome') == 'N' || sessionStorage.getItem('checkhome') == null) {
-      localStorage.setItem('checkhome', 'Y');
-      sessionStorage.setItem('checkhome', 'Y');
-      location.reload();
-    }
-
-    if (sessionStorage.getItem('chkop') == 'Y') {
+    if (sessionStorage.getItem('chkop') == 'N') {
       this.chkStatus = true;
     }
     else {
@@ -104,91 +66,55 @@ export class HomeMenuCreateComponent implements OnInit {
     }
 
     this.loading();
-
     this.getProfile();
-    this.getCounter();
     sessionStorage.removeItem("subrefkey");
-  }
-
-  getCounter() {
-    this.apiGetCounter.getJSON().subscribe(res => {
-      this.todoCounter = res;
-      sessionStorage.setItem("sem", res.semester);
-      sessionStorage.setItem("year", res.year);
-      sessionStorage.setItem("enddate", res.enddate);
-      sessionStorage.setItem("startdate", res.startdate); 
-      // console.log("todoCounter" + JSON.stringify(res))
-    })
   }
 
   backClicked() {
     // this._location.back();
     sessionStorage.clear();
     localStorage.clear();
-    //window.open('https://www.ru.ac.th/th/');
-    window.location.href = 'https://www.ru.ac.th';
+    //window.open('https://www.ru.ac.th/th/','_self');
+    //window.location.replace("https://www.ru.ac.th/th/");
+    window.location.href='https://www.ru.ac.th';
   }
 
-  showSpinner = false;
-   async loading() {
-    sessionStorage.removeItem("reloadcourse");
+
+  async loading() {
     if (sessionStorage.getItem("stdcode") == "" || sessionStorage.getItem("stdcode") == null || sessionStorage.getItem("stdcode") == undefined) {
       sessionStorage.clear();
       window.open('https://www.ru.ac.th');
-      //window.location.href = 'https://www.ru.ac.th/th/';
     } else {
-      // var tmpname =
-      if (sessionStorage.getItem("namethai") == "" || sessionStorage.getItem("namethai") == null) {
+      if (sessionStorage.getItem("namethai")) {
         // location.reload();
         this.showSpinner = true;
         setTimeout(() => {
           this.showSpinner = false;
-        }, 3000);
+        }, 2000);
       } else {
 
-        this.showSpinner = true;
-        setTimeout(() => {
-          this.showSpinner = false;
-        }, 2000);
-
-        //var tempA = JSON.parse(sessionStorage.getItem("todosys"));
-
-        let sysStatus;
-        //var sysdata;
-        this.apiCheckSystem.getJSON().subscribe(res => {
-          // sysdata = res;
-          //  console.log("sysdata ------- "+ JSON.stringify(sysdata.close) );
-          sysStatus = JSON.stringify(res.close);
-        //  console.log("sysStatus ------- " + sysStatus);
-
-        })
-
-        if (sessionStorage.getItem("chkop") === 'N' || sessionStorage.getItem("chkop") == "N") {
+        if (sessionStorage.getItem("chkop") === 'N') {
           //alert("chkop = " + sessionStorage.getItem("chkop"));
           this.chkStatus = false;
-     //     alert('wtf')
-          // this.router.navigate(['systemcomponent']);
+          //     alert('wtf')
         } else {
           //  console.log("chkop = " + sessionStorage.getItem("chkop"));
           this.chkStatus = true;
-          //alert('wtf2')
         }
       }
     }
   }
 
-
-
-  mySubscription: any;
-  getProfile() {
+  async getProfile() {
 
     if (sessionStorage.getItem("stdcode") != "") {
       this.id = sessionStorage.getItem("stdcode");
-      this.getEtHisregister();
+      // this.getEtHisregister();
     } else {
       this._router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
       };
+
       this.mySubscription = this._router.events.subscribe((event) => {
         if (event instanceof NavigationEnd) {
           // Trick the Router into believing it's last link wasn't previously loaded
@@ -197,139 +123,87 @@ export class HomeMenuCreateComponent implements OnInit {
       });
       this.loading();
     }
-    ///console.log("id = " + this.id);
 
-    /*this.apiFetchProfile.getJSON().subscribe(data => {
-      this.todoProfile = data;
-      console.log("todoProfile " + JSON.stringify(data));
-      console.log("stdcode " + JSON.stringify(data.STD_CODE));
-      /*sessionStorage.setItem("stdcode", data.STD_CODE);
-       sessionStorage.setItem("namethai", data.NameThai);
-       sessionStorage.setItem("facno", data.FacNo);
-       sessionStorage.setItem("majorno", data.MajorNo);
-       sessionStorage.setItem("majornamthai", data.MajorNameThai);
-       sessionStorage.setItem("facName", data.FacNameThai);
-       sessionStorage.setItem("birth", data.Birth);
-      //this.us = JSON.stringify(data.STD_CODE);
-    });*/
+    let res = await this.apiFetchProfile.getJSON(this.id).toPromise();
+    this.todoProfile = res;
+    if (Object.keys(this.todoProfile).length === 0) {
+      location.reload();
+      //alert('Loading data faild please login again.');
+    } else {
 
-    this.apiFetchProfile.getJSON(this.id)
-      .subscribe((data) => {
-        this.todoProfile = data;
-        // console.log('this.todoProfile' + Object.keys(this.todoProfile).length)
-        if (Object.keys(this.todoProfile).length === 0) {
-          location.reload();
-          alert('Loading data faild please login again.');
+      sessionStorage.setItem("namethai", this.todoProfile.NameThai);
+      sessionStorage.setItem("facno", this.todoProfile.FacNo);
+      sessionStorage.setItem("majorno", this.todoProfile.MajorNo);
+      sessionStorage.setItem("majornamthai", this.todoProfile.MajorNameThai);
+      sessionStorage.setItem("facName", this.todoProfile.FacNameThai);
+      sessionStorage.setItem("birth", this.todoProfile.Birth);
+
+      if (this.todoProfile.NameThai === '') {
+        alert('ไม่สามารถเข้าสู่ระบบได้่');
+        this.logout();
+      } else {
+        if (this.todoProfile.tel == "" || this.todoProfile.tel == null) {
+          alert('ท่านยังไม่ได้ระบุหมายเลขโทรศัพท์ กรุณาเพิ่มหมายเลขโทรศัพท์ที่สามารถติดต่อได้ที่ระบบ e-service. ก่อนทำการลงทะเบียน');
           this.logout();
         } else {
-          // console.log("todoProfile " + JSON.stringify(data));
-          // console.log("stdcode " + JSON.stringify(this.todoProfile.STD_CODE));
-          // sessionStorage.setItem("stdcode", data.STD_CODE);
-          sessionStorage.setItem("namethai", this.todoProfile.NameThai);
-          sessionStorage.setItem("facno", this.todoProfile.FacNo);
-          sessionStorage.setItem("majorno", this.todoProfile.MajorNo);
-          sessionStorage.setItem("majornamthai", this.todoProfile.MajorNameThai);
-          sessionStorage.setItem("facName", this.todoProfile.FacNameThai);
-          sessionStorage.setItem("birth", this.todoProfile.Birth);
-
-          if (this.todoProfile.tel == "" || this.todoProfile.tel == null) {
-            alert('ท่านยังไม่ได้ระบุหมายเลขโทรศัพท์ กรุณาเพิ่มหมายเลขโทรศัพท์ที่สามารถติดต่อได้ที่ระบบ e-service. ก่อนทำการลงทะเบียน');
-            //  this.logout();
-
-          } else {
-            sessionStorage.setItem("tel", this.todoProfile.tel);
-          }
+          sessionStorage.setItem("tel", this.todoProfile.tel);
         }
+      }
 
-      });
 
+    }
   }
 
   logout() {
     sessionStorage.removeItem("stdcode");
     sessionStorage.clear();
+    localStorage.clear();
     window.location.href = 'https://www.ru.ac.th';
   }
 
-
-
-
-
-  checkSystemStatus() {
-    var tempA: any = [];
-    //this.httpClient.get('http://sevkn.ru.ac.th/etest/chksystem.jsp').subscribe((data) => {
-
-    tempA = JSON.parse(sessionStorage.getItem("todosys"));
-    // console.log('tempA = ' + JSON.stringify(tempA.close));
-    // var temp = btoa(tempA);
+  async checkSystemStatus() {
+    let tempA = await sessionStorage.getItem("chkop");
+    let seat = await JSON.parse(sessionStorage.getItem('todosys'));
+    console.log(seat.sumseat)
+    //console.log('tempA = ' + tempA);
     if (Object.keys(tempA).length === 0 || tempA == null) {
       window.location.reload();
       setTimeout(() => {
         this.showSpinner = false;
-      }, 5000);
+      }, 2000);
     }
 
-    var tmp;
-    setTimeout(function () { tmp = JSON.stringify(tempA.close) }, 100);
-
-    // console.log('tempA.close = ' + JSON.stringify(tempA.close));
-    this.getCalendar();
-    if (tempA.close === 'N') {
-      alert('ไม่อยู่ในช่วงการลงทะเบียน!');
+    //var tmp;
+    setTimeout(function () { let tmp = JSON.stringify(tempA) }, 100);
+    //this.getCalendar();
+    if (tempA === 'N' || Number(seat.sumseat) == 0) {
+      //alert('ไม่อยู่ในช่วงการลงทะเบียน!');
       // this.router.navigate(['systemcomponent']);
     } else {
-      this._router.navigate(['course']);
+     // this._router.navigate(['course']);
       // this.getCalendar();
     }
 
   }
 
-  getEtHisregister() {
-    this.apiFetchETCourse.getHisParsregister(this.sem,this.year).subscribe((data) => {
-      this.todoHis = data.results;
-      var temp = JSON.stringify(this.todoHis);
-      var checkResults;
-      //this.todoCourse =this.coursetest;
-
-      this.todoHis.forEach(e => {
-        checkResults = e.courseno;
-      });
-
-      if (checkResults == "N") {
-        //alert('no his');
-        sessionStorage.setItem('todoHis', JSON.stringify(this.todoHis));
-      } else {
-        // console.log('todoHis------------- ' + JSON.stringify(this.todoHis));
-        sessionStorage.setItem('todoHis', JSON.stringify(this.todoHis));
-        if (this.todoHis != '' || this.todoHis != null && sessionStorage.getItem('stdcode') != null) {
-        } else {
-          alert('no his');
-          location.reload();
-        }
-      }
-    });
-  }
-
-  getCalendar() {
-    this.apiFetchDate.getJSON().subscribe((res) => {
-      this.todoCalendar = res.results;
-      // console.log(JSON.stringify(this.todoCalendar));
+ /* async getCalendar() {
+    let res = await this.apiFetchDate.getJSON().toPromise();
+    if (res) {
+      this.todoCalendar = res.results || {};
       var checkDate;
       this.todoCalendar.forEach(e => {
         checkDate = e.tmpYear;
 
       });
-      //alert(Object.keys(checkDate).length);
-      if (Object.keys(checkDate).length < 0) {
+      if (Object.keys(checkDate).length < 1) {
         this.chkcoursefull = false;
         alert('จำนวนการลงทะเบียนสอบเต็มแล้ว');
       } else {
         this._router.navigate(['course']);
       }
+    }
 
-
-    });
-  }
+  }*/
 
 
 }

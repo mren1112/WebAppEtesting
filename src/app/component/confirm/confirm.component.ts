@@ -229,7 +229,7 @@ export class ConfirmComponent implements OnInit {
     var chkarrSection= [];
     for (let i = 0; i < this.tmptodoCourse.length; i++) {
       if (this.todoCourse[i].courseno != null) {
-        this.httpClient.get('http://sevkn.ru.ac.th/etest/chkDateSection.jsp?STD_CODE=' + this.us + '&sem=' + this.semester +
+        this.httpClient.get('http://sevkn.ru.ac.th//etest/chkDateSection.jsp?STD_CODE=' + this.us + '&sem=' + this.semester +
               '&year=' + this.year + '&dateselect=' + this.tmptodoCourse[i].examdate + '&period=' +
               this.tmptodoCourse[i].section).subscribe((res) => {
             chksection = res;
@@ -327,9 +327,9 @@ export class ConfirmComponent implements OnInit {
           setTimeout(() => {
               this.showSpinner = false;
           }, 3000);
-   // this.router.navigate(['qrpagelist']);
+    this.router.navigate(['qrpagelist']);
 
-    this.router.navigate(['registstatus']);
+    //this.router.navigate(['registstatus']);
 
   }
 
@@ -355,7 +355,7 @@ export class ConfirmComponent implements OnInit {
     var tmpSection: any[] = [];
     for (let i = 0; i < this.tmptodoCourse.length; i++) {
       if (this.todoCourse[i].courseno != null) {
-        this.httpClient.get('http://sevkn.ru.ac.th/etest/chkDateSection.jsp?STD_CODE=' + this.us + '&sem=' + this.semester +
+        this.httpClient.get('http://sevkn.ru.ac.th//etest/chkDateSection.jsp?STD_CODE=' + this.us + '&sem=' + this.semester +
               '&year=' + this.year + '&dateselect=' + this.tmptodoCourse[i].examdate + '&period=' +
               this.tmptodoCourse[i].section).subscribe((res) => {
             chksection = res;

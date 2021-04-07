@@ -609,16 +609,6 @@ export class CourseComponent implements OnInit {
   addEvent(event: MatDatepickerInputEvent<Date>, index: any, courseno) {
     this.selectedSection[index] = '';
     console.clear();
-    // this.todoSelectCourse.splice(index,1)
-    //sessionStorage.setItem("todoSelectCourse", JSON.stringify(this.todoSelectCourse));
-  //  console.log('todoSelectCourse before = ', this.todoSelectCourse);
-
-  //  console.log('index = ' + index);
-   // console.log('courseno = ' + courseno);
-    // console.log('this.events null = ' + JSON.stringify(this.events));
-
-    //console.log('this.selectedDay = ' + JSON.stringify(this.selectedDay));
-
     this.events.push(`${event.value}`);
     //console.log('this.events = ' + JSON.stringify(this.events));
     var tmpdatetoStr = moment(new Date(this.events.join())).format(
@@ -626,13 +616,8 @@ export class CourseComponent implements OnInit {
     );
     var tmpdatetoStr2 = moment(new Date(this.events.join())).format('DDMMYYYY');
     sessionStorage.setItem('tmpdatetoStr', tmpdatetoStr);
-
-    // console.log('tmpdatetoStr = ' + tmpdatetoStr);
     var tempA = this.todoSelectCourse;
     var tmpDate = `${event.value}`;
-    // var tmpstr = this.selectedDay;
-
-    //console.log('tempA if aaa = ' + JSON.stringify(tempA));
 
     tempA.filter((arr) => {
       if (arr.courseno == courseno) {
@@ -654,16 +639,8 @@ export class CourseComponent implements OnInit {
   }
 
   getSection(tmpdatetoStr, courseno, tmpdatetoStr2, tmpDate, index) {
- //   console.log('cntDate = ' + this.cntDate);
-
-    /* this.httpClient.get('http://sevkn.ru.ac.th/ADManage/apinessy/etest/getDateSection.jsp?STD_CODE=' +
-        this.us + '&sem=' + this.sem + '&year=' + this.year + '&dateselect=' + tmpdatetoStr + '&courseno=' + courseno + '&tmpdateselect=' + tmpdatetoStr2)
-        .subscribe((res) => {*/
-
     if (courseno != null) {
-      /*this.httpClient.get('http://sevkn.ru.ac.th/ADManage/apinessy/etest/getDateSection.jsp?STD_CODE=' +
-      this.us + '&sem=' + this.sem + '&year=' + this.year + '&dateselect=' + tmpdatetoStr + '&courseno=' + courseno + '&tmpdateselect=' + tmpdatetoStr2).subscribe((res) => {*/
-      this.apiCheckSelectDate
+         this.apiCheckSelectDate
         .getJSON(
           this.us,
           this.sem,
@@ -712,13 +689,9 @@ export class CourseComponent implements OnInit {
     }
   }
 
-  checkSystemStatus() {
-    var tempA: any = [];
-    //this.httpClient.get('http://sevkn.ru.ac.th/etest/chksystem.jsp').subscribe((data) => {
-
-    tempA = JSON.parse(sessionStorage.getItem('todosys'));
+ async checkSystemStatus() {
+    var tempA = await JSON.parse(sessionStorage.getItem('todosys'));
     // console.log('tempA = ' + JSON.stringify(tempA));
-
     if (Object.keys(tempA).length === 0 || tempA == null) {
       window.location.reload();
       setTimeout(() => {
@@ -738,39 +711,6 @@ export class CourseComponent implements OnInit {
     }
   }
 
-  /*json_mock=[
-    {"courseno":"THA1003",
-    "examdate":"02/02/2020",
-    "data":[1,4]},
-            {"courseno":"PHI1003",
-             "examdate":"02/02/2020",
-             "data":[1,2,3,4]
-            }];*/
-
-  /* calculateDate(dateSent) {
-     let currentDate = new Date();
-     dateSent = new Date(dateSent);
-     var ttt =
-       Math.floor(
-         Date.UTC(
-           dateSent.getFullYear(),
-           dateSent.getMonth(),
-           dateSent.getDate()
-         ) -
-           Date.UTC(
-             currentDate.getFullYear() + 543,
-             currentDate.getMonth(),
-             currentDate.getDate()
-           )
-       ) /
-       (1000 * 60 * 60 * 24);
-     this.cntDate = ttt;
-     //console.log('dateSent = ' + dateSent);
-     //console.log('ttt = ' + ttt);
-     return ttt;
-
-     // return Math.floor((Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()) - Date.UTC(dateSent.getFullYear(), dateSent.getMonth(), dateSent.getDate())) / (1000 * 60 * 60 * 24));
-   }*/
 }
 
 @Component({

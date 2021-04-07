@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class ApiGetTermValService {
 
-  urlFetchCourse = "http://sevkn.ru.ac.th/etest/apietests/msgtest.jsp";
+  urlFetchCourse = "http://sevkn.ru.ac.th//etest/apietests/msgtest.jsp";
 
   constructor(private http: HttpClient) {
     this.getJSON().subscribe(data => {

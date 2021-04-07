@@ -15,7 +15,7 @@ export class ApiRecieptMsgService {
   //public tmpdatetoStr = sessionStorage.getItem("tmpdatetoStr");
 
 
-  urlFetchAllCourse= "http://sevkn.ru.ac.th/etest/repMsg.jsp";
+  urlFetchAllCourse= "http://sevkn.ru.ac.th//etest/repMsg.jsp";
 
 
 

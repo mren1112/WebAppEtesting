@@ -27,8 +27,8 @@ doGetSlip(username:string,year:string,semester:string,cntCourseNo:string,grad:st
     let body = urlSearchParams.toString()
    console.log("save = "+JSON.stringify(body));
 
-   //this.http.post('http://sevkn.ru.ac.th/ADManage/apinessy/etest/saveEtest.jsp',body,options)
-  this.http.post('http://sevkn.ru.ac.th/etest/etestgbackend/RepSlipt',body,options)
+   //this.http.post('http://sevkn.ru.ac.th//etest/ADManage/apinessy/etest/saveEtest.jsp',body,options)
+  this.http.post('http://sevkn.ru.ac.th//etest/etestgbackend/RepSlipt',body,options)
     .pipe(map(res=>res.json()))
     .subscribe(data =>{
       resolve(data);

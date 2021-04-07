@@ -15,7 +15,7 @@ export class ApiCheckSystemService {
   //public tmpdatetoStr = sessionStorage.getItem("tmpdatetoStr");
 
 
-  urlFetchAllCourse= "http://sevkn.ru.ac.th/etest/chksystem.jsp";
+  urlFetchAllCourse= "http://sevkn.ru.ac.th//etest/chksystem.jsp";
 
 
 
@@ -23,8 +23,8 @@ export class ApiCheckSystemService {
     //console.log(this.urlFetchAllCourse);
     this.getJSON().subscribe(response => {
     //  console.log("response sys = " +JSON.stringify(response));
-      sessionStorage.setItem("todosys", JSON.stringify(response));
-      sessionStorage.setItem("chkop",response.close)
+     // sessionStorage.setItem("todosys", JSON.stringify(response));
+     // sessionStorage.setItem("chkop",response.close)
     });
   }
   getJSON(): Observable<any> {

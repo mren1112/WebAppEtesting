@@ -10,18 +10,16 @@ export class ApiFetchDateService {
   public year = sessionStorage.getItem("year");
   public sem = sessionStorage.getItem("sem");
 
-  urlFetch = "http://sevkn.ru.ac.th/etest/getOPCalendar.jsp?year="+this.year + '&sem=' + this.sem;
+  urlFetch = "http://sevkn.ru.ac.th//etest/getOPCalendar.jsp?year=";
 
-  constructor(private http: HttpClient) {
-    this.getJSON().subscribe(data => {
-    //  console.log(data);
-    });
-  }
+  constructor(private http: HttpClient) { }
 
   getJSON(): Observable<any> {
-    return this.http.get(this.urlFetch)
+    return this.http.get(this.urlFetch+this.year + '&sem=' + this.sem)
                 .pipe(map((response: any)=> response ),
                       catchError(err => {return (err)}));
   }
+
+
 }
 

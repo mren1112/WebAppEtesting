@@ -46,7 +46,9 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12 text-center">
-          <button mat-flat-button color="warn" routerLink="/"><i class="material-icons orange600">face</i> เริ่มการลงทะเบียน</button> </div>
+          <button *ngIf="checkClose" mat-flat-button color="primary" (click)="closePage()"><i class="fa fa-home"></i> กลับไปที่ E-services </button>
+          <button *ngIf="!checkClose"mat-flat-button color="warn" routerLink="/"><i class="material-icons orange600">face</i> เริ่มการลงทะเบียน</button>
+         </div>
       </div>
     </div>
   </div>

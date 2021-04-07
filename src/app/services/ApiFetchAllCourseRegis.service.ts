@@ -14,7 +14,7 @@ export class ApiFetchAllCourseRegisService {
   public year = sessionStorage.getItem("year");
 
 
-  urlFetchAllCourse= "http://sevkn.ru.ac.th/etest/getAllCourseRegis.jsp?STD_CODE="+this.us+"&sem="+this.sem+"&year="+this.year;
+  urlFetchAllCourse= "http://sevkn.ru.ac.th//etest/getAllCourseRegis.jsp?STD_CODE="+this.us+"&sem="+this.sem+"&year="+this.year;
 
 
 

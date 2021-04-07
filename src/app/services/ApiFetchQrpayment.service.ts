@@ -15,7 +15,7 @@ export class ApiFetchQrPaymentService {
   //public tmpdatetoStr = sessionStorage.getItem("tmpdatetoStr");
 
 
-  urlFetch = "http://sevkn.ru.ac.th/etest/getQrpaylist.jsp?STD_CODE=";
+  urlFetch = "http://sevkn.ru.ac.th//etest/getQrpaylist.jsp?STD_CODE=";
 
 
 

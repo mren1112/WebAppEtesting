@@ -15,7 +15,7 @@ export class ApiFetchDateSectionService {
   //public tmpdatetoStr = sessionStorage.getItem("tmpdatetoStr");
 
 
-  urlFetchAllCourse= "http://sevkn.ru.ac.th/etest/getDateSection.jsp?STD_CODE="+this.us+"&sem="+this.sem+"&year="+this.year+"&dateselect=";
+  urlFetchAllCourse= "http://sevkn.ru.ac.th//etest/getDateSection.jsp?STD_CODE="+this.us+"&sem="+this.sem+"&year="+this.year+"&dateselect=";
 
 
 

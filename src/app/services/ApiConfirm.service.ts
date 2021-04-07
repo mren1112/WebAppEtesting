@@ -14,7 +14,7 @@ constructor(public http: Http) { }
     //.set(`password`, password);
   const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
   console.log("save = "+JSON.stringify(body) );
-  return this.http.post('http://sevkn.ru.ac.th/ADManage/apinessy/etest/test.jsp', body.toString(), { headers, observe: 'response' })
+  return this.http.post('http://sevkn.ru.ac.th//etest/ADManage/apinessy/etest/test.jsp', body.toString(), { headers, observe: 'response' })
   .pipe(map((res: HttpResponse<Object>) => res.ok), catchError(err => {return (err)}));
 
 }
@@ -42,8 +42,8 @@ doConfirm(username:string,year:string,semester:string,cntCourseNo:string,grad:st
     let body = urlSearchParams.toString()
    console.log("save = "+JSON.stringify(body));
 
-   //this.http.post('http://sevkn.ru.ac.th/ADManage/apinessy/etest/saveEtest.jsp',body,options)
-  this.http.post('http://sevkn.ru.ac.th/etest/saveEtest2.jsp',body,options)
+   //this.http.post('http://sevkn.ru.ac.th//etest/ADManage/apinessy/etest/saveEtest.jsp',body,options)
+  this.http.post('http://sevkn.ru.ac.th//etest/saveEtest.jsp',body,options)
     .pipe(map(res=>res.json()))
     .subscribe(data =>{
       resolve(data);

@@ -10,7 +10,7 @@ import { BnNgIdleService } from 'bn-ng-idle'; // import it to your component
 }
 )
 export class HeaderComponent implements OnInit {
-  public us;
+  public us = '';
 
   constructor(private bnIdle: BnNgIdleService) {
     this.bnIdle.startWatching(1800).subscribe((res) => {
@@ -33,6 +33,7 @@ export class HeaderComponent implements OnInit {
   logout() {
     sessionStorage.removeItem("stdcode");
     sessionStorage.clear();
+    localStorage.clear();
    // window.open('https://www.ru.ac.th/th/');
     window.location.href = 'https://www.ru.ac.th/th/';
   }

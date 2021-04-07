@@ -118,7 +118,7 @@ export class PaymentComponent implements OnInit {
     } else {
       this.txtsem = this.sem;
     }
-    this.httpClient.get('http://sevkn.ru.ac.th/etest/getPayment.jsp?STD_CODE='+this.us+'&sem='+this.sem+'&year='+this.year+'&refkey='+this.fullrefkey).subscribe((res)=> {
+    this.httpClient.get('http://sevkn.ru.ac.th//etest/getPayment.jsp?STD_CODE='+this.us+'&sem='+this.sem+'&year='+this.year+'&refkey='+this.fullrefkey).subscribe((res)=> {
         this.testregis =res;
        // alert("dataregister", this.testregis);
       });
@@ -126,7 +126,7 @@ export class PaymentComponent implements OnInit {
     if (this.fullrefkey != null) {
 
 
-      //   this.http.get('http://sevkn.ru.ac.th/etest/getPayment.jsp?STD_CODE='+this.us+'&sem='+this.sem+'&year='+this.year+'&refkey='+this.fullrefkey).subscribe((res) => {
+      //   this.http.get('http://sevkn.ru.ac.th//etest/getPayment.jsp?STD_CODE='+this.us+'&sem='+this.sem+'&year='+this.year+'&refkey='+this.fullrefkey).subscribe((res) => {
       this.apiFetchPayment.getJSON(this.us, this.sem, this.year, this.fullrefkey).subscribe((res) => {
         this.dataregister = res;
         // this.total = this.tmptodoCourse.total;
@@ -155,7 +155,7 @@ export class PaymentComponent implements OnInit {
     }
 
 
-    /* this.httpClient.get('http://sevkn.ru.ac.th/ADManage/apinessy/etest/getDateSection.jsp?STD_CODE=' +
+    /* this.httpClient.get('http://sevkn.ru.ac.th//etest/ADManage/apinessy/etest/getDateSection.jsp?STD_CODE=' +
        this.us + '&sem=' + this.sem + '&year=' + this.year + '&dateselect=' + tmpdatetoStr + '&courseno=' + courseno + '&tmpdateselect=' + tmpdatetoStr2)
        .subscribe((res) => {
        });*/

@@ -15,7 +15,7 @@ export class ApiFetchRecieptService {
   //public tmpdatetoStr = sessionStorage.getItem("tmpdatetoStr");
 
 
-  urlFetch = "http://sevkn.ru.ac.th/etest/getRepall.jsp?STD_CODE="+this.us+"&sem="+this.sem+"&year="+this.year;
+  urlFetch = "http://sevkn.ru.ac.th//etest/getRepall.jsp?STD_CODE="+this.us+"&sem="+this.sem+"&year="+this.year;
 
 
 
